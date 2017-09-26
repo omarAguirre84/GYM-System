@@ -13,7 +13,10 @@
         <asp:ContentPlaceHolder id="Cabecera" runat="server">
             <asp:Table runat="server" ID="tblCabecera" CssClass="Cabecera">
                 <asp:TableRow>
-                    <asp:TableCell CssClass="RedSocialORTTitulo"><asp:Label runat="server" ID="lblRedSocialORT" Text="Red Social ORT" CssClass="RedSocialORTTitulo"></asp:Label></asp:TableCell>
+                    <asp:TableCell CssClass="RedSocialORTTitulo">
+                        <asp:Label runat="server" ID="lblRedSocialORT" Text="GYM System" CssClass="RedSocialORTTitulo">
+                        </asp:Label>
+                    </asp:TableCell>
                 </asp:TableRow>
             </asp:Table>
         </asp:ContentPlaceHolder>

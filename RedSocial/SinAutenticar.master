@@ -5,14 +5,14 @@
 <html lang="es">
 <head runat="server">
     <meta charset="ISO-8859-1" />
-    <title>Red Social ORT</title>
+    <title>GYM SYSTEM S.A.</title>
 </head>
 <body>
     <form id="form1" runat="server">
         <asp:ContentPlaceHolder id="Cabecera" runat="server">
             <asp:Table runat="server" ID="tblCabecera" CssClass="Cabecera">
                 <asp:TableRow>
-                    <asp:TableCell CssClass="RedSocialORTTitulo"><asp:Label runat="server" ID="lblRedSocialORT" Text="Red Social ORT" CssClass="RedSocialORTTitulo"></asp:Label></asp:TableCell>
+                    <asp:TableCell CssClass="RedSocialORTTitulo"><asp:Label runat="server" ID="lblRedSocialORT" Text="GYM System" CssClass="RedSocialORTTitulo"></asp:Label></asp:TableCell>
                     <asp:TableCell>
                         <asp:Table runat="server" ID="tblLogin">
                             <asp:TableRow>
