@@ -43,7 +43,8 @@ public partial class Registracion : System.Web.UI.Page
                 int.Parse(ddlMes.SelectedValue),
                 int.Parse(ddlDia.SelectedValue));
             usuario.Sexo = (ControlsHelper.RadioSeleccionado("Debe seleccionar el sexo.", radMujer, radHombre) == radMujer ? 'F' : 'M');
-
+            usuario.EsProfesor = (ControlsHelper.RadioSeleccionado("Debe seleccionar si es profesor o cliente.", radProfesor, radCliente) == radProfesor ? 'P' : 'C');
+       
             boUsuario.Registrar(usuario, txtEmailVerificacion.Text);
 
             SessionHelper.AlmacenarUsuarioAutenticado(boUsuario.Autenticar(txtEmail.Text, txtPassword.Text));

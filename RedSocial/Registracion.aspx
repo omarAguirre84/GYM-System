@@ -1,13 +1,14 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/SinAutenticar.master" AutoEventWireup="true" CodeFile="Registracion.aspx.cs" Inherits="Registracion" %>
 
-<asp:Content ID="cphContenido" ContentPlaceHolderID="Cuerpo" Runat="Server">
+<asp:Content ID="cphContenido" ContentPlaceHolderID="Cuerpo" runat="Server">
     <asp:Panel runat="server" ID="panInicio" CssClass="FondoRegistracion">
         <asp:Image runat="server" ID="imgRedSocialORT" ImageUrl="~/Imagenes/gym.jpg" CssClass="RedSocialORT" />
 
         <asp:Panel runat="server" ID="panRegistraciom" CssClass="Registracion">
             <asp:Table runat="server" ID="tblRegistracion" CellSpacing="8">
                 <asp:TableRow>
-                    <asp:TableCell ColumnSpan="2"><asp:Label runat="server" ID="lblRegistrate" Text="Registrate" CssClass="Registracion"></asp:Label></asp:TableCell>
+                    <asp:TableCell ColumnSpan="2">
+                        <asp:Label runat="server" ID="lblRegistrate" Text="Registrate" CssClass="Registracion"></asp:Label></asp:TableCell>
                 </asp:TableRow>
                 <asp:TableRow>
                     <asp:TableCell>
@@ -19,15 +20,15 @@
                 </asp:TableRow>
                 <asp:TableRow>
                     <asp:TableCell>
-                        <asp:TextBox ID="txtNombre" runat="server" Columns="20" MaxLength="30" placeholder="Nombre" CssClass="CajaTextoRegistracion"></asp:TextBox>            
+                        <asp:TextBox ID="txtNombre" runat="server" Columns="20" MaxLength="30" placeholder="Nombre" CssClass="CajaTextoRegistracion"></asp:TextBox>
                     </asp:TableCell>
                     <asp:TableCell>
-                        <asp:TextBox ID="txtApellido" runat="server" Columns="20" MaxLength="30" placeholder="Apellido" CssClass="CajaTextoRegistracionApellido"></asp:TextBox>            
+                        <asp:TextBox ID="txtApellido" runat="server" Columns="20" MaxLength="30" placeholder="Apellido" CssClass="CajaTextoRegistracionApellido"></asp:TextBox>
                     </asp:TableCell>
                 </asp:TableRow>
                 <asp:TableRow>
                     <asp:TableCell ColumnSpan="2">
-                        <asp:Label runat="server" ID="lblEmail" Text="Email" CssClass="EtiquetaRegistracion"></asp:Label>                        
+                        <asp:Label runat="server" ID="lblEmail" Text="Email" CssClass="EtiquetaRegistracion"></asp:Label>
                     </asp:TableCell>
                 </asp:TableRow>
                 <asp:TableRow>
@@ -37,7 +38,7 @@
                 </asp:TableRow>
                 <asp:TableRow>
                     <asp:TableCell ColumnSpan="2">
-                        <asp:Label runat="server" ID="lblEmailConfirmacion" Text="Vuelve a escribir tu correo electrónico" CssClass="EtiquetaRegistracion"></asp:Label>                        
+                        <asp:Label runat="server" ID="lblEmailConfirmacion" Text="Vuelve a escribir tu correo electrónico" CssClass="EtiquetaRegistracion"></asp:Label>
                     </asp:TableCell>
                 </asp:TableRow>
                 <asp:TableRow>
@@ -47,16 +48,17 @@
                 </asp:TableRow>
                 <asp:TableRow>
                     <asp:TableCell ColumnSpan="2">
-                        <asp:Label runat="server" ID="lblPassword" Text="Contraseña" CssClass="EtiquetaRegistracion"></asp:Label>                        
+                        <asp:Label runat="server" ID="lblPassword" Text="Contraseña" CssClass="EtiquetaRegistracion"></asp:Label>
                     </asp:TableCell>
                 </asp:TableRow>
                 <asp:TableRow>
                     <asp:TableCell ColumnSpan="2">
-                        <asp:TextBox ID="txtPassword" runat="server" Columns="48" MaxLength="10" TextMode="Password" placeholder="Contraseña" CssClass="CajaTextoRegistracion"></asp:TextBox>                
+                        <asp:TextBox ID="txtPassword" runat="server" Columns="48" MaxLength="10" TextMode="Password" placeholder="Contraseña" CssClass="CajaTextoRegistracion"></asp:TextBox>
                     </asp:TableCell>
                 </asp:TableRow>
                 <asp:TableRow>
-                    <asp:TableCell ColumnSpan="2"><asp:Label runat="server" ID="lblFechaNacimiento" Text="Fecha de nacimiento" CssClass="EtiquetaRegistracion"></asp:Label></asp:TableCell>
+                    <asp:TableCell ColumnSpan="2">
+                        <asp:Label runat="server" ID="lblFechaNacimiento" Text="Fecha de nacimiento" CssClass="EtiquetaRegistracion"></asp:Label></asp:TableCell>
                 </asp:TableRow>
                 <asp:TableRow>
                     <asp:TableCell ColumnSpan="2">
@@ -87,6 +89,12 @@
                     <asp:TableCell ColumnSpan="2">
                         <asp:RadioButton ID="radMujer" runat="server" Text="Mujer" CssClass="SexoFemenino" />
                         <asp:RadioButton ID="radHombre" runat="server" Text="Hombre" />
+                    </asp:TableCell>
+                </asp:TableRow>
+                <asp:TableRow>
+                    <asp:TableCell ColumnSpan="2">
+                        <asp:RadioButton ID="radProfesor" runat="server" Text="Profesor" CssClass="SexoFemenino" />
+                        <asp:RadioButton ID="radCliente" runat="server" Text="Cliente" />
                     </asp:TableCell>
                 </asp:TableRow>
                 <asp:TableRow>
