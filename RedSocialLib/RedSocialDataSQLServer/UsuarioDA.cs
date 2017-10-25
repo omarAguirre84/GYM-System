@@ -118,12 +118,12 @@ namespace RedSocialDataSQLServer
 
                 using (SqlConnection conexion = ConexionDA.ObtenerConexion())
                 {
-                    using (SqlCommand comando = new SqlCommand("UsuarioBuscarEmail", conexion))
+                    using (SqlCommand comando = new SqlCommand("PersonaBuscarEmail", conexion))
                     {
                         comando.CommandType = CommandType.StoredProcedure;
                         SqlCommandBuilder.DeriveParameters(comando);
 
-                        comando.Parameters["@UsuarioEmail"].Value = email.Trim();
+                        comando.Parameters["@PersonaEmail"].Value = email.Trim();
                         existeEmail = Convert.ToBoolean(comando.ExecuteScalar());
                     }
 

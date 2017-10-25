@@ -15,7 +15,7 @@ public partial class Registracion : System.Web.UI.Page
     
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!Page.IsPostBack)
+        if (!Page.IsPostBack)//una página envía datos a un servidor hace un post. Cuando el servidor responde con datos es un post back
         {
             for (int i = 1; i < 32; i++)
             {
