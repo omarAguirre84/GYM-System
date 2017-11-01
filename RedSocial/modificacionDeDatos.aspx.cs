@@ -9,20 +9,11 @@ using RedSocialEntity;
 using RedSocialComun;
 using RedSocialWebUtil;
 
-public partial class Registracion : System.Web.UI.Page
+public partial class modificacionDeDatos : System.Web.UI.Page
 {
     private UsuarioBO boUsuario = new UsuarioBO();
-    
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!Page.IsPostBack)
-        {
-          
-        }
-    }
 
-    protected void btnRegistrate_Click(object sender, EventArgs e)
-    {
-     
     }
 }

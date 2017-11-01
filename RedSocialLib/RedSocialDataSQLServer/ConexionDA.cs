@@ -12,7 +12,7 @@ namespace RedSocialDataSQLServer
 
         public static SqlConnection ObtenerConexion()
         {
-            SqlConnection conexion = new SqlConnection(ConfigurationManager.ConnectionStrings["ConexionRedSocial"].ConnectionString);
+            SqlConnection conexion = new SqlConnection(ConfigurationManager.ConnectionStrings["CONECTION_DB_GYM"].ConnectionString);
             conexion.Open();
 
             return conexion;

@@ -15,7 +15,7 @@ public partial class Registracion : System.Web.UI.Page
     
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!Page.IsPostBack)
+        if (!Page.IsPostBack)//una página envía datos a un servidor hace un post. Cuando el servidor responde con datos es un post back
         {
             for (int i = 1; i < 32; i++)
             {
@@ -43,11 +43,13 @@ public partial class Registracion : System.Web.UI.Page
                 int.Parse(ddlMes.SelectedValue),
                 int.Parse(ddlDia.SelectedValue));
             usuario.Sexo = (ControlsHelper.RadioSeleccionado("Debe seleccionar el sexo.", radMujer, radHombre) == radMujer ? 'F' : 'M');
-
+            usuario.EsProfesor = (ControlsHelper.RadioSeleccionado("Debe seleccionar si es profesor o cliente.", radProfesor, radCliente) == radProfesor ? 'P' : 'C');
+       
             boUsuario.Registrar(usuario, txtEmailVerificacion.Text);
 
             SessionHelper.AlmacenarUsuarioAutenticado(boUsuario.Autenticar(txtEmail.Text, txtPassword.Text));
             System.Web.Security.FormsAuthentication.RedirectFromLoginPage(SessionHelper.UsuarioAutenticado.Email, false);
+            Server.Transfer("\\Biografia.aspx");
         }
         catch (ValidacionExcepcionAbstract ex)
         {

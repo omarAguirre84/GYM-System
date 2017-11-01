@@ -20,6 +20,7 @@ namespace RedSocialEntity
             Foto = null;
             FechaRegistracion = DateTime.Now;
             FechaActualizacion = null;
+            EsProfesor = ' ';
         }
 
         public int Id { get; set; }
@@ -32,7 +33,7 @@ namespace RedSocialEntity
         public string Foto { get; set; }
         public DateTime FechaRegistracion { get; set; }
         public Nullable<DateTime> FechaActualizacion { get; set; }
-
+        public char EsProfesor { get; set; }
         public void ValidarDatos()
         {
             if (Nombre.Trim() == "" ||
@@ -40,7 +41,9 @@ namespace RedSocialEntity
                 Email.Trim() == "" ||
                 Password.Trim() == "" ||
                 FechaNacimiento == DateTime.MinValue ||
-                Sexo == ' ')
+                Sexo == ' ' ||
+                EsProfesor ==' '
+                )
             {
                 throw new DatosObligatoriosExcepcion();
             }
