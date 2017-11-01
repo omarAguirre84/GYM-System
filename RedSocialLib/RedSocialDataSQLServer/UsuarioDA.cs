@@ -48,7 +48,7 @@ namespace RedSocialDataSQLServer
             {
                 using (SqlConnection conexion = ConexionDA.ObtenerConexion())
                 {
-                    using (SqlCommand comando = new SqlCommand("UsuarioInsert", conexion))
+                    using (SqlCommand comando = new SqlCommand("PersonaInsert", conexion))
                     {
                         comando.CommandType = CommandType.StoredProcedure;
                         SqlCommandBuilder.DeriveParameters(comando);
@@ -91,13 +91,13 @@ namespace RedSocialDataSQLServer
                 
                 using (SqlConnection conexion = ConexionDA.ObtenerConexion())
                 {
-                    using (SqlCommand comando = new SqlCommand("UsuarioActualizarFoto", conexion))
+                    using (SqlCommand comando = new SqlCommand("PersonaActualizarFoto", conexion))
                     {
                         comando.CommandType = CommandType.StoredProcedure;
                         SqlCommandBuilder.DeriveParameters(comando);
 
-                        comando.Parameters["@UsuarioID"].Value = id;
-                        comando.Parameters["@UsuarioFoto"].Value = nuevoNombreArchivo;
+                        comando.Parameters["@PersonaID"].Value = id;
+                        comando.Parameters["@PersonaFoto"].Value = nuevoNombreArchivo;
                         comando.ExecuteNonQuery();
                     }
 
@@ -146,13 +146,13 @@ namespace RedSocialDataSQLServer
                 
                 using (SqlConnection conexion = ConexionDA.ObtenerConexion())
                 {
-                    using (SqlCommand comando = new SqlCommand("UsuarioBuscarPorEmailPassword", conexion))
+                    using (SqlCommand comando = new SqlCommand("PersonaBuscarPorEmailPassword", conexion))
                     {
                         comando.CommandType = CommandType.StoredProcedure;
                         SqlCommandBuilder.DeriveParameters(comando);
 
-                        comando.Parameters["@UsuarioEmail"].Value = email.Trim();
-                        comando.Parameters["@UsuarioPassword"].Value = password.Trim();
+                        comando.Parameters["@PersonaEmail"].Value = email.Trim();
+                        comando.Parameters["@PersonaPassword"].Value = password.Trim();
                         
                         using (SqlDataReader cursor = comando.ExecuteReader())
                         {

@@ -49,6 +49,7 @@ public partial class Registracion : System.Web.UI.Page
 
             SessionHelper.AlmacenarUsuarioAutenticado(boUsuario.Autenticar(txtEmail.Text, txtPassword.Text));
             System.Web.Security.FormsAuthentication.RedirectFromLoginPage(SessionHelper.UsuarioAutenticado.Email, false);
+            Server.Transfer("\\Biografia.aspx");
         }
         catch (ValidacionExcepcionAbstract ex)
         {
