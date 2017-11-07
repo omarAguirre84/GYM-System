@@ -1,41 +1,41 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2005
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "RedSocial", "RedSocial\", "{9971124E-F7FF-490A-87B4-D0FDC03DABA8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymSystemEntity", "GymSystemLib\GymSystemEntity\GymSystemEntity.csproj", "{795B76ED-AF6B-4D88-AE15-F686C6447C22}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymSystemData", "GymSystemLib\GymSystemData\GymSystemData.csproj", "{E14E311D-4E26-4410-BDF0-32FA75DE6B66}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymSystemDataSQLServer", "GymSystemLib\GymSystemDataSQLServer\GymSystemDataSQLServer.csproj", "{CEF204E3-2C11-4DB5-8CEB-BCA862FAD3E7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymSystemBusiness", "GymSystemLib\GymSystemBusiness\GymSystemBusiness.csproj", "{7719C5CF-5FFF-4993-BF8D-A984C2853BAC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymSystemComun", "GymSystemComun\GymSystemComun.csproj", "{9AA2AAB8-B07D-4DF5-9DA9-A588E5E2E267}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymSystemWebUtil", "GymSystemWebUtil\GymSystemWebUtil.csproj", "{F520E209-B004-4AAC-ABF0-57DE5DED2980}"
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "GymSystem", "GymSystem\", "{9971124E-F7FF-490A-87B4-D0FDC03DABA8}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5"
-		ProjectReferences = "{7719C5CF-5FFF-4993-BF8D-A984C2853BAC}|RedSocialBusiness.dll;{E14E311D-4E26-4410-BDF0-32FA75DE6B66}|RedSocialData.dll;{CEF204E3-2C11-4DB5-8CEB-BCA862FAD3E7}|RedSocialDataSQLServer.dll;{795B76ED-AF6B-4D88-AE15-F686C6447C22}|RedSocialEntity.dll;{9AA2AAB8-B07D-4DF5-9DA9-A588E5E2E267}|RedSocialComun.dll;{F520E209-B004-4AAC-ABF0-57DE5DED2980}|RedSocialWebUtil.dll;"
-		Debug.AspNetCompiler.VirtualPath = "/RedSocial"
-		Debug.AspNetCompiler.PhysicalPath = "RedSocial\"
-		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\RedSocial\"
+		ProjectReferences = "{7719C5CF-5FFF-4993-BF8D-A984C2853BAC}|GymSystemBusiness.dll;{E14E311D-4E26-4410-BDF0-32FA75DE6B66}|GymSystemData.dll;{CEF204E3-2C11-4DB5-8CEB-BCA862FAD3E7}|GymSystemDataSQLServer.dll;{795B76ED-AF6B-4D88-AE15-F686C6447C22}|GymSystemEntity.dll;{9AA2AAB8-B07D-4DF5-9DA9-A588E5E2E267}|GymSystemComun.dll;{F520E209-B004-4AAC-ABF0-57DE5DED2980}|GymSystemWebUtil.dll;"
+		Debug.AspNetCompiler.VirtualPath = "/GymSystem"
+		Debug.AspNetCompiler.PhysicalPath = "GymSystem\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\GymSystem\"
 		Debug.AspNetCompiler.Updateable = "true"
 		Debug.AspNetCompiler.ForceOverwrite = "true"
 		Debug.AspNetCompiler.FixedNames = "false"
 		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.VirtualPath = "/RedSocial"
-		Release.AspNetCompiler.PhysicalPath = "RedSocial\"
-		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\RedSocial\"
+		Release.AspNetCompiler.VirtualPath = "/GymSystem"
+		Release.AspNetCompiler.PhysicalPath = "GymSystem\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\GymSystem\"
 		Release.AspNetCompiler.Updateable = "true"
 		Release.AspNetCompiler.ForceOverwrite = "true"
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "65348"
-		SlnRelativePath = "RedSocial\"
+		SlnRelativePath = "GymSystem\"
 	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedSocialEntity", "RedSocialLib\RedSocialEntity\RedSocialEntity.csproj", "{795B76ED-AF6B-4D88-AE15-F686C6447C22}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedSocialData", "RedSocialLib\RedSocialData\RedSocialData.csproj", "{E14E311D-4E26-4410-BDF0-32FA75DE6B66}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedSocialDataSQLServer", "RedSocialLib\RedSocialDataSQLServer\RedSocialDataSQLServer.csproj", "{CEF204E3-2C11-4DB5-8CEB-BCA862FAD3E7}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedSocialBusiness", "RedSocialLib\RedSocialBusiness\RedSocialBusiness.csproj", "{7719C5CF-5FFF-4993-BF8D-A984C2853BAC}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedSocialComun", "RedSocialComun\RedSocialComun.csproj", "{9AA2AAB8-B07D-4DF5-9DA9-A588E5E2E267}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedSocialWebUtil", "RedSocialWebUtil\RedSocialWebUtil.csproj", "{F520E209-B004-4AAC-ABF0-57DE5DED2980}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,10 +43,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9971124E-F7FF-490A-87B4-D0FDC03DABA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9971124E-F7FF-490A-87B4-D0FDC03DABA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9971124E-F7FF-490A-87B4-D0FDC03DABA8}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{9971124E-F7FF-490A-87B4-D0FDC03DABA8}.Release|Any CPU.Build.0 = Debug|Any CPU
 		{795B76ED-AF6B-4D88-AE15-F686C6447C22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{795B76ED-AF6B-4D88-AE15-F686C6447C22}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{795B76ED-AF6B-4D88-AE15-F686C6447C22}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -71,8 +67,15 @@ Global
 		{F520E209-B004-4AAC-ABF0-57DE5DED2980}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F520E209-B004-4AAC-ABF0-57DE5DED2980}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F520E209-B004-4AAC-ABF0-57DE5DED2980}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9971124E-F7FF-490A-87B4-D0FDC03DABA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9971124E-F7FF-490A-87B4-D0FDC03DABA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9971124E-F7FF-490A-87B4-D0FDC03DABA8}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{9971124E-F7FF-490A-87B4-D0FDC03DABA8}.Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {32E0B612-DC5F-4064-BDE3-67C536C71F57}
 	EndGlobalSection
 EndGlobal
