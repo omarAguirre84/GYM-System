@@ -175,6 +175,42 @@ namespace GymSystemDataSQLServer
                 throw new ExcepcionDA("Se produjo un error al buscar por email y contraseña.", ex);
             }
         }
+
+        public UsuarioEntity ListarUsuarios()
+        {
+            try
+            {
+                UsuarioEntity usuario = null;
+
+                using (SqlConnection conexion = ConexionDA.ObtenerConexion())
+                {
+                    using (SqlCommand comando = new SqlCommand("PersonaBuscarPorEmailPassword", conexion))
+                    {
+                        comando.CommandText = "SELECT * FROM Personas ORDER BY PersonaId";
+                        comando.CommandType = CommandType.Text;
+                        SqlCommandBuilder.DeriveParameters(comando);
+
+                        using (SqlDataReader cursor = comando.ExecuteReader())
+                        {
+                            if (cursor.Read())
+                            {
+                                usuario = CrearUsuario(cursor);
+                            }
+
+                            cursor.Close();
+                        }
+                    }
+
+                    conexion.Close();
+                }
+
+                return usuario;
+            }
+            catch (Exception ex)
+            {
+                throw new ExcepcionDA("Se produjo un error al buscar por email y contraseña.", ex);
+            }
+        }
         #endregion Métodos Públicos
     }
 }

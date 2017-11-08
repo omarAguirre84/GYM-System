@@ -65,5 +65,17 @@ namespace GymSystemBusiness
                 throw new ExcepcionBO("No se pudo actualizar la foto.", ex);
             }
         }
+
+        public void getListUsers()
+        {
+            try
+            {
+                daUsuario.Insertar(usuario);
+            }
+            catch (ExcepcionDA ex)
+            {
+                throw new ExcepcionBO("No se pudo realizar la registración del usuario.", ex);
+            }
+        }
     }
 }
