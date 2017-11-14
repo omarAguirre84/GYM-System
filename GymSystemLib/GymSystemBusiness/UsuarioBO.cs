@@ -11,7 +11,7 @@ namespace GymSystemBusiness
     public class UsuarioBO
     {
         private UsuarioDA daUsuario;
-        
+
         public UsuarioBO()
         {
             daUsuario = new UsuarioDA();
@@ -22,7 +22,7 @@ namespace GymSystemBusiness
             try
             {
                 UsuarioEntity usuario = daUsuario.BuscarUsuario(email, password);
-                
+
                 if (usuario == null)
                     throw new AutenticacionExcepcionBO();
 
@@ -39,7 +39,7 @@ namespace GymSystemBusiness
             try
             {
                 usuario.ValidarDatos();
-                
+
                 if (daUsuario.ExisteEmail(usuario.Email))
                     throw new EmailExisteExcepcionBO();
 
@@ -68,10 +68,13 @@ namespace GymSystemBusiness
 
         public void getListUsers()
         {
+            //private Array<UsuarioEntity> listPerson = new UsuarioEntity()[];
             try
             {
-                daUsuario.Insertar(usuario);
-            }
+                //daUsuario.Insertar(usuariko);
+                daUsuario.ListarUsuarios();
+                //return listPerson;
+    }
             catch (ExcepcionDA ex)
             {
                 throw new ExcepcionBO("No se pudo realizar la registración del usuario.", ex);
