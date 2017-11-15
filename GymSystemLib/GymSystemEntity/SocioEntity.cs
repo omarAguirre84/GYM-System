@@ -10,27 +10,19 @@ namespace GymSystemEntity
     {
         public SocioEntity()
         {
-            Id = 0;
-            Nombre = "";
-            Apellido = "";
-            Email = "";
-            Password = "";
-            FechaNacimiento = DateTime.MinValue;
-            Sexo = ' ';
-            Foto = null;
-            FechaRegistracion = DateTime.Now;
-            FechaActualizacion = null;
+            IdSocio = 0;
+            nroTarjetaIdentificacion = 0;
+            idEstado = 0;
+            PersonaId = 0;
+            cuota = "";
+            saldo = "";
         }
 
-        public int Id { get; set; }
-        public string Nombre { get; set; }
-        public string Apellido { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
-        public DateTime FechaNacimiento { get; set; }
-        public char Sexo { get; set; }
-        public string Foto { get; set; }
-        public DateTime FechaRegistracion { get; set; }
-        public Nullable<DateTime> FechaActualizacion { get; set; }
+        public int IdSocio { get; set; }
+        public int nroTarjetaIdentificacion { get; set; }
+        public int idEstado { get; set; }
+        public int PersonaId { get; set; }
+        public String cuota { get; set; }
+        public String saldo { get; set; }
     }
 }

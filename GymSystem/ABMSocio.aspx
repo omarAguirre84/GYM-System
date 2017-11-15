@@ -12,6 +12,9 @@
                 <h6 class="card-subtitle mb-2 text-muted">Listado de Socios</h6>
                 <table class="table">
                     <thead>
+<%--                        <% foreach(var x in values) { %>
+                        <div>hello <%= x.name %></div>
+                        <% } %>--%>
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">First Name</th>
