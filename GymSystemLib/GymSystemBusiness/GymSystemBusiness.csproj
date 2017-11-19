@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutenticacionExcepcionBO.cs" />
+    <Compile Include="EmpleadoBO.cs" />
     <Compile Include="VerificacionEmailExcepcionBO.cs" />
     <Compile Include="EmailExisteExcepcionBO.cs" />
     <Compile Include="ExcepcionBO.cs" />
