@@ -1,8 +1,6 @@
-﻿
-<%@ Page Language="C#" MasterPageFile="~/Autenticado.master" AutoEventWireup="true" CodeFile="ABMSocio.aspx.cs" Inherits="ABMSocio" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/Autenticado.master" AutoEventWireup="true" CodeFile="ABMSocio.aspx.cs" Inherits="ABMSocio" %>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="Cuerpo" Runat="Server">
-
     <div class="container">
       <div class="row">
         <div class="col-sm">
@@ -12,35 +10,26 @@
                 <h6 class="card-subtitle mb-2 text-muted">Listado de Socios</h6>
                 <table class="table">
                     <thead>
-<%--                        <% foreach(var x in values) { %>
-                        <div>hello <%= x.name %></div>
-                        <% } %>--%>
                     <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">First Name</th>
-                        <th scope="col">Last Name</th>
-                        <th scope="col">Username</th>
+                        <th scope="col">ID del Socio</th>
+                        <th scope="col">Tarjeta de Identificación</th>
+                        <th scope="col">Estado</th>
+                        <th scope="col">Cuota</th>
+                        <th scope="col">Saldo</th>
+                        <th scope="col"></th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Larry</td>
-                        <td>the Bird</td>
-                        <td>@twitter</td>
-                    </tr>
+                        <% foreach(var x in socios) { %>
+                        <tr>
+                            <th scope="row"><%= x.IdSocio %></th>
+                            <td><%= x.nroTarjetaIdentificacion %></td>
+                            <td><%= x.idEstado %></td>
+                            <td><%= x.cuota %></td>
+                            <td><%= x.saldo %></td>
+                            <td>Modificar | DarBaja</td>
+                        </tr>
+                        <% } %>
                     </tbody>
                 </table>
               </div>

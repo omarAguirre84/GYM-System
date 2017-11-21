@@ -25,7 +25,7 @@ namespace GymSystemDataSQLServer
 
                 using (SqlConnection conexion = ConexionDA.ObtenerConexion())
                 {
-                    using (SqlCommand comando = new SqlCommand("SELECT * FROM [persona]", conexion))
+                    using (SqlCommand comando = new SqlCommand("SELECT * FROM [socio]", conexion))
                     {
                         using (SqlDataReader cursor = comando.ExecuteReader())
                         {
@@ -39,7 +39,6 @@ namespace GymSystemDataSQLServer
                                     cursor["cuota"].ToString(),
                                     cursor["saldo"].ToString());
                                 socios.Add(socEnt);
-                                Console.WriteLine(cursor.GetString(0));
                             }
 
                             cursor.Close();

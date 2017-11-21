@@ -10,12 +10,13 @@ using GymSystemEntity;
 public partial class ABMSocio : System.Web.UI.Page
 {
     private SocioBO boSocio = new SocioBO();
-    private UsuarioEntity persona;
+
+    protected List<SocioEntity> socios = new List<SocioEntity>();
 
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        boSocio.getListSocio();
+        socios = boSocio.getListSocio();
 
     }
 }
