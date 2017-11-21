@@ -21,6 +21,7 @@ namespace GymSystemBusiness
         {
             try
             {
+                SocioEntity se = new SocioEntity();
                 //daUsuario.Insertar(usuariko);
                 return daSocio.ListarSocios();
             }
