@@ -1,6 +1,7 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Autenticado.master" AutoEventWireup="true" CodeFile="ABMSocio.aspx.cs" Inherits="ABMSocio" %>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="Cuerpo" Runat="Server">
+    <form id="form1" Runat="Server">
     <div class="container">
       <div class="row">
         <div class="col-sm">
@@ -27,7 +28,10 @@
                             <td><%= x.idEstado %></td>
                             <td><%= x.cuota %></td>
                             <td><%= x.saldo %></td>
-                            <td>Modificar | DarBaja</td>
+                            <td>
+                                <asp:Button ID="Button1" OnClick="modificarSocio" Text="Modificar" Runat="Server"/>
+                                <asp:Button ID="Button2" OnClick="alterEstadoSocio" Text="DarBaja"  Runat="Server"/>
+                            </td>
                         </tr>
                         <% } %>
                     </tbody>
@@ -36,6 +40,9 @@
             </div>
         </div>
       </div>
+        <asp:Button ID="Button4" href="Biografia.aspx" Text="Volver" Runat="Server"/>
     </div>
+        
+    </form>
 </asp:Content>
 
