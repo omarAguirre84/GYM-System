@@ -4066,7 +4066,8 @@ ul.project_files li {
     }
 
 .login {
-    background: #F7F7F7
+    background: #F7F7F7;
+    height: 95%;
 }
 
     .login .fa-paw {
