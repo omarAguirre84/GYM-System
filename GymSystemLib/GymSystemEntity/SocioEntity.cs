@@ -6,34 +6,19 @@ using GymSystemComun;
 
 namespace GymSystemEntity
 {
-    public class SocioEntity
+    public class SocioEntity : PersonaEntity
     {
         public SocioEntity()
         {
-            IdSocio = 0;
-            nroTarjetaIdentificacion = 0;
-            idEstado = 0;
-            PersonaId = 0;
-            cuota = "";
-            saldo = "";
         }
 
-
-        public SocioEntity(int IdSocio, int nroTarjetaIdentificacion, int idEstado, int PersonaId, string cuota, string saldo)
+        public SocioEntity(int id, string nombre, string apellido, string email, string password, DateTime fechaNacimiento, char sexo, string foto, DateTime fechaRegistracion, DateTime? fechaActualizacion, char tipoPersona, int nroTarjetaIdentificacion, int idEstado) : base(id, nombre, apellido, email, password, fechaNacimiento, sexo, foto, fechaRegistracion, fechaActualizacion, tipoPersona)
         {
-            this.IdSocio = IdSocio;
             this.nroTarjetaIdentificacion = nroTarjetaIdentificacion;
             this.idEstado = idEstado;
-            this.PersonaId = PersonaId;
-            this.cuota = cuota;
-            this.saldo = saldo;
         }
 
-        public int IdSocio { get; set; }
         public int nroTarjetaIdentificacion { get; set; }
         public int idEstado { get; set; }
-        public int PersonaId { get; set; }
-        public string cuota { get; set; }
-        public string saldo { get; set; }
     }
 }

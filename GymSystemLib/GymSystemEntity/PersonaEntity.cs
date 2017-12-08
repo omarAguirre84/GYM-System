@@ -6,8 +6,9 @@ using GymSystemComun;
 
 namespace GymSystemEntity
 {
-    public class PersonaEntity
+    public abstract class PersonaEntity
     {
+
         public PersonaEntity()
         {
             Id = 0;
@@ -20,7 +21,22 @@ namespace GymSystemEntity
             Foto = null;
             FechaRegistracion = DateTime.Now;
             FechaActualizacion = null;
-            EsProfesor = ' ';
+            tipoPersona = '-';
+        }
+
+        public PersonaEntity(int id, string nombre, string apellido, string email, string password, DateTime fechaNacimiento, char sexo, string foto, DateTime fechaRegistracion, DateTime? fechaActualizacion, char tipoPersona)
+        {
+            Id = id;
+            Nombre = nombre;
+            Apellido = apellido;
+            Email = email;
+            Password = password;
+            FechaNacimiento = fechaNacimiento;
+            Sexo = sexo;
+            Foto = foto;
+            FechaRegistracion = fechaRegistracion;
+            FechaActualizacion = fechaActualizacion;
+            this.tipoPersona = tipoPersona;
         }
 
         public int Id { get; set; }
@@ -33,7 +49,7 @@ namespace GymSystemEntity
         public string Foto { get; set; }
         public DateTime FechaRegistracion { get; set; }
         public Nullable<DateTime> FechaActualizacion { get; set; }
-        public char EsProfesor { get; set; }
+        public char tipoPersona { get; set; }
         public void ValidarDatos()
         {
             if (Nombre.Trim() == "" ||
