@@ -10,11 +10,11 @@ namespace GymSystemBusiness
 {
     public class UsuarioBO
     {
-        private PersonaDA daUsuario;
+        private UsuarioDA daUsuario;
 
         public UsuarioBO()
         {
-            daUsuario = new PersonaDA();
+            daUsuario = new UsuarioDA();
         }
 
         public UsuarioEntity Autenticar(string email, string password)

@@ -58,7 +58,7 @@
     <Compile Include="ConexionDA.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SocioDA.cs" />
-    <Compile Include="PersonaDA.cs" />
+    <Compile Include="UsuarioDA.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GymSystemData\GymSystemData.csproj">
