@@ -11,9 +11,9 @@ using GymSystemData;
 
 namespace GymSystemDataSQLServer
 {
-    public class UsuarioDA
+    public class PersonaDA
     {
-        public UsuarioDA()
+        public PersonaDA()
         {
         }
 
@@ -21,21 +21,21 @@ namespace GymSystemDataSQLServer
         private UsuarioEntity CrearUsuario(SqlDataReader cursor)
         {
             UsuarioEntity usuario = new UsuarioEntity();
-            usuario.Id = cursor.GetInt32(cursor.GetOrdinal("PersonaID"));
-            usuario.Nombre = cursor.GetString(cursor.GetOrdinal("PersonaNombre"));
-            usuario.Apellido = cursor.GetString(cursor.GetOrdinal("PersonaApellido"));
-            usuario.Email = cursor.GetString(cursor.GetOrdinal("PersonaEmail"));
-            usuario.Password = cursor.GetString(cursor.GetOrdinal("PersonaPassword"));
-            usuario.FechaNacimiento = cursor.GetDateTime(cursor.GetOrdinal("PersonaFechaNacimiento"));
-            usuario.Sexo = cursor.GetString(cursor.GetOrdinal("PersonaSexo"))[0];
-            usuario.EsProfesor = cursor.GetString(cursor.GetOrdinal("PersonaProfesor"))[0];
-            if (!cursor.IsDBNull(cursor.GetOrdinal("PersonaFoto")))
-                usuario.Foto = cursor.GetString(cursor.GetOrdinal("PersonaFoto"));
+            usuario.Id = cursor.GetInt32(cursor.GetOrdinal("idpersona"));
+            usuario.Nombre = cursor.GetString(cursor.GetOrdinal("Nombre"));
+            usuario.Apellido = cursor.GetString(cursor.GetOrdinal("Apellido"));
+            usuario.Email = cursor.GetString(cursor.GetOrdinal("Email"));
+            usuario.Password = cursor.GetString(cursor.GetOrdinal("Password"));
+            usuario.FechaNacimiento = cursor.GetDateTime(cursor.GetOrdinal("FechaNacimiento"));
+            usuario.Sexo = cursor.GetString(cursor.GetOrdinal("Sexo"))[0];
+            usuario.EsProfesor = cursor.GetString(cursor.GetOrdinal("Profesor"))[0];
+            if (!cursor.IsDBNull(cursor.GetOrdinal("Foto")))
+                usuario.Foto = cursor.GetString(cursor.GetOrdinal("Foto"));
 
-            usuario.FechaRegistracion = cursor.GetDateTime(cursor.GetOrdinal("PersonaFechaRegistracion"));
+            usuario.FechaRegistracion = cursor.GetDateTime(cursor.GetOrdinal("FechaRegistracion"));
 
-            if (!cursor.IsDBNull(cursor.GetOrdinal("PersonaFechaActualizacion")))
-                usuario.FechaActualizacion = cursor.GetDateTime(cursor.GetOrdinal("PersonaFechaActualizacion"));
+            if (!cursor.IsDBNull(cursor.GetOrdinal("FechaActualizacion")))
+                usuario.FechaActualizacion = cursor.GetDateTime(cursor.GetOrdinal("FechaActualizacion"));
 
             return usuario;
         }
@@ -53,14 +53,14 @@ namespace GymSystemDataSQLServer
                         comando.CommandType = CommandType.StoredProcedure;
                         SqlCommandBuilder.DeriveParameters(comando);
 
-                        comando.Parameters["@PersonaNombre"].Value = usuario.Nombre.Trim();
-                        comando.Parameters["@PersonaApellido"].Value = usuario.Apellido.Trim();
-                        comando.Parameters["@PersonaEmail"].Value = usuario.Email.Trim();
-                        comando.Parameters["@PersonaPassword"].Value = usuario.Password.Trim();
-                        comando.Parameters["@PersonaFechaNacimiento"].Value = usuario.FechaNacimiento;
-                        comando.Parameters["@PersonaSexo"].Value = usuario.Sexo;
-                        comando.Parameters["@PersonaProfesor"].Value = usuario.EsProfesor;
-                        comando.Parameters["@PersonaFechaRegistracion"].Value = usuario.FechaRegistracion;
+                        comando.Parameters["@Nombre"].Value = usuario.Nombre.Trim();
+                        comando.Parameters["@Apellido"].Value = usuario.Apellido.Trim();
+                        comando.Parameters["@Email"].Value = usuario.Email.Trim();
+                        comando.Parameters["@Password"].Value = usuario.Password.Trim();
+                        comando.Parameters["@FechaNacimiento"].Value = usuario.FechaNacimiento;
+                        comando.Parameters["@Sexo"].Value = usuario.Sexo;
+                        comando.Parameters["@Profesor"].Value = usuario.EsProfesor;
+                        comando.Parameters["@FechaRegistracion"].Value = usuario.FechaRegistracion;
                         comando.ExecuteNonQuery();
                         usuario.Id = Convert.ToInt32(comando.Parameters["@RETURN_VALUE"].Value);
                     }
@@ -96,8 +96,8 @@ namespace GymSystemDataSQLServer
                         comando.CommandType = CommandType.StoredProcedure;
                         SqlCommandBuilder.DeriveParameters(comando);
 
-                        comando.Parameters["@PersonaID"].Value = id;
-                        comando.Parameters["@PersonaFoto"].Value = nuevoNombreArchivo;
+                        comando.Parameters["@idpersona"].Value = id;
+                        comando.Parameters["@Foto"].Value = nuevoNombreArchivo;
                         comando.ExecuteNonQuery();
                     }
 
@@ -123,7 +123,7 @@ namespace GymSystemDataSQLServer
                         comando.CommandType = CommandType.StoredProcedure;
                         SqlCommandBuilder.DeriveParameters(comando);
 
-                        comando.Parameters["@PersonaEmail"].Value = email.Trim();
+                        comando.Parameters["@Email"].Value = email.Trim();
                         existeEmail = Convert.ToBoolean(comando.ExecuteScalar());
                     }
 
@@ -151,8 +151,8 @@ namespace GymSystemDataSQLServer
                         comando.CommandType = CommandType.StoredProcedure;
                         SqlCommandBuilder.DeriveParameters(comando);
 
-                        comando.Parameters["@PersonaEmail"].Value = email.Trim();
-                        comando.Parameters["@PersonaPassword"].Value = password.Trim();
+                        comando.Parameters["@Email"].Value = email.Trim();
+                        comando.Parameters["@Password"].Value = password.Trim();
                         
                         using (SqlDataReader cursor = comando.ExecuteReader())
                         {
