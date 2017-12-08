@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/site-web/template-master/HomePrincipal.master" AutoEventWireup="true" CodeFile="ViewSocios.aspx.cs" Inherits="ViewSocios" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/site-web/template-master/HomePrincipal.master" AutoEventWireup="true" CodeFile="ViewProfesor.aspx.cs" Inherits="ViewSocios" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
         <div class="clearfix"></div>
@@ -7,11 +7,11 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>Administración de Socios<small></small></h2>
+                    <h2>Administración de Profesores<small></small></h2>
                     <ul class="nav navbar-right panel_toolbox">
-                      <a class="btn btn-app", href="../socios/CreateSocio.aspx">
+                      <a class="btn btn-app", href="../profesor/CreateProfesor.aspx">
                         <span class="badge bg-green"></span>
-                      <i class="fa fa-users"></i> Crear Socio
+                      <i class="fa fa-users"></i> Crear Profesor
                     </a>
                     </ul>
                 <div class="clearfix"></div>
@@ -37,12 +37,12 @@
 
                     <tbody>
                         <tr>
-                            <td>Sonya Frost</td>
-                            <td>Software Engineer</td>
+                            <td>Juan Ramirez</td>
+                            <td>Musculacion</td>
                             <td>Edinburgh</td>
                             <td>23</td>
-                            <td>2008/12/13</td>
-                            <td>$103,600</td>
+                            <td>2001/05/13</td>
+                            <td>$13,600</td>
                             <td>
                                 <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-thumbs-o-down"></i> no activo </a>
                             </td>
@@ -52,12 +52,12 @@
                             </td>
                          </tr>
                         <tr>
-                            <td>Sonya Frost</td>
-                            <td>Software Engineer</td>
+                            <td>Pedro Alfonso</td>
+                            <td>Step</td>
                             <td>Edinburgh</td>
-                            <td>23</td>
-                            <td>2008/12/13</td>
-                            <td>$103,600</td>
+                            <td>24</td>
+                            <td>2007/06/13</td>
+                            <td>$25,600</td>
                             <td>
                                 <a href="#" class="btn btn-warning btn-xs"><i class="fa fa-pause"></i> suspendido </a>
                             </td>
