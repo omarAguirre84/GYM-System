@@ -11,7 +11,7 @@ using GymSystemWebUtil;
 
 public partial class Registracion : System.Web.UI.Page
 {
-    private UsuarioBO boUsuario = new UsuarioBO();
+    private PersonaBO boUsuario = new PersonaBO();
     
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -33,7 +33,7 @@ public partial class Registracion : System.Web.UI.Page
     {
         try
         {
-            UsuarioEntity usuario = new UsuarioEntity();
+            PersonaEntity usuario = new PersonaEntity();
             usuario.Nombre = txtNombre.Text;
             usuario.Apellido = txtApellido.Text;
             usuario.Email = txtEmail.Text;

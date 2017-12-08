@@ -8,20 +8,20 @@ using GymSystemDataSQLServer;
 
 namespace GymSystemBusiness
 {
-    public class UsuarioBO
+    public class PersonaBO
     {
-        private UsuarioDA daUsuario;
+        private PersonaDA daUsuario;
 
-        public UsuarioBO()
+        public PersonaBO()
         {
-            daUsuario = new UsuarioDA();
+            daUsuario = new PersonaDA();
         }
 
-        public UsuarioEntity Autenticar(string email, string password)
+        public PersonaEntity Autenticar(string email, string password)
         {
             try
             {
-                UsuarioEntity usuario = daUsuario.BuscarUsuario(email, password);
+                PersonaEntity usuario = daUsuario.BuscarUsuario(email, password);
 
                 if (usuario == null)
                     throw new AutenticacionExcepcionBO();
@@ -34,7 +34,7 @@ namespace GymSystemBusiness
             }
         }
 
-        public void Registrar(UsuarioEntity usuario, string emailVerificacion)
+        public void Registrar(PersonaEntity usuario, string emailVerificacion)
         {
             try
             {

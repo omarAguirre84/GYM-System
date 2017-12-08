@@ -6,9 +6,9 @@ using GymSystemComun;
 
 namespace GymSystemEntity
 {
-    public class UsuarioEntity
+    public class PersonaEntity
     {
-        public UsuarioEntity()
+        public PersonaEntity()
         {
             Id = 0;
             Nombre = "";

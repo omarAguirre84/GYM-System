@@ -13,16 +13,16 @@ namespace GymSystemWebUtil
         {
         }
 
-        public static void AlmacenarUsuarioAutenticado(UsuarioEntity usuario)
+        public static void AlmacenarUsuarioAutenticado(PersonaEntity usuario)
         {
             HttpContext.Current.Session.Add("UsuarioAutenticado", usuario);
         }
 
-        public static UsuarioEntity UsuarioAutenticado
+        public static PersonaEntity UsuarioAutenticado
         {
             get
             {
-                return (UsuarioEntity)HttpContext.Current.Session["UsuarioAutenticado"];
+                return (PersonaEntity)HttpContext.Current.Session["UsuarioAutenticado"];
             }
         }
     }
