@@ -71,8 +71,8 @@
                   </li>
                   <li><a><i class="fa fa-table"></i> Profesores <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="form.html">Listados</a></li>
-                      <li><a href="form_advanced.html">Crear Profesor</a></li>
+                      <li><a href="../profesor/ViewProfesor.aspx">Ver Profesores</a></li>
+                      <li><a href="../profesor/CreateProfesor.aspx">Crear Profesor</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-table"></i> Actividades <span class="fa fa-chevron-down"></span></a>
