@@ -21,21 +21,21 @@ namespace GymSystemDataSQLServer
         private UsuarioEntity CrearUsuario(SqlDataReader cursor)
         {
             UsuarioEntity usuario = new UsuarioEntity();
-            usuario.Id = cursor.GetInt32(cursor.GetOrdinal("PersonaID"));
-            usuario.Nombre = cursor.GetString(cursor.GetOrdinal("PersonaNombre"));
-            usuario.Apellido = cursor.GetString(cursor.GetOrdinal("PersonaApellido"));
-            usuario.Email = cursor.GetString(cursor.GetOrdinal("PersonaEmail"));
-            usuario.Password = cursor.GetString(cursor.GetOrdinal("PersonaPassword"));
-            usuario.FechaNacimiento = cursor.GetDateTime(cursor.GetOrdinal("PersonaFechaNacimiento"));
-            usuario.Sexo = cursor.GetString(cursor.GetOrdinal("PersonaSexo"))[0];
-            usuario.EsProfesor = cursor.GetString(cursor.GetOrdinal("PersonaProfesor"))[0];
-            if (!cursor.IsDBNull(cursor.GetOrdinal("PersonaFoto")))
-                usuario.Foto = cursor.GetString(cursor.GetOrdinal("PersonaFoto"));
+            usuario.Id = cursor.GetInt32(cursor.GetOrdinal("idPersona"));
+            usuario.Nombre = cursor.GetString(cursor.GetOrdinal("Nombre"));
+            usuario.Apellido = cursor.GetString(cursor.GetOrdinal("Apellido"));
+            usuario.Email = cursor.GetString(cursor.GetOrdinal("Email"));
+            usuario.Password = cursor.GetString(cursor.GetOrdinal("Password"));
+            usuario.FechaNacimiento = cursor.GetDateTime(cursor.GetOrdinal("FechaNacimiento"));
+            usuario.Sexo = cursor.GetString(cursor.GetOrdinal("Sexo"))[0];
+            usuario.EsProfesor = cursor.GetString(cursor.GetOrdinal("Profesor"))[0];
+            if (!cursor.IsDBNull(cursor.GetOrdinal("Foto")))
+                usuario.Foto = cursor.GetString(cursor.GetOrdinal("Foto"));
 
-            usuario.FechaRegistracion = cursor.GetDateTime(cursor.GetOrdinal("PersonaFechaRegistracion"));
+            usuario.FechaRegistracion = cursor.GetDateTime(cursor.GetOrdinal("FechaRegistracion"));
 
-            if (!cursor.IsDBNull(cursor.GetOrdinal("PersonaFechaActualizacion")))
-                usuario.FechaActualizacion = cursor.GetDateTime(cursor.GetOrdinal("PersonaFechaActualizacion"));
+            if (!cursor.IsDBNull(cursor.GetOrdinal("FechaActualizacion")))
+                usuario.FechaActualizacion = cursor.GetDateTime(cursor.GetOrdinal("FechaActualizacion"));
 
             return usuario;
         }
@@ -151,8 +151,8 @@ namespace GymSystemDataSQLServer
                         comando.CommandType = CommandType.StoredProcedure;
                         SqlCommandBuilder.DeriveParameters(comando);
 
-                        comando.Parameters["@PersonaEmail"].Value = email.Trim();
-                        comando.Parameters["@PersonaPassword"].Value = password.Trim();
+                        comando.Parameters["@Email"].Value = email.Trim();
+                        comando.Parameters["@Password"].Value = password.Trim();
                         
                         using (SqlDataReader cursor = comando.ExecuteReader())
                         {
