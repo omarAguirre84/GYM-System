@@ -33,7 +33,7 @@ public partial class Registracion : System.Web.UI.Page
     {
         try
         {
-            PersonaEntity usuario = new PersonaEntity();
+            PersonaEntity usuario = new SocioEntity();
             usuario.Nombre = txtNombre.Text;
             usuario.Apellido = txtApellido.Text;
             usuario.Email = txtEmail.Text;
@@ -43,7 +43,7 @@ public partial class Registracion : System.Web.UI.Page
                 int.Parse(ddlMes.SelectedValue),
                 int.Parse(ddlDia.SelectedValue));
             usuario.Sexo = (ControlsHelper.RadioSeleccionado("Debe seleccionar el sexo.", radMujer, radHombre) == radMujer ? 'F' : 'M');
-            usuario.EsProfesor = (ControlsHelper.RadioSeleccionado("Debe seleccionar si es profesor o cliente.", radProfesor, radCliente) == radProfesor ? 'P' : 'C');
+            usuario.tipoPersona = (ControlsHelper.RadioSeleccionado("Debe seleccionar si es profesor o cliente.", radProfesor, radCliente) == radProfesor ? 'P' : 'C');
        
             boUsuario.Registrar(usuario, txtEmailVerificacion.Text);
 

@@ -58,7 +58,7 @@ namespace GymSystemEntity
                 Password.Trim() == "" ||
                 FechaNacimiento == DateTime.MinValue ||
                 Sexo == ' ' ||
-                EsProfesor ==' '
+                tipoPersona == ' '
                 )
             {
                 throw new DatosObligatoriosExcepcion();

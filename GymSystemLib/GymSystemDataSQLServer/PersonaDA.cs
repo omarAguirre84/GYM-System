@@ -20,7 +20,7 @@ namespace GymSystemDataSQLServer
         #region Métodos Privados
         private PersonaEntity CrearUsuario(SqlDataReader cursor)
         {
-            PersonaEntity usuario = new PersonaEntity();
+            PersonaEntity usuario = new SocioEntity();
             usuario.Id = cursor.GetInt32(cursor.GetOrdinal("idpersona"));
             usuario.Nombre = cursor.GetString(cursor.GetOrdinal("Nombre"));
             usuario.Apellido = cursor.GetString(cursor.GetOrdinal("Apellido"));
@@ -28,7 +28,7 @@ namespace GymSystemDataSQLServer
             usuario.Password = cursor.GetString(cursor.GetOrdinal("Password"));
             usuario.FechaNacimiento = cursor.GetDateTime(cursor.GetOrdinal("FechaNacimiento"));
             usuario.Sexo = cursor.GetString(cursor.GetOrdinal("Sexo"))[0];
-            usuario.EsProfesor = cursor.GetString(cursor.GetOrdinal("Profesor"))[0];
+            usuario.tipoPersona = cursor.GetString(cursor.GetOrdinal("Profesor"))[0];
             if (!cursor.IsDBNull(cursor.GetOrdinal("Foto")))
                 usuario.Foto = cursor.GetString(cursor.GetOrdinal("Foto"));
 
@@ -59,7 +59,7 @@ namespace GymSystemDataSQLServer
                         comando.Parameters["@Password"].Value = usuario.Password.Trim();
                         comando.Parameters["@FechaNacimiento"].Value = usuario.FechaNacimiento;
                         comando.Parameters["@Sexo"].Value = usuario.Sexo;
-                        comando.Parameters["@Profesor"].Value = usuario.EsProfesor;
+                        comando.Parameters["@Profesor"].Value = usuario.tipoPersona;
                         comando.Parameters["@FechaRegistracion"].Value = usuario.FechaRegistracion;
                         comando.ExecuteNonQuery();
                         usuario.Id = Convert.ToInt32(comando.Parameters["@RETURN_VALUE"].Value);
