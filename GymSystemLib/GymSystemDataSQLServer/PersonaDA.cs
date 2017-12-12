@@ -28,7 +28,7 @@ namespace GymSystemDataSQLServer
             usuario.Password = cursor.GetString(cursor.GetOrdinal("Password"));
             usuario.FechaNacimiento = cursor.GetDateTime(cursor.GetOrdinal("FechaNacimiento"));
             usuario.Sexo = cursor.GetString(cursor.GetOrdinal("Sexo"))[0];
-            usuario.tipoPersona = cursor.GetString(cursor.GetOrdinal("Profesor"))[0];
+            usuario.tipoPersona = cursor.GetString(cursor.GetOrdinal("TipoPersona"))[0];
             if (!cursor.IsDBNull(cursor.GetOrdinal("Foto")))
                 usuario.Foto = cursor.GetString(cursor.GetOrdinal("Foto"));
 

@@ -29,19 +29,19 @@
                         </div>
                       </div>
                       <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="datein">Horario Inicio <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="timein">Horario Inicio <span class="required">*</span>
                         </label>
                         <div class="col-md-3 col-sm-3 col-xs-12">
-                          <input id="datein" type="date" name="datein" data-validate-length-range="5,20" class="optional form-control col-md-3 col-sm-3 col-xs-12">
+                          <input id="datein" type="time" name="timein" data-validate-length-range="5,20" class="optional form-control col-md-3 col-sm-3 col-xs-12">
                         </div>
-    
-                       <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="dateout">Horario Fin <span class="required">*</span>
+                      </div>
+                      <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="timeout">Horario Fin <span class="required">*</span>
                         </label>
                         <div class="col-md-3 col-sm-3 col-xs-12">
-                          <input id="dateout" type="date" name="datein" data-validate-length-range="5,20" class="optional form-control col-md-3 col-sm-3 col-xs-12">
+                          <input id="dateout" type="time" name="timeout" data-validate-length-range="5,20" class="optional form-control col-md-3 col-sm-3 col-xs-12">
                         </div>
-
+                       </div>
                          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="dia">Dia Semana <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
