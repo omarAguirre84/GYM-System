@@ -55,11 +55,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EmailExcepcion.cs" />
+    <Compile Include="EnumPersona.cs" />
     <Compile Include="FechaNacimientoExcepcion.cs" />
     <Compile Include="DatosObligatoriosExcepcion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SocioEntity.cs" />
-    <Compile Include="UsuarioEntity.cs" />
+    <Compile Include="PersonaEntity.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\GymSystemComun\GymSystemComun.csproj">
