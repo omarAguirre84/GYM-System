@@ -10,7 +10,7 @@ using GymSystemWebUtil;
 
 public partial class SinAutenticar : System.Web.UI.MasterPage
 {
-    private UsuarioBO boUsuario = new UsuarioBO();
+    private PersonaBO boUsuario = new PersonaBO();
     
     protected void Page_Load(object sender, EventArgs e)
     {

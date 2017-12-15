@@ -2,35 +2,23 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using GymSystemComun;
 
 namespace GymSystemEntity
 {
-    public class SocioEntity
+    public class SocioEntity : PersonaEntity
     {
         public SocioEntity()
         {
-            Id = 0;
-            Nombre = "";
-            Apellido = "";
-            Email = "";
-            Password = "";
-            FechaNacimiento = DateTime.MinValue;
-            Sexo = ' ';
-            Foto = null;
-            FechaRegistracion = DateTime.Now;
-            FechaActualizacion = null;
         }
 
-        public int Id { get; set; }
-        public string Nombre { get; set; }
-        public string Apellido { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
-        public DateTime FechaNacimiento { get; set; }
-        public char Sexo { get; set; }
-        public string Foto { get; set; }
-        public DateTime FechaRegistracion { get; set; }
-        public Nullable<DateTime> FechaActualizacion { get; set; }
+        public SocioEntity(int id, string nombre, string apellido, string email, string password, DateTime fechaNacimiento, char sexo, string foto, DateTime fechaRegistracion, DateTime? fechaActualizacion, char tipoPersona, int nroTarjetaIdentificacion, int idEstado) : base(id, nombre, apellido, email, password, fechaNacimiento, sexo, foto, fechaRegistracion, fechaActualizacion, tipoPersona)
+        {
+            this.nroTarjetaIdentificacion = nroTarjetaIdentificacion;
+            this.idEstado = idEstado;
+        }
+
+        public int nroTarjetaIdentificacion { get; set; }
+        public int idEstado { get; set; }
     }
 }

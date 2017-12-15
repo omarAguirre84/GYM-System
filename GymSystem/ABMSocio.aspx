@@ -1,8 +1,7 @@
-﻿
-<%@ Page Language="C#" MasterPageFile="~/Autenticado.master" AutoEventWireup="true" CodeFile="ABMSocio.aspx.cs" Inherits="ABMSocio" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/Autenticado.master" AutoEventWireup="true" CodeFile="ABMSocio.aspx.cs" Inherits="ABMSocio" %>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="Cuerpo" Runat="Server">
-
+    <form id="form1" Runat="Server">
     <div class="container">
       <div class="row">
         <div class="col-sm">
@@ -13,37 +12,37 @@
                 <table class="table">
                     <thead>
                     <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">First Name</th>
-                        <th scope="col">Last Name</th>
-                        <th scope="col">Username</th>
+                        <th scope="col">ID del Socio</th>
+                        <th scope="col">Tarjeta de Identificación</th>
+                        <th scope="col">Estado</th>
+                        <th scope="col">Cuota</th>
+                        <th scope="col">Saldo</th>
+                        <th scope="col"></th>
                     </tr>
                     </thead>
-                    <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Larry</td>
-                        <td>the Bird</td>
-                        <td>@twitter</td>
-                    </tr>
-                    </tbody>
+<%--                    <tbody>
+                        <% foreach(var x in socios) { %>
+                        <tr>
+                            <th scope="row"><%= x.IdSocio %></th>
+                            <td><%= x.nroTarjetaIdentificacion %></td>
+                            <td><%= x.idEstado %></td>
+                            <td><%= x.cuota %></td>
+                            <td><%= x.saldo %></td>
+                            <td>
+                                <asp:Button ID="Button1" OnClick="modificarSocio" Text="Modificar" Runat="Server"/>
+                                <asp:Button ID="Button2" OnClick="alterEstadoSocio" Text="DarBaja"  Runat="Server"/>
+                            </td>
+                        </tr>
+                        <% } %>
+                    </tbody>--%>
                 </table>
               </div>
             </div>
         </div>
       </div>
+        <asp:Button ID="Button4" href="Biografia.aspx" Text="Volver" Runat="Server"/>
     </div>
+        
+    </form>
 </asp:Content>
 

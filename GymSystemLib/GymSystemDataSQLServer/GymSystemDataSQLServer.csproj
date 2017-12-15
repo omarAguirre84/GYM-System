@@ -57,16 +57,16 @@
   <ItemGroup>
     <Compile Include="ConexionDA.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="EmpleadoDA.cs" />
-    <Compile Include="UsuarioDA.cs" />
+    <Compile Include="SocioDA.cs" />
+    <Compile Include="PersonaDA.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GymSystemData\GymSystemData.csproj">
-      <Project>{E14E311D-4E26-4410-BDF0-32FA75DE6B66}</Project>
+      <Project>{e14e311d-4e26-4410-bdf0-32fa75de6b66}</Project>
       <Name>GymSystemData</Name>
     </ProjectReference>
     <ProjectReference Include="..\GymSystemEntity\GymSystemEntity.csproj">
-      <Project>{795B76ED-AF6B-4D88-AE15-F686C6447C22}</Project>
+      <Project>{795b76ed-af6b-4d88-ae15-f686c6447c22}</Project>
       <Name>GymSystemEntity</Name>
     </ProjectReference>
   </ItemGroup>
