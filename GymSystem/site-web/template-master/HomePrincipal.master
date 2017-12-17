@@ -37,7 +37,10 @@
         <div class="col-md-3 left_col menu_fixed">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"><img style="position: relative;width: 53px;" src="../../Imagenes/logo-company-gymsystem2.png"></img> <span>GymSystem</span></a>
+              <a href="/site-web/home/HomeSiteWeb.aspx" class="site_title">
+                  <img style="position: relative;width: 53px;" src="../../Imagenes/logo-company-gymsystem2.png"/>
+                  <span>GymSystem</span>
+              </a>
             </div>
 
             <div class="clearfix"></div>

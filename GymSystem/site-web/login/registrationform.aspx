@@ -1,38 +1,39 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/site-web/template-master/LoginRegister.master" AutoEventWireup="true" CodeFile="registrationform.aspx.cs" Inherits="site_web_login_registrationform" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="registration_form" Runat="Server">
-    <%--<form id="Form1" runat="server">--%>
+    <form id="formRegistrar" runat="server">
               <h1>Registrarse</h1>
               <div>
                 <label style="align-content: left; display: flex;">Email *:</label>
-                <input type="email" class="form-control" placeholder="Email" required="" />
+                <input ID="email" type="email" class="form-control" placeholder="Email" required="" />
               </div>
               <div>
                 <label style="align-content: left; display: flex;"> Nombre *:</label>
-                <input type="text" class="form-control" placeholder="Nombre" required="" />
+                <input ID="nombre" type="text" class="form-control" placeholder="Nombre" required="" />
               </div>
               <div>
                   <label style="align-content: left; display: flex;"> Apellido *:</label>
-                <input type="text" class="form-control" placeholder="Apellido" required="" />
+                <input ID="apellido" type="text" class="form-control" placeholder="Apellido" required="" />
               </div>
               <div>
                  <label style="align-content: left; display: flex;"> Contraseña *:</label>
-                <input type="password" class="form-control" placeholder="Contraseña" required="" />
+                <input ID="passw1" type="password" class="form-control" placeholder="Contraseña" required="" />
               </div>
               <div>
                   <label style="align-content: left; display: flex;"> Confirmar Contraseña *:</label>
-                <input type="password" class="form-control" placeholder="Confirmar Contraseña" required="" />
+                <input ID="passw2" type="password" class="form-control" placeholder="Confirmar Contraseña" required="" />
               </div>
               <div class="form-group">
                 <label style="align-content: left; display: flex;"> Fecha Nacimiento *:</label>
-                <input type="date" name="fechanacimiento" class="form-control"  required="" />
+                <input ID="fechaNacimiento" type="date" name="fechanacimiento" class="form-control"  required="" />
               </div>
               <div>
                  <label style="align-content: left; display: flex;">Género *:</label>
                 <p>
                    Masculino:
-                    <input type="radio" class="flat" name="gender" id="genderM" value="M" checked="" required /> Femenino:
-                    <input type="radio" class="flat" name="gender" id="genderF" value="F" />
+                    <input ID="sexoM" type="radio" class="flat" name="gender" id="genderM" value="M" checked="" required /> 
+                   Femenino:
+                    <input ID="sexoF" type="radio" class="flat" name="gender" id="genderF" value="F" />
                 </p>
               </div>
               <div>
@@ -46,7 +47,7 @@
               </div>
               <div>
                   <asp:Button ID="Button1" runat="server" Text="Crear Usuario" OnClick="btnRegister_Click" />
-                <a class="btn btn-default submit" ID="A1" runat="server" onclick="btnRegister_Click">Crear Usuario</a>
+                    <a class="btn btn-default submit" ID="A1" runat="server" onclick="btnRegister_Click">Crear Usuario</a>
               </div>
 
               <div class="clearfix"></div>
@@ -64,6 +65,6 @@
                   <p><img style="position: relative;width: 50px;" src="http://www.ort.edu.ar/img/LogoOrtArgWeb2017.jpg"/>   ©2016 All Rights Reserved. GymSystem Privacy and Terms</p>
                 </div>
               </div>
-            <%--</form>--%>
+            </form>
 </asp:Content>
 
