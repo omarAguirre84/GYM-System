@@ -60,7 +60,7 @@
     <Compile Include="EmailExisteExcepcionBO.cs" />
     <Compile Include="ExcepcionBO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UsuarioBO.cs" />
+    <Compile Include="PersonaBO.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\GymSystemComun\GymSystemComun.csproj">

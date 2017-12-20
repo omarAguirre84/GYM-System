@@ -20,7 +20,7 @@
                         <th scope="col"></th>
                     </tr>
                     </thead>
-                    <tbody>
+<%--                    <tbody>
                         <% foreach(var x in socios) { %>
                         <tr>
                             <th scope="row"><%= x.IdSocio %></th>
@@ -34,7 +34,7 @@
                             </td>
                         </tr>
                         <% } %>
-                    </tbody>
+                    </tbody>--%>
                 </table>
               </div>
             </div>

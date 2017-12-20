@@ -1,4 +1,4 @@
-﻿html, body
+﻿/*html, body
 {
 	height: 100%;
 }
@@ -14,11 +14,11 @@
 SELECT
 {
     font-size: 9pt;
-}
+}*/
 
 /* Cabecera */
 /****************/
-TABLE.Cabecera
+/*TABLE.Cabecera
 {
 	width: 100%;
 	background-color: #3b5998;
@@ -50,19 +50,19 @@ INPUT.BotonCabecera
 	color: White;
 	height: 21px;
     width: 50px;
-}
+}*/
 
-INPUT.CajaTextoCabecera
+/*INPUT.CajaTextoCabecera
 {
 	padding: 2px;
 	border: 1px solid #1d2a5b;
 	font-size: 9pt;
-}
+}*/
 
 
 /* Registración */
 /****************/
-DIV.FondoRegistracion
+/*DIV.FondoRegistracion
 {
 	background-color: #e7ebf2;
 	padding-bottom: 150px;
@@ -120,4 +120,4 @@ INPUT.BotonRegistracion
 	color: White;
 	height: 21px;
     width: 80px;
-}
+}*/

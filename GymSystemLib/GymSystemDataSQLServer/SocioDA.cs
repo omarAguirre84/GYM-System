@@ -31,14 +31,14 @@ namespace GymSystemDataSQLServer
                         {
                             while (cursor.Read())
                             {
-                                SocioEntity socEnt = new SocioEntity(
-                                    int.Parse(cursor["idSocio"].ToString()),
-                                    int.Parse(cursor["nroTarjetaIdentificacion"].ToString()),
-                                    int.Parse(cursor["idEstado"].ToString()),
-                                    int.Parse(cursor["PersonaId"].ToString()),
-                                    cursor["cuota"].ToString(),
-                                    cursor["saldo"].ToString());
-                                socios.Add(socEnt);
+                                //SocioEntity socEnt = new SocioEntity(
+                                //    int.Parse(cursor["idSocio"].ToString()),
+                                //    int.Parse(cursor["nroTarjetaIdentificacion"].ToString()),
+                                //    int.Parse(cursor["idEstado"].ToString()),
+                                //    int.Parse(cursor["PersonaId"].ToString()),
+                                //    cursor["cuota"].ToString(),
+                                //    cursor["saldo"].ToString());
+                                //socios.Add(socEnt);
                             }
 
                             cursor.Close();
