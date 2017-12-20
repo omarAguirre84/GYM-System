@@ -11,7 +11,8 @@ using GymSystemWebUtil;
 
 public partial class site_web_login_registrationform : System.Web.UI.Page
 {
-    private PersonaBO boUsuario = new PersonaBO();
+    private PersonaBO personaBo = new PersonaBO();
+    private SocioBO socioBO = new SocioBO();
     protected void Page_Load(object sender, EventArgs e)
     {
 
@@ -22,7 +23,7 @@ public partial class site_web_login_registrationform : System.Web.UI.Page
         {
             Console.Write(RegTypeUser.Value);
             WebHelper.MostrarMensaje(Page, "error");
-            PersonaEntity usuario = boUsuario.factoryPersona(Convert.ToChar(RegTypeUser.Value));
+            PersonaEntity usuario = personaBo.factoryPersona(Convert.ToChar(RegTypeUser.Value));
             usuario.Nombre = RegName.Value;
             usuario.Apellido = RegApell.Value;
             usuario.Email = RegEmail.Value;
@@ -30,8 +31,19 @@ public partial class site_web_login_registrationform : System.Web.UI.Page
             usuario.FechaNacimiento = Convert.ToDateTime(RegfechaNac.Value);
             usuario.Sexo = Convert.ToChar( RegGender.Value);
             usuario.tipoPersona = Convert.ToChar(RegTypeUser.Value);
+            usuario.dni = RegDni.Value;
 
-            boUsuario.Registrar(usuario, usuario.Email);
+            //else 
+            if (usuario is SocioEntity)
+            {
+                socioBO.newSocio(usuario);
+                
+                WebHelper.MostrarMensaje(Page,"Se registro con exito Usuario" + usuario.Nombre);
+                Page.Response.Redirect("~/site-web/login/SuccesCreateUser.aspx");
+            }
+            //}
+
+           // personaBo.RegistrarPersona(usuario, usuario.Email);
 
             Server.Transfer("\\Biografia.aspx");
             //Page.Response.Redirect("~/site-web/login/registrationform.aspx#signup"); 

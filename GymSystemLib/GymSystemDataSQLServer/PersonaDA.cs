@@ -74,6 +74,32 @@ namespace GymSystemDataSQLServer
             }
         }
 
+        public SqlCommand InsertarPersona(PersonaEntity usuario, SqlCommand comando, SqlConnection conexion)
+        {
+            try
+            {
+                comando.CommandType = CommandType.StoredProcedure;
+                SqlCommandBuilder.DeriveParameters(comando);
+
+                comando.Parameters["@Nombre"].Value = usuario.Nombre.Trim();
+                comando.Parameters["@Apellido"].Value = usuario.Apellido.Trim();
+                comando.Parameters["@Email"].Value = usuario.Email.Trim();
+                comando.Parameters["@Password"].Value = usuario.Password.Trim();
+                comando.Parameters["@FechaNacimiento"].Value = usuario.FechaNacimiento;
+                comando.Parameters["@Sexo"].Value = usuario.Sexo;
+                comando.Parameters["@TipoPersona"].Value = usuario.tipoPersona;
+                comando.Parameters["@FechaRegistracion"].Value = DateTime.Today;
+                comando.Parameters["@Dni"].Value = usuario.dni;
+                comando.Parameters["@Telefono"].Value = " ";
+                comando.Parameters["@FechaActualizacion"].Value = DateTime.Today;
+                return comando;
+            }
+            catch (Exception ex)
+            {
+                throw new ExcepcionDA("Se produjo un error al InsertarPersona.", ex);
+            }
+        }
+
         public void Actualizar(int id, string nombreArchivo, byte[] archivoFoto)
         {
             try

@@ -11,10 +11,16 @@ namespace GymSystemBusiness
     public class SocioBO
     {
         private SocioDA daSocio;
+        private PersonaDA personaDa;
 
         public SocioBO()
         {
             daSocio = new SocioDA();
+            personaDa = new PersonaDA();
+        }
+
+        public PersonaEntity newSocio(PersonaEntity personaSocio) {
+            return daSocio.InsertarSocio(personaSocio);
         }
 
         public List<SocioEntity> getListSocio()

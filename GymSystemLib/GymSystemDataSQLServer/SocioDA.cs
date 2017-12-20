@@ -14,8 +14,10 @@ namespace GymSystemDataSQLServer
 {
     public class SocioDA
     {
+        private PersonaDA personaDA;
         public SocioDA()
         {
+            personaDA = new PersonaDA();
         }
         public List<SocioEntity> ListarSocios()
         {
@@ -49,6 +51,35 @@ namespace GymSystemDataSQLServer
                 }
 
                 return socios;
+            }
+            catch (Exception ex)
+            {
+                throw new ExcepcionDA("Se produjo un error al buscar por email y contraseña.", ex);
+            }
+        }
+
+        public SocioEntity InsertarSocio(PersonaEntity socio)
+        {
+            try
+            {
+                SqlCommand comando = null;
+
+                using (SqlConnection conexion = ConexionDA.ObtenerConexion())
+                {
+                    using (comando = new SqlCommand("SocioInsert", conexion))
+                    {
+                        comando = personaDA.InsertarPersona(socio, comando, conexion);
+                        comando.Parameters["@NroTarjetaIdentificacion"].Value = socio.dni.Trim();
+                        comando.Parameters["@idEstado"].Value = 2;
+                        comando.ExecuteNonQuery();
+                        socio.Id = Convert.ToInt32(comando.Parameters["@RETURN_VALUE"].Value);
+
+                    }
+
+                    conexion.Close();
+                }
+                return (SocioEntity) socio;
+
             }
             catch (Exception ex)
             {
