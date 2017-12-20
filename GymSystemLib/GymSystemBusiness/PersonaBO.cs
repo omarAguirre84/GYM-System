@@ -10,7 +10,7 @@ namespace GymSystemBusiness
 {
     public class PersonaBO
     {
-        private PersonaDA daUsuario;
+        private PersonaDA personaDa;
         public PersonaEntity factoryPersona(Char type) {
             PersonaEntity person=null;
             switch (type) {
@@ -28,14 +28,14 @@ namespace GymSystemBusiness
         }
         public PersonaBO()
         {
-            daUsuario = new PersonaDA();
+            personaDa = new PersonaDA();
         }
 
         public PersonaEntity Autenticar(string email, string password)
         {
             try
             {
-                PersonaEntity usuario = daUsuario.BuscarUsuario(email, password);
+                PersonaEntity usuario = personaDa.BuscarUsuario(email, password);
 
                 if (usuario == null)
                     throw new AutenticacionExcepcionBO();
@@ -54,13 +54,33 @@ namespace GymSystemBusiness
             {
                 usuario.ValidarDatos();
 
-                if (daUsuario.ExisteEmail(usuario.Email))
+                if (personaDa.ExisteEmail(usuario.Email))
                     throw new EmailExisteExcepcionBO();
 
                 if (usuario.Email != emailVerificacion.Trim())
                     throw new VerificacionEmailExcepcionBO();
 
-                daUsuario.Insertar(usuario);
+                personaDa.Insertar(usuario);
+            }
+            catch (ExcepcionDA ex)
+            {
+                throw new ExcepcionBO("No se pudo realizar la registración del usuario.", ex);
+            }
+        }
+
+        public void RegistrarPersona(PersonaEntity usuario, string emailVerificacion)
+        {
+            try
+            {
+                usuario.ValidarDatos();
+
+                if (personaDa.ExisteEmail(usuario.Email))
+                    throw new EmailExisteExcepcionBO();
+
+                if (usuario.Email != emailVerificacion.Trim())
+                    throw new VerificacionEmailExcepcionBO();
+
+                personaDa.Insertar(usuario);
             }
             catch (ExcepcionDA ex)
             {
@@ -72,7 +92,7 @@ namespace GymSystemBusiness
         {
             try
             {
-                daUsuario.Actualizar(id, nombreArchivo, archivoFoto);
+                personaDa.Actualizar(id, nombreArchivo, archivoFoto);
             }
             catch (ExcepcionDA ex)
             {
@@ -86,7 +106,7 @@ namespace GymSystemBusiness
             try
             {
                 //daUsuario.Insertar(usuariko);
-                daUsuario.ListarUsuarios();
+                personaDa.ListarUsuarios();
                 //return listPerson;
     }
             catch (ExcepcionDA ex)

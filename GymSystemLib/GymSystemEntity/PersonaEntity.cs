@@ -50,6 +50,7 @@ namespace GymSystemEntity
         public DateTime FechaRegistracion { get; set; }
         public Nullable<DateTime> FechaActualizacion { get; set; }
         public char tipoPersona { get; set; }
+        public string dni { get; set; }
         public void ValidarDatos()
         {
             if (Nombre.Trim() == "" ||

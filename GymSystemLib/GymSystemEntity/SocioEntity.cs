@@ -8,6 +8,9 @@ namespace GymSystemEntity
 {
     public class SocioEntity : PersonaEntity
     {
+        private int nroTarjetaIdentificacion;
+        private int idEstado;
+
         public SocioEntity()
         {
         }
@@ -18,7 +21,7 @@ namespace GymSystemEntity
             this.idEstado = idEstado;
         }
 
-        public int nroTarjetaIdentificacion { get; set; }
-        public int idEstado { get; set; }
+        public int NroTarjetaIdentificacion { get => nroTarjetaIdentificacion; set => nroTarjetaIdentificacion = value; }
+        public int IdEstado { get => idEstado; set => idEstado = value; }
     }
 }
