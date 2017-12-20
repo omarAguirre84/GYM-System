@@ -34,15 +34,16 @@
 
     <div class="login_wrapper">
         <form id="Form1" runat="server" novalidate>
+
         <div id="register" class="animate form registration_form">
           <section class="login_content">
             <asp:ContentPlaceHolder id="registration_form" runat="server">
             </asp:ContentPlaceHolder>
           </section>
         </div>
+
         <div class="animate form login_form">
             <section class="login_content">
-          <%--  <form id="Form1" runat="server">--%>
               <h1>Gym System Login</h1>
               <div>
                 <input type="text" ID="username" class="form-control" placeholder="Username" required=""  runat="server" />
@@ -70,9 +71,9 @@
                   <p><img style="position: relative;width: 50px;" src="http://www.ort.edu.ar/img/LogoOrtArgWeb2017.jpg"/>   ©2016 All Rights Reserved. GymSystem Privacy and Terms</p>
                 </div>
               </div>
-            <%--</form>--%>
           </section>
         </div>
+
         </form>
       </div>
     <!-- jQuery -->

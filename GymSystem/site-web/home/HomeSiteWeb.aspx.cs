@@ -1,4 +1,6 @@
-﻿using System;
+﻿using GymSystemEntity;
+using GymSystemWebUtil;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,5 +13,4 @@ public partial class HomeSiteWeb : System.Web.UI.Page
     {
 
     }
-    
 }

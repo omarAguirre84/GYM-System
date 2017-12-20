@@ -1,51 +1,38 @@
-﻿using System;
+﻿using GymSystemBusiness;
+using GymSystemComun;
+using GymSystemEntity;
+using GymSystemWebUtil;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using GymSystemBusiness;
-using GymSystemEntity;
-using GymSystemWebUtil;
-using System.Diagnostics;
-using GymSystemComun;
 
-public partial class registrationForm : System.Web.UI.Page
+public partial class CreateEmpleado : System.Web.UI.Page
 {
-    private SocioBO boSocio;
     private EmpleadoBO boEmpleado;
-    
+    private ActividadBO boActividad;
+    private ActividadEntity[] actividadesArr;
+
     protected void Page_Load(object sender, EventArgs e)
     {
-        boSocio = new SocioBO();
         boEmpleado = new EmpleadoBO();
+        
+        boActividad = new ActividadBO();
+        actividadesArr = boActividad.GetList();
+        llenarViewActividades();
     }
 
     protected void btnRegister_Click(object sender, EventArgs e)
     {
         try
         {
-            switch (tipoPersona.SelectedValue)
-            {
-                case "Socio":
-                    SocioEntity entitySocio = new SocioEntity(new Random().Next(1, 99999), 1);
-                    entitySocio = (SocioEntity)popularEntity(entitySocio);
+            EmpleadoEntity entityEmpleado = new EmpleadoEntity(1, DateTime.Today, DateTime.MinValue);
+            entityEmpleado = (EmpleadoEntity)popularEntity(entityEmpleado);
 
-                    boSocio.Registrar(entitySocio, entitySocio.Email.Trim());
-                    guardarSesionYRedirigir(boSocio);
-
-                    break;
-
-                case "Empleado":
-                case "Profesor":
-                    EmpleadoEntity entityEmpleado = new EmpleadoEntity(1, DateTime.Now, DateTime.MinValue);
-                    entityEmpleado = (EmpleadoEntity)popularEntity(entityEmpleado);
-
-                    boEmpleado.Registrar(entityEmpleado, entityEmpleado.Email.Trim());
-                    guardarSesionYRedirigir(boEmpleado);
-
-                    break;
-            }
+            boEmpleado.Registrar(entityEmpleado, entityEmpleado.Email.Trim());
+            WebHelper.MostrarMensaje(Page, ("Empleado " + entityEmpleado.Nombre + " " + entityEmpleado.Apellido + " creado con exito."));
         }
         catch (ValidacionExcepcionAbstract ex)
         {
@@ -63,27 +50,11 @@ public partial class registrationForm : System.Web.UI.Page
         }
     }
 
-    protected void guardarSesionYRedirigir(PersonaBO boPersona) {
-        try
-        {
-            SessionHelper.AlmacenarPersonaAutenticada(boPersona.Autenticar(email.Value, passw1.Value));
-            System.Web.Security.FormsAuthentication.RedirectFromLoginPage(SessionHelper.PersonaAutenticada.Email, false);
-        }
-        catch (AutenticacionExcepcionBO ex)
-        {
-            WebHelper.MostrarMensaje(Page, ex.Message);
-        }
-        catch (HttpException ex)
-        {
-            WebHelper.MostrarMensaje(Page, ex.Message);
-        }
-    }
-
-    protected PersonaEntity popularEntity(PersonaEntity entityPersona)
+    protected EmpleadoEntity popularEntity(EmpleadoEntity entityPersona)
     {
         try
         {
-            entityPersona.tipoPersona = System.Convert.ToChar(tipoPersona.SelectedValue[0]);
+            entityPersona.tipoPersona = 'S';
             entityPersona.Telefono = System.Convert.ToInt32(telefono.Value);
             entityPersona.Nombre = nombre.Value;
             entityPersona.Apellido = apellido.Value;
@@ -100,6 +71,8 @@ public partial class registrationForm : System.Web.UI.Page
             entityPersona.Foto = null;
             entityPersona.FechaRegistracion = DateTime.Now;
             entityPersona.FechaActualizacion = DateTime.Now;
+
+            
         }
         catch (AutenticacionExcepcionBO ex)
         {
@@ -114,4 +87,20 @@ public partial class registrationForm : System.Web.UI.Page
         return entityPersona;
     }
 
+    public void llenarViewActividades() {
+        ListItem li = new ListItem();
+        foreach (ActividadEntity act in actividadesArr) {
+            if (act != null) { 
+                li = new ListItem();
+                li.Text = act.descripcion;
+                li.Value = act.descripcion;
+                actividades.Items.Add(li);
+            }
+        }
+    }
+
+    protected void Btn_cancelar(object sender, EventArgs e)
+    {
+        Response.Redirect("../empleados/ViewEmpleados.aspx");
+    }
 }

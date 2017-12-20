@@ -11,61 +11,56 @@ using GymSystemData;
 
 namespace GymSystemDataSQLServer
 {
-    public class PersonaDA
+    public class ActividadDA : PersonaDA
     {
-        public PersonaDA()
+        public ActividadDA()
         {
         }
 
         #region Métodos Privados
-        protected PersonaEntity CrearPersona(SqlDataReader cursor)
+        private ActividadEntity CrearActividad(SqlDataReader cursor)
         {
-            PersonaEntity persona = new PersonaEntity();
 
-            persona.idPersona = cursor.GetInt32(cursor.GetOrdinal("idPersona"));
-            persona.tipoPersona = cursor.GetString(cursor.GetOrdinal("TipoPersona"))[0];
-            persona.Telefono = cursor.GetInt32(cursor.GetOrdinal("Telefono"));
-            persona.Nombre = cursor.GetString(cursor.GetOrdinal("Nombre"));
-            persona.Apellido = cursor.GetString(cursor.GetOrdinal("Apellido"));
-            persona.Dni = System.Convert.ToInt32(cursor.GetString(cursor.GetOrdinal("Dni")));
-            persona.Email = cursor.GetString(cursor.GetOrdinal("Email"));
-            persona.Password = cursor.GetString(cursor.GetOrdinal("Password"));
-            persona.FechaNacimiento = cursor.GetDateTime(cursor.GetOrdinal("FechaNacimiento"));
-            persona.Sexo = cursor.GetString(cursor.GetOrdinal("Sexo"))[0];
-            if (!cursor.IsDBNull(cursor.GetOrdinal("Foto"))) { 
-                persona.Foto = cursor.GetString(cursor.GetOrdinal("Foto"));
-            }
-            persona.FechaRegistracion = cursor.GetDateTime(cursor.GetOrdinal("FechaRegistracion"));
-
-            if (!cursor.IsDBNull(cursor.GetOrdinal("FechaActualizacion"))) {
-                persona.FechaActualizacion = cursor.GetDateTime(cursor.GetOrdinal("FechaActualizacion"));
-            }
-            return persona;   
+            ActividadEntity actividad = new ActividadEntity();
+            
+            actividad.idActividad = cursor.GetInt32(cursor.GetOrdinal("idActividad"));
+            actividad.descripcion = cursor.GetString(cursor.GetOrdinal("descripcion"));
+            actividad.tarifa = cursor.GetInt32(cursor.GetOrdinal("tarifa"));
+            actividad.horaInicio = cursor.GetDateTime(cursor.GetOrdinal("horarioInicio"));// .Date.ToString("yyyy-MM-dd HH:mm:ss"));
+            actividad.horaFin = cursor.GetDateTime(cursor.GetOrdinal("horarioFin"));
+            
+             return actividad;   
         }
         #endregion Métodos Privados
 
         #region Métodos Públicos
-        public void Insertar(PersonaEntity persona)
+
+        /*public void Insertar(ActividadEntity actividad)
         {
             try
             {
                 using (SqlConnection conexion = ConexionDA.ObtenerConexion())
                 {
-                    using (SqlCommand comando = new SqlCommand("PersonaInsert", conexion))
+                    using (SqlCommand comando = new SqlCommand("EmpleadoInsert", conexion))
                     {
                         comando.CommandType = CommandType.StoredProcedure;
                         SqlCommandBuilder.DeriveParameters(comando);
 
-                        comando.Parameters["@Nombre"].Value = persona.Nombre.Trim();
-                        comando.Parameters["@Apellido"].Value = persona.Apellido.Trim();
-                        comando.Parameters["@Email"].Value = persona.Email.Trim();
-                        comando.Parameters["@Password"].Value = persona.Password.Trim();
-                        comando.Parameters["@FechaNacimiento"].Value = persona.FechaNacimiento;
-                        comando.Parameters["@Sexo"].Value = persona.Sexo;
-                        comando.Parameters["@Profesor"].Value = persona.tipoPersona;
-                        comando.Parameters["@FechaRegistracion"].Value = persona.FechaRegistracion;
+                        comando.Parameters["@Dni"].Value = empleado.Dni;
+                        comando.Parameters["@Nombre"].Value = empleado.Nombre.Trim();
+                        comando.Parameters["@Apellido"].Value = empleado.Apellido.Trim();
+                        comando.Parameters["@Telefono"].Value = empleado.Telefono;
+                        comando.Parameters["@Email"].Value = empleado.Email.Trim();
+                        comando.Parameters["@Password"].Value = empleado.Password.Trim();
+                        comando.Parameters["@FechaNacimiento"].Value = empleado.FechaNacimiento;
+                        comando.Parameters["@Sexo"].Value = empleado.Sexo;
+                        comando.Parameters["@TipoPersona"].Value = empleado.tipoPersona;
+                        comando.Parameters["@FechaRegistracion"].Value = empleado.FechaRegistracion;
+                        comando.Parameters["@FechaActualizacion"].Value = empleado.FechaActualizacion;
+                        comando.Parameters["@TipoEmpleado"].Value = empleado.tipoEmpleado;
+                        comando.Parameters["@fechaDeIngreso"].Value = empleado.fechaIngreso;
+                        comando.Parameters["@fechaDeEgreso"].Value = empleado.fechaEgreso;
                         comando.ExecuteNonQuery();
-                        //persona.Id = Convert.ToInt32(comando.Parameters["@RETURN_VALUE"].Value);
                     }
                     
                     conexion.Close();
@@ -75,9 +70,9 @@ namespace GymSystemDataSQLServer
             {
                 throw new ExcepcionDA("Se produjo un error al insertar el usuario.", ex);
             }
-        }
+        }*/
 
-        public void Actualizar(int id, string nombreArchivo, byte[] archivoFoto)
+       /* public void Actualizar(ActividadEntity actividad, int idActividad)
         {
             try
             {
@@ -111,9 +106,9 @@ namespace GymSystemDataSQLServer
             {
                 throw new ExcepcionDA("Se produjo un error al actualizar la foto.", ex);
             }
-        }
-
-        public bool ExisteEmail(string email)
+        }*/
+        /*
+        public bool Existe(int idActividad)
         {
             try
             {
@@ -140,65 +135,28 @@ namespace GymSystemDataSQLServer
                 throw new ExcepcionDA("Se produjo un error al buscar por email.", ex);
             }
         }
-
-        public PersonaEntity BuscarPersona(string email, string password)
+        */
+        public ActividadEntity[] ListarActividades()
         {
             try
             {
-                PersonaEntity persona = null;
-                
+                ActividadEntity[] actividad = null;
+
                 using (SqlConnection conexion = ConexionDA.ObtenerConexion())
                 {
-                    using (SqlCommand comando = new SqlCommand("PersonaBuscarPorEmailPassword", conexion))
+                    using (SqlCommand comando = new SqlCommand("ActividadTraerTodos", conexion))
                     {
                         comando.CommandType = CommandType.StoredProcedure;
                         SqlCommandBuilder.DeriveParameters(comando);
 
-                        comando.Parameters["@Email"].Value = email.Trim();
-                        comando.Parameters["@Password"].Value = password.Trim();
-                        
                         using (SqlDataReader cursor = comando.ExecuteReader())
                         {
-                            if (cursor.Read())
-                            {
-                                persona = CrearPersona(cursor);
-                            }
-
-                            cursor.Close();
-                        }
-                    }
-
-                    conexion.Close();
-                }
-
-                return persona;
-            }
-            catch (Exception ex)
-            {
-                throw new ExcepcionDA("Se produjo un error al buscar por email y contraseña.", ex);
-            }
-        }
-
-        public PersonaEntity[] ListarPersonas()
-        {
-            try
-            {
-                PersonaEntity [] personas = null;
-
-                using (SqlConnection conexion = ConexionDA.ObtenerConexion())
-                {
-                    using (SqlCommand comando = new SqlCommand("PersonaBuscarPorEmailPassword", conexion))
-                    {
-                        comando.CommandType = CommandType.StoredProcedure;
-                        SqlCommandBuilder.DeriveParameters(comando);
-
-                        using (SqlDataReader cursor = comando.ExecuteReader()){
-
-                            personas = new PersonaEntity[cursor.Depth];
                             int i = 0;
+                            actividad = new ActividadEntity[cursor.FieldCount];
+
                             while (cursor.Read())
                             {
-                                personas[i] = CrearPersona(cursor);
+                                actividad[i] = CrearActividad(cursor);
                                 i++;
                             }
                             cursor.Close();
@@ -206,14 +164,47 @@ namespace GymSystemDataSQLServer
                     }
                     conexion.Close();
                 }
-
-                return personas;
+                return actividad;
             }
             catch (Exception ex)
             {
                 throw new ExcepcionDA("Se produjo un error al buscar por email y contraseña.", ex);
             }
         }
-        #endregion Métodos Públicos
-    }
+
+        
+        public ActividadEntity BuscarActividad(int idActividad)
+        {
+            try
+            {
+                ActividadEntity actividad = null;
+                using (SqlConnection conexion = ConexionDA.ObtenerConexion())
+                {
+                    using (SqlCommand comando = new SqlCommand("ActividadSalaBuscarPorIdActividad", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+                        SqlCommandBuilder.DeriveParameters(comando);
+
+                        comando.Parameters["@idActividad"].Value = idActividad;
+
+                        using (SqlDataReader cursor = comando.ExecuteReader())
+                        {
+                            if (cursor.Read())
+                            {
+                                actividad = CrearActividad(cursor);
+                            }
+                            cursor.Close();
+                        }
+                    }
+                    conexion.Close();
+                return actividad;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ExcepcionDA("Se produjo un error al buscar por ID.", ex);
+            }
+            }
+            #endregion Métodos Públicos
+        }
 }

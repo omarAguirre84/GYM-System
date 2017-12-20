@@ -8,13 +8,12 @@ using GymSystemDataSQLServer;
 
 namespace GymSystemBusiness
 {
-    public class EmpleadoBO : PersonaBO
-    {
-        private EmpleadoDA daEmpleado;
+    public class ActividadBO {  
+        private ActividadDA daActividad;
 
-        public EmpleadoBO()
+        public ActividadBO()
         {
-            daEmpleado = new EmpleadoDA();
+            daActividad = new ActividadDA();
         }
 
         public void Registrar(EmpleadoEntity empleado, string emailVerificacion)
@@ -23,13 +22,13 @@ namespace GymSystemBusiness
             {
                 empleado.ValidarDatos();
 
-                if (daEmpleado.ExisteEmail(empleado.Email))
+                if (daActividad.ExisteEmail(empleado.Email))
                     throw new EmailExisteExcepcionBO();
 
                 if (empleado.Email != emailVerificacion.Trim())
                     throw new VerificacionEmailExcepcionBO();
 
-                daEmpleado.Insertar(empleado);
+                daActividad.Insertar(empleado);
             }
             catch (ExcepcionDA ex)
             {
@@ -37,11 +36,11 @@ namespace GymSystemBusiness
             }
         }
 
-        public EmpleadoEntity[] GetList()
+        public ActividadEntity[] GetList()
         {
             try
             {
-                return daEmpleado.ListarEmpleados(); ;
+                return daActividad.ListarActividades(); ;
             }
             catch (ExcepcionDA ex)
             {
@@ -49,11 +48,11 @@ namespace GymSystemBusiness
             }
         }
 
-        public EmpleadoEntity BuscarEmpleado(int idPersona)
+        public ActividadEntity BuscarActividad(int idPersona)
         {
             try
             {
-                return daEmpleado.BuscarEmpleado(idPersona);
+                return daActividad.BuscarActividad(idPersona);
             }
             catch (ExcepcionDA ex)
             {
@@ -65,7 +64,7 @@ namespace GymSystemBusiness
         {
             try
             {
-                daEmpleado.ActualizarEmpleado(empleado);
+                //daActividad.ActualizarEmpleado(empleado);
             }
             catch (ExcepcionDA ex)
             {

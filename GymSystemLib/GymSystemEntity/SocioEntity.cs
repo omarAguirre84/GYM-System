@@ -8,17 +8,14 @@ namespace GymSystemEntity
 {
     public class SocioEntity : PersonaEntity
     {
-        public SocioEntity()
-        {
-        }
+        public int nroTarjetaIdentificacion { get; set; }
+        public int idEstado { get; set; }
+        public string Estado { get; set; }
 
-        public SocioEntity(int id, string nombre, string apellido, string email, string password, DateTime fechaNacimiento, char sexo, string foto, DateTime fechaRegistracion, DateTime? fechaActualizacion, char tipoPersona, int nroTarjetaIdentificacion, int idEstado) : base(id, nombre, apellido, email, password, fechaNacimiento, sexo, foto, fechaRegistracion, fechaActualizacion, tipoPersona)
+        public SocioEntity(int nroTarjetaIdentificacion, int idEstado)
         {
             this.nroTarjetaIdentificacion = nroTarjetaIdentificacion;
             this.idEstado = idEstado;
         }
-
-        public int nroTarjetaIdentificacion { get; set; }
-        public int idEstado { get; set; }
     }
 }

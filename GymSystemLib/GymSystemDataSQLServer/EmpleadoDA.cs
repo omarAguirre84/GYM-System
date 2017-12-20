@@ -11,58 +11,77 @@ using GymSystemData;
 
 namespace GymSystemDataSQLServer
 {
-    public class EmpleadoDA
+    public class EmpleadoDA : PersonaDA
     {
         public EmpleadoDA()
         {
         }
 
-        #region Métodos Privados
-        private EmpleadoEntity CrearUsuario(SqlDataReader cursor)
-        {
-            EmpleadoEntity empleado = new EmpleadoEntity();
-            empleado.Id = cursor.GetInt32(cursor.GetOrdinal("PersonaID"));
-            empleado.Nombre = cursor.GetString(cursor.GetOrdinal("PersonaNombre"));
-            empleado.Apellido = cursor.GetString(cursor.GetOrdinal("PersonaApellido"));
-            empleado.Email = cursor.GetString(cursor.GetOrdinal("PersonaEmail"));
-            empleado.Password = cursor.GetString(cursor.GetOrdinal("PersonaPassword"));
-            empleado.FechaNacimiento = cursor.GetDateTime(cursor.GetOrdinal("PersonaFechaNacimiento"));
-            empleado.Sexo = cursor.GetString(cursor.GetOrdinal("PersonaSexo"))[0];
-            empleado.EsProfesor = cursor.GetString(cursor.GetOrdinal("PersonaProfesor"))[0];
-            if (!cursor.IsDBNull(cursor.GetOrdinal("PersonaFoto")))
-                empleado.Foto = cursor.GetString(cursor.GetOrdinal("PersonaFoto"));
-
-            empleado.FechaRegistracion = cursor.GetDateTime(cursor.GetOrdinal("PersonaFechaRegistracion"));
-
-            if (!cursor.IsDBNull(cursor.GetOrdinal("PersonaFechaActualizacion")))
-                empleado.FechaActualizacion = cursor.GetDateTime(cursor.GetOrdinal("PersonaFechaActualizacion"));
-
-            return empleado;
-        }
-        #endregion Métodos Privados
 
         #region Métodos Públicos
-        public void Insertar(EmpleadoEntity usuario)
+        
+        private EmpleadoEntity CrearEmpleado(SqlDataReader cursor)
+        {
+            EmpleadoEntity empleado = new EmpleadoEntity(
+                cursor.GetInt32(cursor.GetOrdinal("tipoEmpleado")),
+                cursor.GetDateTime(cursor.GetOrdinal("fechaDeIngreso")),
+                cursor.GetDateTime(cursor.GetOrdinal("fechaDeEgreso"))
+                );
+                
+            empleado.idPersona = cursor.GetInt32(cursor.GetOrdinal("idPersona"));
+            empleado.tipoPersona = cursor.GetString(cursor.GetOrdinal("TipoPersona"))[0];
+            empleado.Telefono = cursor.GetInt32(cursor.GetOrdinal("Telefono"));
+            empleado.Nombre = cursor.GetString(cursor.GetOrdinal("Nombre"));
+            empleado.Apellido = cursor.GetString(cursor.GetOrdinal("Apellido"));
+            empleado.Dni = System.Convert.ToInt32(cursor.GetString(cursor.GetOrdinal("Dni")));
+            empleado.Email = cursor.GetString(cursor.GetOrdinal("Email"));
+            empleado.Password = cursor.GetString(cursor.GetOrdinal("Password"));
+            empleado.FechaNacimiento = cursor.GetDateTime(cursor.GetOrdinal("FechaNacimiento"));
+            empleado.Sexo = cursor.GetString(cursor.GetOrdinal("Sexo"))[0];
+            if (!cursor.IsDBNull(cursor.GetOrdinal("Foto")))
+            {
+                empleado.Foto = cursor.GetString(cursor.GetOrdinal("Foto"));
+            }
+            empleado.FechaRegistracion = cursor.GetDateTime(cursor.GetOrdinal("FechaRegistracion"));
+
+            if (!cursor.IsDBNull(cursor.GetOrdinal("FechaActualizacion")))
+            {
+                empleado.FechaActualizacion = cursor.GetDateTime(cursor.GetOrdinal("FechaActualizacion"));
+            }
+            
+            empleado.actividad = cursor.GetString(cursor.GetOrdinal("descripcion"));
+            empleado.dia = cursor.GetString(cursor.GetOrdinal("dia"));
+
+            
+            return empleado;
+        }
+
+        public void Insertar(EmpleadoEntity empleado)
         {
             try
             {
                 using (SqlConnection conexion = ConexionDA.ObtenerConexion())
                 {
-                    using (SqlCommand comando = new SqlCommand("PersonaInsert", conexion))
+                    using (SqlCommand comando = new SqlCommand("EmpleadoInsert", conexion))
                     {
                         comando.CommandType = CommandType.StoredProcedure;
                         SqlCommandBuilder.DeriveParameters(comando);
 
-                        comando.Parameters["@PersonaNombre"].Value = usuario.Nombre.Trim();
-                        comando.Parameters["@PersonaApellido"].Value = usuario.Apellido.Trim();
-                        comando.Parameters["@PersonaEmail"].Value = usuario.Email.Trim();
-                        comando.Parameters["@PersonaPassword"].Value = usuario.Password.Trim();
-                        comando.Parameters["@PersonaFechaNacimiento"].Value = usuario.FechaNacimiento;
-                        comando.Parameters["@PersonaSexo"].Value = usuario.Sexo;
-                        comando.Parameters["@PersonaProfesor"].Value = usuario.EsProfesor;
-                        comando.Parameters["@PersonaFechaRegistracion"].Value = usuario.FechaRegistracion;
+                        comando.Parameters["@Dni"].Value = empleado.Dni;
+                        comando.Parameters["@Nombre"].Value = empleado.Nombre.Trim();
+                        comando.Parameters["@Apellido"].Value = empleado.Apellido.Trim();
+                        comando.Parameters["@Telefono"].Value = empleado.Telefono;
+                        comando.Parameters["@Email"].Value = empleado.Email.Trim();
+                        comando.Parameters["@Password"].Value = empleado.Password.Trim();
+                        comando.Parameters["@FechaNacimiento"].Value = empleado.FechaNacimiento;
+                        comando.Parameters["@Sexo"].Value = empleado.Sexo;
+                        comando.Parameters["@TipoPersona"].Value = empleado.tipoPersona;
+                        comando.Parameters["@FechaRegistracion"].Value = empleado.FechaRegistracion;
+                        comando.Parameters["@FechaActualizacion"].Value = empleado.FechaActualizacion;
+                        comando.Parameters["@TipoEmpleado"].Value = empleado.tipoEmpleado;
+                        comando.Parameters["@fechaDeIngreso"].Value = empleado.fechaIngreso;
+                        comando.Parameters["@fechaDeEgreso"].Value = empleado.fechaEgreso;
                         comando.ExecuteNonQuery();
-                        usuario.Id = Convert.ToInt32(comando.Parameters["@RETURN_VALUE"].Value);
                     }
                     
                     conexion.Close();
@@ -91,13 +110,13 @@ namespace GymSystemDataSQLServer
                 
                 using (SqlConnection conexion = ConexionDA.ObtenerConexion())
                 {
-                    using (SqlCommand comando = new SqlCommand("PersonaActualizarFoto", conexion))
+                    using (SqlCommand comando = new SqlCommand("ActualizarFoto", conexion))
                     {
                         comando.CommandType = CommandType.StoredProcedure;
                         SqlCommandBuilder.DeriveParameters(comando);
 
-                        comando.Parameters["@PersonaID"].Value = id;
-                        comando.Parameters["@PersonaFoto"].Value = nuevoNombreArchivo;
+                        comando.Parameters["@idpersona"].Value = id;
+                        comando.Parameters["@Foto"].Value = nuevoNombreArchivo;
                         comando.ExecuteNonQuery();
                     }
 
@@ -123,7 +142,7 @@ namespace GymSystemDataSQLServer
                         comando.CommandType = CommandType.StoredProcedure;
                         SqlCommandBuilder.DeriveParameters(comando);
 
-                        comando.Parameters["@PersonaEmail"].Value = email.Trim();
+                        comando.Parameters["@Email"].Value = email.Trim();
                         existeEmail = Convert.ToBoolean(comando.ExecuteScalar());
                     }
 
@@ -138,29 +157,29 @@ namespace GymSystemDataSQLServer
             }
         }
 
-        public EmpleadoEntity BuscarUsuario(string email, string password)
+        public EmpleadoEntity[] ListarEmpleados()
         {
             try
             {
-                EmpleadoEntity usuario = null;
-                
+                EmpleadoEntity[] empleados = null;
+
                 using (SqlConnection conexion = ConexionDA.ObtenerConexion())
                 {
-                    using (SqlCommand comando = new SqlCommand("PersonaBuscarPorEmailPassword", conexion))
+                    using (SqlCommand comando = new SqlCommand("EmpleadoTraerTodos", conexion))
                     {
                         comando.CommandType = CommandType.StoredProcedure;
                         SqlCommandBuilder.DeriveParameters(comando);
 
-                        comando.Parameters["@PersonaEmail"].Value = email.Trim();
-                        comando.Parameters["@PersonaPassword"].Value = password.Trim();
-                        
                         using (SqlDataReader cursor = comando.ExecuteReader())
                         {
-                            if (cursor.Read())
-                            {
-                                usuario = CrearUsuario(cursor);
-                            }
+                            int i = 0;
+                            empleados = new EmpleadoEntity[cursor.FieldCount];
 
+                            while (cursor.Read())
+                            {
+                                empleados[i] = CrearEmpleado(cursor);
+                                i++;
+                            }
                             cursor.Close();
                         }
                     }
@@ -168,7 +187,7 @@ namespace GymSystemDataSQLServer
                     conexion.Close();
                 }
 
-                return usuario;
+                return empleados;
             }
             catch (Exception ex)
             {
@@ -176,39 +195,74 @@ namespace GymSystemDataSQLServer
             }
         }
 
-        public EmpleadoEntity ListarUsuarios()
+        public void ActualizarEmpleado(EmpleadoEntity empleado)
         {
             try
             {
-                EmpleadoEntity usuario = null;
-
                 using (SqlConnection conexion = ConexionDA.ObtenerConexion())
                 {
-                    using (SqlCommand comando = new SqlCommand("PersonaBuscarPorEmailPassword", conexion))
+                    using (SqlCommand comando = new SqlCommand("EmpleadoActualizarTodo", conexion))
                     {
-                        comando.CommandText = "SELECT * FROM Personas ORDER BY PersonaId";
-                        comando.CommandType = CommandType.Text;
+                        comando.CommandType = CommandType.StoredProcedure;
                         SqlCommandBuilder.DeriveParameters(comando);
 
-                        using (SqlDataReader cursor = comando.ExecuteReader())
-                        {
-                            if (cursor.Read())
-                            {
-                                usuario = CrearUsuario(cursor);
-                            }
-
-                            cursor.Close();
-                        }
+                        comando.Parameters["@idPersona"].Value = empleado.idPersona;
+                        comando.Parameters["@Dni"].Value = empleado.Dni;
+                        comando.Parameters["@Nombre"].Value = empleado.Nombre.Trim();
+                        comando.Parameters["@Apellido"].Value = empleado.Apellido.Trim();
+                        comando.Parameters["@Telefono"].Value = empleado.Telefono;
+                        comando.Parameters["@Email"].Value = empleado.Email.Trim();
+                        comando.Parameters["@Password"].Value = empleado.Password.Trim();
+                        comando.Parameters["@FechaNacimiento"].Value = empleado.FechaNacimiento.Date.ToString("yyyy-MM-dd");
+                        comando.Parameters["@Sexo"].Value = empleado.Sexo;
+                        comando.Parameters["@TipoPersona"].Value = empleado.tipoPersona;
+                        //comando.Parameters["@FechaActualizacion"].Value = empleado.FechaActualizacion.Date.ToString("yyyy-MM-dd HH:mm:ss");
+                        comando.Parameters["@fechaDeIngreso"].Value = empleado.fechaIngreso.Date.ToString("yyyy-MM-dd");
+                        comando.Parameters["@@fechaDeEgreso"].Value = empleado.fechaEgreso.Date.ToString("yyyy-MM-dd");
+                        comando.ExecuteNonQuery();
                     }
 
                     conexion.Close();
                 }
-
-                return usuario;
             }
             catch (Exception ex)
             {
-                throw new ExcepcionDA("Se produjo un error al buscar por email y contraseña.", ex);
+                throw new ExcepcionDA("Se produjo un error al actualizar la foto.", ex);
+            }
+        }
+
+        public EmpleadoEntity BuscarEmpleado(int idPersona)
+        {
+            try
+            {
+                EmpleadoEntity empleado = null;
+
+                using (SqlConnection conexion = ConexionDA.ObtenerConexion())
+                {
+                    using (SqlCommand comando = new SqlCommand("EmpleadoBuscarPorId", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+                        SqlCommandBuilder.DeriveParameters(comando);
+
+                        comando.Parameters["@idPersona"].Value = idPersona;
+                        int i = 0;
+                        using (SqlDataReader cursor = comando.ExecuteReader())
+                        {
+                            if (cursor.Read())
+                            {
+                                empleado = CrearEmpleado(cursor);
+                                i++;
+                            }
+                            cursor.Close();
+                        }
+                    }
+                    conexion.Close();
+                }
+                return empleado;
+            }
+            catch (Exception ex)
+            {
+                throw new ExcepcionDA("Se produjo un error al buscar por ID.", ex);
             }
         }
         #endregion Métodos Públicos

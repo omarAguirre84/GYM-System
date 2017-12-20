@@ -12,7 +12,7 @@ using GymSystemWebUtil;
 public partial class Registracion : System.Web.UI.Page
 {
     private PersonaBO boUsuario = new PersonaBO();
-    
+
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!Page.IsPostBack)//una página envía datos a un servidor hace un post. Cuando el servidor responde con datos es un post back
@@ -31,6 +31,7 @@ public partial class Registracion : System.Web.UI.Page
 
     protected void btnRegistrate_Click(object sender, EventArgs e)
     {
+        /*
         try
         {
             PersonaEntity usuario = new SocioEntity();
@@ -55,5 +56,8 @@ public partial class Registracion : System.Web.UI.Page
         {
             WebHelper.MostrarMensaje(Page, ex.Message);
         }
+        
+    }
+    */
     }
 }
