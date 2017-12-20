@@ -7,11 +7,11 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>Administración de Socios<small></small></h2>
+                    <h2>Grilla de Actividades<small></small></h2>
                     <ul class="nav navbar-right panel_toolbox">
-                      <a class="btn btn-app", href="../socios/CreateSocio.aspx">
+                      <a class="btn btn-app", href="CreateActividades.aspx">
                         <span class="badge bg-green"></span>
-                      <i class="fa fa-users"></i> Crear Socio
+                      <i class="fa fa-users"></i> Alta Actividades
                     </a>
                     </ul>
                 <div class="clearfix"></div>
@@ -23,12 +23,11 @@
                 <table id="datatable" class="table table-striped table-bordered">
                     <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Position</th>
-                        <th>Office</th>
-                        <th>Age</th>
-                        <th>Start date</th>
-                        <th>Salary</th>
+                        <th>Descripción</th>
+                        <th>Tarifa</th>
+                        <th>Horario Inicio</th>
+                        <th>Horario Fin</th>
+                        <th>Dia Semana</th>
                         <th>Estado</th>
                         <th>Acciones</th>
                     </tr>
@@ -37,12 +36,11 @@
 
                     <tbody>
                         <tr>
-                            <td>Sonya Frost</td>
-                            <td>Software Engineer</td>
-                            <td>Edinburgh</td>
-                            <td>23</td>
-                            <td>2008/12/13</td>
-                            <td>$103,600</td>
+                            <td>PILATES</td>
+                            <td>$100</td>
+                            <td>19:00</td>
+                            <td>20:00</td>
+                            <td>Lunes</td>
                             <td>
                                 <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-thumbs-o-down"></i> no activo </a>
                             </td>
@@ -52,12 +50,11 @@
                             </td>
                          </tr>
                         <tr>
-                            <td>Sonya Frost</td>
-                            <td>Software Engineer</td>
-                            <td>Edinburgh</td>
-                            <td>23</td>
-                            <td>2008/12/13</td>
-                            <td>$103,600</td>
+                            <td>SPINNING</td>
+                            <td>$100</td>
+                            <td>19:00</td>
+                            <td>20:00</td>
+                            <td>Martes</td>
                             <td>
                                 <a href="#" class="btn btn-warning btn-xs"><i class="fa fa-pause"></i> suspendido </a>
                             </td>
@@ -67,12 +64,24 @@
                             </td>
                          </tr>
                         <tr>
-                            <td>Sonya Frost</td>
-                            <td>Software Engineer</td>
-                            <td>Edinburgh</td>
-                            <td>23</td>
-                            <td>2008/12/13</td>
-                            <td>$103,600</td>
+                            <td>GAP</td>
+                            <td>$100</td>
+                            <td>19:00</td>
+                            <td>20:00</td>
+                            <td>Miercoles</td>
+                            <td>
+                                <a href="#" class="btn btn-success btn-xs"><i class="fa fa-thumbs-o-up"></i> activo </a>
+                            </td>
+                            <td>
+                                <a href="#" class="btn btn-primary btn-xs"><i class="fa fa-eye"></i> Ver </a>
+                                <a href="#" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Editar </a>
+                            </td>
+                          <tr>
+                            <td>LOCALIZADA</td>
+                            <td>$100</td>
+                            <td>19:00</td>
+                            <td>20:00</td>
+                            <td>Jueves</td>
                             <td>
                                 <a href="#" class="btn btn-success btn-xs"><i class="fa fa-thumbs-o-up"></i> activo </a>
                             </td>

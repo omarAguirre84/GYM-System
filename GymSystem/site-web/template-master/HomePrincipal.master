@@ -77,8 +77,8 @@
                   </li>
                   <li><a><i class="fa fa-table"></i> Actividades <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="tables.html">Listados</a></li>
-                      <li><a href="tables_dynamic.html"> Crear Actividades</a></li>
+                      <li><a href="../actividades/ViewActividades.aspx">Ver Actividades</a></li>
+                      <li><a href="../actividades/CreateActividades.aspx"> Crear Actividades</a></li>
                     </ul>
                   </li>
                 </ul>
