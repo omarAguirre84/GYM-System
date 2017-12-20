@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Signin Template for Bootstrap</title>
+    <title>Gym System SA</title>
 
    <!-- Bootstrap -->
     <link href="../../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -29,52 +29,14 @@
     </asp:ContentPlaceHolder>
 </head>
 <body class="login">
-    <a class="hiddenanchor" id="signup"></a>
-    <a class="hiddenanchor" id="signin"></a>
 
     <div class="login_wrapper">
-        <form id="Form1" runat="server" novalidate>
-        <div id="register" class="animate form registration_form">
-          <section class="login_content">
             <asp:ContentPlaceHolder id="registration_form" runat="server">
             </asp:ContentPlaceHolder>
-          </section>
-        </div>
-        <div class="animate form login_form">
-            <section class="login_content">
-          <%--  <form id="Form1" runat="server">--%>
-              <h1>Gym System Login</h1>
-              <div>
-                <input type="text" ID="username" class="form-control" placeholder="Username" required=""  runat="server" />
-              </div>
-              <div>
-                <input type="password" ID="password"  class="form-control" placeholder="Password" required="" runat="server"/>
-              </div>
-              <div>
-                  <asp:Button ID="Button2" runat="server" Text="Entrar" OnClick="btnLogin_Click" CssClass="BotonCabecera" />
-                <%--<a class="reset_pass" href="#">Lost your password?</a>--%>
-              </div>
+            <asp:ContentPlaceHolder id="login_form" runat="server">
+            </asp:ContentPlaceHolder>
+     </div>
 
-              <div class="clearfix"></div>
-              <div class="separator">
-                <p class="change_link">Nuevo en el sitio?
-
-                    <asp:HyperLink ID="HyperLink1" href="#signup" runat="server">Crea tu usuario</asp:HyperLink>
-                </p>
-
-                <div class="clearfix"></div>
-                <br />
-
-                <div>
-                  <h1><img style="width: 50%; display: block;margin: auto;" src="../../Imagenes/logo-company-gymsystem2.png" alt="image" /></h1>
-                  <p><img style="position: relative;width: 50px;" src="http://www.ort.edu.ar/img/LogoOrtArgWeb2017.jpg"/>   ©2016 All Rights Reserved. GymSystem Privacy and Terms</p>
-                </div>
-              </div>
-            <%--</form>--%>
-          </section>
-        </div>
-        </form>
-      </div>
     <!-- jQuery -->
     <script src="../../vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->

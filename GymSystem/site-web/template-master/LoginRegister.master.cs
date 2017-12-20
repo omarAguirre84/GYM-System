@@ -19,9 +19,9 @@ public partial class site_web_template_master_LoginRegister : System.Web.UI.Mast
 
     protected void btnLogin_Click(object sender, EventArgs e)
     {
-        SessionHelper.AlmacenarUsuarioAutenticado(boUsuario.Autenticar(username.Value, password.Value));
-        System.Web.Security.FormsAuthentication.RedirectFromLoginPage(SessionHelper.UsuarioAutenticado.Email, false);
-        Page.Response.Redirect("~/site-web/home/HomeSiteWeb.aspx");
+        //SessionHelper.AlmacenarUsuarioAutenticado(boUsuario.Autenticar(username.Value, password.Value));
+        //System.Web.Security.FormsAuthentication.RedirectFromLoginPage(SessionHelper.UsuarioAutenticado.Email, false);
+        //Page.Response.Redirect("~/site-web/home/HomeSiteWeb.aspx");
 
     }
     protected void btnRegister_Click(object sender, EventArgs e)

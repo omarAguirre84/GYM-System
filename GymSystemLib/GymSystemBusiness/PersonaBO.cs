@@ -11,7 +11,21 @@ namespace GymSystemBusiness
     public class PersonaBO
     {
         private PersonaDA daUsuario;
-
+        public PersonaEntity factoryPersona(Char type) {
+            PersonaEntity person=null;
+            switch (type) {
+                case 'S':
+                    person = new SocioEntity();
+                    break;
+                case 'P':
+                    //person = new ProfesorEntity();
+                    break;
+                case 'E':
+                    //person = new EmpleadoEntity();
+                    break;
+            }
+            return person;
+        }
         public PersonaBO()
         {
             daUsuario = new PersonaDA();
