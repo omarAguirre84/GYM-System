@@ -21,7 +21,7 @@ namespace GymSystemEntity
             this.idEstado = idEstado;
         }
 
-        public int NroTarjetaIdentificacion { get => nroTarjetaIdentificacion; set => nroTarjetaIdentificacion = value; }
-        public int IdEstado { get => idEstado; set => idEstado = value; }
+        public int NroTarjetaIdentificacion { get { return nroTarjetaIdentificacion; } set { nroTarjetaIdentificacion = value; } }
+        public int IdEstado { get { return idEstado; } set { idEstado = value; } }
     }
 }
