@@ -9,24 +9,30 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class CreateSocio : System.Web.UI.Page
+public partial class CreateEmpleado : System.Web.UI.Page
 {
-    private SocioBO boSocio;
+    private EmpleadoBO boEmpleado;
+    private ActividadBO boActividad;
+    private ActividadEntity[] actividadesArr;
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        boSocio = new SocioBO();
+        boEmpleado = new EmpleadoBO();
+        
+        boActividad = new ActividadBO();
+        actividadesArr = boActividad.GetList();
+        llenarViewActividades();
     }
 
     protected void btnRegister_Click(object sender, EventArgs e)
     {
         try
         {
-            SocioEntity entitySocio = new SocioEntity(new Random().Next(1, 99999), 1);
-            entitySocio = (SocioEntity)popularEntity(entitySocio);
+            EmpleadoEntity entityEmpleado = new EmpleadoEntity(1, DateTime.Today, DateTime.MinValue);
+            entityEmpleado = (EmpleadoEntity)popularEntity(entityEmpleado);
 
-            boSocio.Registrar(entitySocio, entitySocio.Email.Trim());
-            WebHelper.MostrarMensaje(Page, ("Socio "+entitySocio.Nombre +" "+ entitySocio.Apellido + " creado con exito."));
+            boEmpleado.Registrar(entityEmpleado, entityEmpleado.Email.Trim());
+            WebHelper.MostrarMensaje(Page, ("Empleado " + entityEmpleado.Nombre + " " + entityEmpleado.Apellido + " creado con exito."));
         }
         catch (ValidacionExcepcionAbstract ex)
         {
@@ -44,7 +50,7 @@ public partial class CreateSocio : System.Web.UI.Page
         }
     }
 
-    protected PersonaEntity popularEntity(PersonaEntity entityPersona)
+    protected EmpleadoEntity popularEntity(EmpleadoEntity entityPersona)
     {
         try
         {
@@ -55,7 +61,7 @@ public partial class CreateSocio : System.Web.UI.Page
             entityPersona.dni = dni.Value;
             entityPersona.Email = email.Value;
             entityPersona.Password = (passw1.Value.Equals(passw2.Value)) ? passw1.Value : null;
-            
+
             string[] fechaArr = fechaNacimiento.Value.Split('-');
             entityPersona.FechaNacimiento = Util.ObtenerFecha(
                 int.Parse(fechaArr[0]),
@@ -65,6 +71,8 @@ public partial class CreateSocio : System.Web.UI.Page
             entityPersona.Foto = null;
             entityPersona.FechaRegistracion = DateTime.Now;
             entityPersona.FechaActualizacion = DateTime.Now;
+
+            
         }
         catch (AutenticacionExcepcionBO ex)
         {
@@ -79,4 +87,20 @@ public partial class CreateSocio : System.Web.UI.Page
         return entityPersona;
     }
 
+    public void llenarViewActividades() {
+        ListItem li = new ListItem();
+        foreach (ActividadEntity act in actividadesArr) {
+            if (act != null) { 
+                li = new ListItem();
+                li.Text = act.descripcion;
+                li.Value = act.descripcion;
+                actividades.Items.Add(li);
+            }
+        }
+    }
+
+    protected void Btn_cancelar(object sender, EventArgs e)
+    {
+        Response.Redirect("../empleados/ViewEmpleados.aspx");
+    }
 }

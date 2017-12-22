@@ -11,33 +11,38 @@ namespace GymSystemEntity
 
         public PersonaEntity()
         {
-            Id = 0;
+            tipoPersona = ' ';
+            Telefono = 0;
             Nombre = "";
             Apellido = "";
+            dni = "";
             Email = "";
             Password = "";
             FechaNacimiento = DateTime.MinValue;
             Sexo = ' ';
             Foto = null;
             FechaRegistracion = DateTime.Now;
-            FechaActualizacion = null;
-            tipoPersona = '-';
+            FechaActualizacion = DateTime.MinValue;
+        }
+        
+
+        public PersonaEntity(char tipoPersona, int telefono, string nombre, string apellido, string dni, string email, 
+            string password, DateTime fechaNacimiento, char sexo, string foto, DateTime fechaRegistracion, DateTime fechaActualizacion)
+        {
+            this.tipoPersona = tipoPersona;
+            this.Telefono = telefono;
+            this.Nombre = nombre;
+            this.Apellido = apellido;
+            this.dni = dni;
+            this.Email = email;
+            this.Password = password;
+            this.FechaNacimiento = fechaNacimiento;
+            this.Sexo = sexo;
+            this.Foto = foto;
+            this.FechaRegistracion = fechaRegistracion;
+            this.FechaActualizacion = fechaActualizacion;            
         }
 
-        public PersonaEntity(int id, string nombre, string apellido, string email, string password, DateTime fechaNacimiento, char sexo, string foto, DateTime fechaRegistracion, DateTime? fechaActualizacion, char tipoPersona)
-        {
-            Id = id;
-            Nombre = nombre;
-            Apellido = apellido;
-            Email = email;
-            Password = password;
-            FechaNacimiento = fechaNacimiento;
-            Sexo = sexo;
-            Foto = foto;
-            FechaRegistracion = fechaRegistracion;
-            FechaActualizacion = fechaActualizacion;
-            this.tipoPersona = tipoPersona;
-        }
 
         public int Id { get; set; }
         public string Nombre { get; set; }
@@ -51,15 +56,19 @@ namespace GymSystemEntity
         public Nullable<DateTime> FechaActualizacion { get; set; }
         public char tipoPersona { get; set; }
         public string dni { get; set; }
+        public int Telefono { get; set; }
+
         public void ValidarDatos()
         {
-            if (Nombre.Trim() == "" ||
+            if (tipoPersona == ' ' ||
+                Telefono == 0 ||
+                Nombre.Trim() == "" ||
                 Apellido.Trim() == "" ||
+                dni == "" ||
                 Email.Trim() == "" ||
                 Password.Trim() == "" ||
                 FechaNacimiento == DateTime.MinValue ||
-                Sexo == ' ' ||
-                tipoPersona == ' '
+                Sexo == ' '
                 )
             {
                 throw new DatosObligatoriosExcepcion();

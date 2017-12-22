@@ -31,11 +31,13 @@
 <body class="login">
 
     <div class="login_wrapper">
+
             <asp:ContentPlaceHolder id="registration_form" runat="server">
             </asp:ContentPlaceHolder>
             <asp:ContentPlaceHolder id="login_form" runat="server">
             </asp:ContentPlaceHolder>
      </div>
+
 
     <!-- jQuery -->
     <script src="../../vendors/jquery/dist/jquery.min.js"></script>

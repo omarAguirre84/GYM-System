@@ -11,11 +11,11 @@ namespace GymSystemEntity
         private int nroTarjetaIdentificacion;
         private int idEstado;
 
-        public SocioEntity()
+        public SocioEntity() : base ()
         {
         }
 
-        public SocioEntity(int id, string nombre, string apellido, string email, string password, DateTime fechaNacimiento, char sexo, string foto, DateTime fechaRegistracion, DateTime? fechaActualizacion, char tipoPersona, int nroTarjetaIdentificacion, int idEstado) : base(id, nombre, apellido, email, password, fechaNacimiento, sexo, foto, fechaRegistracion, fechaActualizacion, tipoPersona)
+        public SocioEntity(int nroTarjetaIdentificacion, int idEstado)
         {
             this.nroTarjetaIdentificacion = nroTarjetaIdentificacion;
             this.idEstado = idEstado;
@@ -23,5 +23,6 @@ namespace GymSystemEntity
 
         public int NroTarjetaIdentificacion { get { return nroTarjetaIdentificacion; } set { nroTarjetaIdentificacion = value; } }
         public int IdEstado { get { return idEstado; } set { idEstado = value; } }
+
     }
 }

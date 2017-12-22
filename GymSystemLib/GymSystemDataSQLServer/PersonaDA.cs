@@ -18,31 +18,43 @@ namespace GymSystemDataSQLServer
         }
 
         #region Métodos Privados
-        private PersonaEntity CrearUsuario(SqlDataReader cursor)
+        protected PersonaEntity CrearPersona(SqlDataReader cursor)
         {
-            PersonaEntity usuario = new SocioEntity();
-            usuario.Id = cursor.GetInt32(cursor.GetOrdinal("idpersona"));
-            usuario.Nombre = cursor.GetString(cursor.GetOrdinal("Nombre"));
-            usuario.Apellido = cursor.GetString(cursor.GetOrdinal("Apellido"));
-            usuario.Email = cursor.GetString(cursor.GetOrdinal("Email"));
-            usuario.Password = cursor.GetString(cursor.GetOrdinal("Password"));
-            usuario.FechaNacimiento = cursor.GetDateTime(cursor.GetOrdinal("FechaNacimiento"));
-            usuario.Sexo = cursor.GetString(cursor.GetOrdinal("Sexo"))[0];
-            usuario.tipoPersona = cursor.GetString(cursor.GetOrdinal("TipoPersona"))[0];
-            if (!cursor.IsDBNull(cursor.GetOrdinal("Foto")))
-                usuario.Foto = cursor.GetString(cursor.GetOrdinal("Foto"));
+            PersonaEntity persona;
+            switch (cursor.GetString(cursor.GetOrdinal("TipoPersona"))[0]) {
+                case 'S':
+                    persona = new SocioEntity();
+                    break;
+                default:
+                    persona = new EmpleadoEntity();
+                    break;
+            }
+           
 
-            usuario.FechaRegistracion = cursor.GetDateTime(cursor.GetOrdinal("FechaRegistracion"));
+            persona.Id = cursor.GetInt32(cursor.GetOrdinal("idPersona"));
+            persona.tipoPersona = cursor.GetString(cursor.GetOrdinal("TipoPersona"))[0];
+            persona.Telefono = cursor.GetInt32(cursor.GetOrdinal("Telefono"));
+            persona.Nombre = cursor.GetString(cursor.GetOrdinal("Nombre"));
+            persona.Apellido = cursor.GetString(cursor.GetOrdinal("Apellido"));
+            persona.dni = cursor.GetString(cursor.GetOrdinal("Dni"));
+            persona.Email = cursor.GetString(cursor.GetOrdinal("Email"));
+            persona.Password = cursor.GetString(cursor.GetOrdinal("Password"));
+            persona.FechaNacimiento = cursor.GetDateTime(cursor.GetOrdinal("FechaNacimiento"));
+            persona.Sexo = cursor.GetString(cursor.GetOrdinal("Sexo"))[0];
+            if (!cursor.IsDBNull(cursor.GetOrdinal("Foto"))) { 
+                persona.Foto = cursor.GetString(cursor.GetOrdinal("Foto"));
+            }
+            persona.FechaRegistracion = cursor.GetDateTime(cursor.GetOrdinal("FechaRegistracion"));
 
-            if (!cursor.IsDBNull(cursor.GetOrdinal("FechaActualizacion")))
-                usuario.FechaActualizacion = cursor.GetDateTime(cursor.GetOrdinal("FechaActualizacion"));
-
-            return usuario;
+            if (!cursor.IsDBNull(cursor.GetOrdinal("FechaActualizacion"))) {
+                persona.FechaActualizacion = cursor.GetDateTime(cursor.GetOrdinal("FechaActualizacion"));
+            }
+            return (PersonaEntity) persona;   
         }
         #endregion Métodos Privados
 
         #region Métodos Públicos
-        public void Insertar(PersonaEntity usuario)
+        public void Insertar(PersonaEntity persona)
         {
             try
             {
@@ -53,16 +65,16 @@ namespace GymSystemDataSQLServer
                         comando.CommandType = CommandType.StoredProcedure;
                         SqlCommandBuilder.DeriveParameters(comando);
 
-                        comando.Parameters["@Nombre"].Value = usuario.Nombre.Trim();
-                        comando.Parameters["@Apellido"].Value = usuario.Apellido.Trim();
-                        comando.Parameters["@Email"].Value = usuario.Email.Trim();
-                        comando.Parameters["@Password"].Value = usuario.Password.Trim();
-                        comando.Parameters["@FechaNacimiento"].Value = usuario.FechaNacimiento;
-                        comando.Parameters["@Sexo"].Value = usuario.Sexo;
-                        comando.Parameters["@Profesor"].Value = usuario.tipoPersona;
-                        comando.Parameters["@FechaRegistracion"].Value = usuario.FechaRegistracion;
+                        comando.Parameters["@Nombre"].Value = persona.Nombre.Trim();
+                        comando.Parameters["@Apellido"].Value = persona.Apellido.Trim();
+                        comando.Parameters["@Email"].Value = persona.Email.Trim();
+                        comando.Parameters["@Password"].Value = persona.Password.Trim();
+                        comando.Parameters["@FechaNacimiento"].Value = persona.FechaNacimiento;
+                        comando.Parameters["@Sexo"].Value = persona.Sexo;
+                        comando.Parameters["@Profesor"].Value = persona.tipoPersona;
+                        comando.Parameters["@FechaRegistracion"].Value = persona.FechaRegistracion;
                         comando.ExecuteNonQuery();
-                        usuario.Id = Convert.ToInt32(comando.Parameters["@RETURN_VALUE"].Value);
+                        //persona.Id = Convert.ToInt32(comando.Parameters["@RETURN_VALUE"].Value);
                     }
                     
                     conexion.Close();
@@ -164,11 +176,11 @@ namespace GymSystemDataSQLServer
             }
         }
 
-        public PersonaEntity BuscarUsuario(string email, string password)
+        public PersonaEntity BuscarPersona(string email, string password)
         {
             try
             {
-                PersonaEntity usuario = null;
+                PersonaEntity persona = null;
                 
                 using (SqlConnection conexion = ConexionDA.ObtenerConexion())
                 {
@@ -184,7 +196,7 @@ namespace GymSystemDataSQLServer
                         {
                             if (cursor.Read())
                             {
-                                usuario = CrearUsuario(cursor);
+                                persona = CrearPersona(cursor);
                             }
 
                             cursor.Close();
@@ -194,7 +206,7 @@ namespace GymSystemDataSQLServer
                     conexion.Close();
                 }
 
-                return usuario;
+                return persona;
             }
             catch (Exception ex)
             {
@@ -202,35 +214,35 @@ namespace GymSystemDataSQLServer
             }
         }
 
-        public PersonaEntity ListarUsuarios()
+        public PersonaEntity[] ListarPersonas()
         {
             try
             {
-                PersonaEntity usuario = null;
+                PersonaEntity [] personas = null;
 
                 using (SqlConnection conexion = ConexionDA.ObtenerConexion())
                 {
                     using (SqlCommand comando = new SqlCommand("PersonaBuscarPorEmailPassword", conexion))
                     {
-                        comando.CommandText = "SELECT * FROM Personas ORDER BY idpersona";
-                        comando.CommandType = CommandType.Text;
+                        comando.CommandType = CommandType.StoredProcedure;
                         SqlCommandBuilder.DeriveParameters(comando);
 
-                        using (SqlDataReader cursor = comando.ExecuteReader())
-                        {
-                            if (cursor.Read())
-                            {
-                                usuario = CrearUsuario(cursor);
-                            }
+                        using (SqlDataReader cursor = comando.ExecuteReader()){
 
+                            personas = new PersonaEntity[cursor.Depth];
+                            int i = 0;
+                            while (cursor.Read())
+                            {
+                                personas[i] = CrearPersona(cursor);
+                                i++;
+                            }
                             cursor.Close();
                         }
                     }
-
                     conexion.Close();
                 }
 
-                return usuario;
+                return personas;
             }
             catch (Exception ex)
             {

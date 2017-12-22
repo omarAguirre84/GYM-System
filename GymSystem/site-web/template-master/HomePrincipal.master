@@ -37,7 +37,10 @@
         <div class="col-md-3 left_col menu_fixed">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"><img style="position: relative;width: 53px;" src="../../Imagenes/logo-company-gymsystem2.png"></img> <span>GymSystem</span></a>
+              <a href="/site-web/home/HomeSiteWeb.aspx" class="site_title">
+                  <img style="position: relative;width: 53px;" src="../../Imagenes/logo-company-gymsystem2.png"/>
+                  <span>GymSystem</span>
+              </a>
             </div>
 
             <div class="clearfix"></div>
@@ -69,10 +72,10 @@
                       <li><a href="../socios/CreateSocio.aspx">Crear Socios</a></li>
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-table"></i> Profesores <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-table"></i> Empleados <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="../profesor/ViewProfesor.aspx">Ver Profesores</a></li>
-                      <li><a href="../profesor/CreateProfesor.aspx">Crear Profesor</a></li>
+                      <li><a href="../empleados/ViewEmpleados.aspx">Ver Empleados</a></li>
+                      <li><a href="../empleados/CreateEmpleado.aspx">Crear Empleado</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-table"></i> Actividades <span class="fa fa-chevron-down"></span></a>
@@ -123,12 +126,14 @@
         <!-- /top navigation -->
 
         <!-- page content -->
-          <div class="right_col" role="main">
-              <div class="">
-              <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
+        <div class="right_col" role="main">
+            <div class="">
+                <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
                 </asp:ContentPlaceHolder>
-              </div>
-          </div>
+                <asp:ContentPlaceHolder id="ContentPlaceHolder2" runat="server">
+                </asp:ContentPlaceHolder>
+            </div>
+        </div>
         <!-- /page content -->
 
         <!-- footer content -->

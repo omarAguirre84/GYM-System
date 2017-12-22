@@ -16,7 +16,17 @@ public partial class ABMSocio : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        socios = boSocio.getListSocio();
+        
+
+    }
+    protected void modificarSocio(object sender, EventArgs e)
+    {
+        
+
+    }
+    protected void alterEstadoSocio(object sender, EventArgs e)
+    {
+
 
     }
 }
