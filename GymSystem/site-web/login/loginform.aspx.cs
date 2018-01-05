@@ -18,8 +18,8 @@ public partial class site_web_login_loginform : System.Web.UI.Page
 
     protected void btnLogin_Click(object sender, EventArgs e)
     {
-        SessionHelper.AlmacenarUsuarioAutenticado(boUsuario.Autenticar(username.Value, password.Value));
-        System.Web.Security.FormsAuthentication.RedirectFromLoginPage(SessionHelper.UsuarioAutenticado.Email, false);
+        SessionHelper.AlmacenarPersonaAutenticada(boUsuario.Autenticar(username.Value, password.Value));
+        System.Web.Security.FormsAuthentication.RedirectFromLoginPage(SessionHelper.PersonaAutenticada.Email, false);
         Page.Response.Redirect("~/site-web/home/HomeSiteWeb.aspx");
 
     }

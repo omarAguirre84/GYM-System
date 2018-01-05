@@ -21,8 +21,8 @@ public partial class SinAutenticar : System.Web.UI.MasterPage
     {
         try
         {
-            SessionHelper.AlmacenarUsuarioAutenticado(boUsuario.Autenticar(txtEmail.Text, txtPassword.Text));
-            System.Web.Security.FormsAuthentication.RedirectFromLoginPage(SessionHelper.UsuarioAutenticado.Email, false);
+            SessionHelper.AlmacenarPersonaAutenticada(boUsuario.Autenticar(txtEmail.Text, txtPassword.Text));
+            System.Web.Security.FormsAuthentication.RedirectFromLoginPage(SessionHelper.PersonaAutenticada.Email, false);
             Response.Redirect("Biografia.aspx", true);
         }
         catch (AutenticacionExcepcionBO ex)

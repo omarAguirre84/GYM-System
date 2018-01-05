@@ -1,26 +1,24 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/site-web/template-master/HomePrincipal.master" AutoEventWireup="true" CodeFile="ViewSocios.aspx.cs" Inherits="ViewSocios" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/site-web/template-master/HomePrincipal.master" AutoEventWireup="true" CodeFile="ViewEmpleados.aspx.cs" Inherits="ViewSocios" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder2" Runat="Server">
         <div class="clearfix"></div>
 
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>Administración de Socios<small></small></h2>
+                    <h2>Administración de Profesores<small></small></h2>
                     <ul class="nav navbar-right panel_toolbox">
-                      <a class="btn btn-app", href="../socios/CreateSocio.aspx">
+                      <a class="btn btn-app", href="../empleados/CreateEmpleado.aspx">
                         <span class="badge bg-green"></span>
-                      <i class="fa fa-users"></i> Crear Socio
+                      <i class="fa fa-users"></i> Crear Profesor
                     </a>
                     </ul>
                 <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
                 <p class="text-muted font-13 m-b-30">
-                   <%-- DataTables has most features enabled by default, so all you need to do to use it with your own tables is to call the construction function: <code>$().DataTable();</code>--%>
                 </p>
-
                 <form id="form1" runat="server">  
                     <table id="datatable" class="table table-striped table-bordered">
                         <thead>
@@ -29,9 +27,8 @@
                                 <th>Apellido</th>
                                 <th>Email</th>
                                 <th>Telefono</th>
-                                <th>Cumpleaños</th>
-                                <th>Tarjeta Identificacion</th>
-                                <th>Estado</th>
+                                <th>Actividad</th>
+                                <th>Dia</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
@@ -40,8 +37,7 @@
                             <asp:PlaceHolder ID="TablaPlaceHolder" runat="server"></asp:PlaceHolder>
                         </tbody>
                     </table>  
-                </form>  
-
+                </form>
                 </div>
             </div>
             </div>

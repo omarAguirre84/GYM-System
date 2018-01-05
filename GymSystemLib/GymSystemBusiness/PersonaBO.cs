@@ -5,6 +5,7 @@ using System.Text;
 using GymSystemEntity;
 using GymSystemData;
 using GymSystemDataSQLServer;
+using GymSystemComun;
 
 namespace GymSystemBusiness
 {
@@ -29,18 +30,19 @@ namespace GymSystemBusiness
         public PersonaBO()
         {
             personaDa = new PersonaDA();
+
         }
 
         public PersonaEntity Autenticar(string email, string password)
         {
             try
             {
-                PersonaEntity usuario = personaDa.BuscarUsuario(email, password);
+                PersonaEntity persona = personaDa.BuscarPersona(email, password);
 
-                if (usuario == null)
+                if (persona == null)
                     throw new AutenticacionExcepcionBO();
-
-                return usuario;
+                    //throw new ValidacionExcepcionAbstract();
+                return persona;
             }
             catch (ExcepcionDA ex)
             {
@@ -48,19 +50,19 @@ namespace GymSystemBusiness
             }
         }
 
-        public void Registrar(PersonaEntity usuario, string emailVerificacion)
+        public void Registrar(PersonaEntity persona, string emailVerificacion)
         {
             try
             {
-                usuario.ValidarDatos();
+                persona.ValidarDatos();
 
-                if (personaDa.ExisteEmail(usuario.Email))
+                if (personaDa.ExisteEmail(persona.Email))
                     throw new EmailExisteExcepcionBO();
 
-                if (usuario.Email != emailVerificacion.Trim())
+                if (persona.Email != emailVerificacion.Trim())
                     throw new VerificacionEmailExcepcionBO();
 
-                personaDa.Insertar(usuario);
+                personaDa.Insertar(persona);
             }
             catch (ExcepcionDA ex)
             {
@@ -75,6 +77,7 @@ namespace GymSystemBusiness
                 usuario.ValidarDatos();
 
                 if (personaDa.ExisteEmail(usuario.Email))
+
                     throw new EmailExisteExcepcionBO();
 
                 if (usuario.Email != emailVerificacion.Trim())
@@ -93,6 +96,7 @@ namespace GymSystemBusiness
             try
             {
                 personaDa.Actualizar(id, nombreArchivo, archivoFoto);
+
             }
             catch (ExcepcionDA ex)
             {
@@ -100,19 +104,22 @@ namespace GymSystemBusiness
             }
         }
 
-        public void getListUsers()
+        public void GetListUsers()
         {
             //private Array<UsuarioEntity> listPerson = new UsuarioEntity()[];
             try
             {
                 //daUsuario.Insertar(usuariko);
-                personaDa.ListarUsuarios();
+
+                //personaDa.ListarUsuarios();
+
                 //return listPerson;
-    }
+            }
             catch (ExcepcionDA ex)
             {
                 throw new ExcepcionBO("No se pudo realizar la registración del usuario.", ex);
             }
         }
+
     }
 }
