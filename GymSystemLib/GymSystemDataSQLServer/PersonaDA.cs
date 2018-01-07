@@ -21,7 +21,11 @@ namespace GymSystemDataSQLServer
         protected PersonaEntity CrearPersona(SqlDataReader cursor)
         {
             PersonaEntity persona;
-            switch (cursor.GetString(cursor.GetOrdinal("TipoPersona"))[0]) {
+
+            int tipoPersonaOrdinal = cursor.GetOrdinal("TipoPersona");
+            string tipoPersona = cursor.GetString(tipoPersonaOrdinal).ToUpper();
+
+            switch (tipoPersona[0]) {
                 case 'S':
                     persona = new SocioEntity();
                     break;
@@ -29,7 +33,8 @@ namespace GymSystemDataSQLServer
                     persona = new EmpleadoEntity();
                     break;
             }
-           
+            
+            // si  el cursor no contiene el campo especificado (lo tiene en NULL), lanza excepcion
 
             persona.Id = cursor.GetInt32(cursor.GetOrdinal("idPersona"));
             persona.tipoPersona = cursor.GetString(cursor.GetOrdinal("TipoPersona"))[0];
