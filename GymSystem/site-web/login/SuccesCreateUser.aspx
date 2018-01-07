@@ -31,7 +31,7 @@
             <div class="text-center text-center">
               <h1 class="error-number">Felicitaciones!!! :)</h1>
               <h2>Se ha registrado con éxito a Gym SYSTEM</h2>
-              <p>Ahora puede iniciar sección con sus datos registrados anteriormente haciendo click  --><a href="loginform.aspx">IR</a>
+              <p>Ahora puede iniciar sesión con sus datos registrados anteriormente haciendo click  --><a href="loginform.aspx">AQUÍ</a>
               </p>
             </div>
           </div>
