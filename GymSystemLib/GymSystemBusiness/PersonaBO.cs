@@ -19,11 +19,13 @@ namespace GymSystemBusiness
                     person = new SocioEntity();
                     break;
                 case 'P':
+                    throw new NotImplementedException();
                     //person = new ProfesorEntity();
-                    break;
+                    //break;
                 case 'E':
+                    throw new NotImplementedException();
                     //person = new EmpleadoEntity();
-                    break;
+                    //break;
             }
             return person;
         }
