@@ -134,7 +134,7 @@ namespace GymSystemDataSQLServer
                 
                 using (SqlConnection conexion = ConexionDA.ObtenerConexion())
                 {
-                    using (SqlCommand comando = new SqlCommand("ActualizarFoto", conexion))
+                    using (SqlCommand comando = new SqlCommand("PersonaActualizarFoto", conexion))
                     {
                         comando.CommandType = CommandType.StoredProcedure;
                         SqlCommandBuilder.DeriveParameters(comando);
@@ -161,7 +161,7 @@ namespace GymSystemDataSQLServer
 
                 using (SqlConnection conexion = ConexionDA.ObtenerConexion())
                 {
-                    using (SqlCommand comando = new SqlCommand("PersonaBuscarEmail", conexion))
+                    using (SqlCommand comando = new SqlCommand("PersonaExisteEmail", conexion))
                     {
                         comando.CommandType = CommandType.StoredProcedure;
                         SqlCommandBuilder.DeriveParameters(comando);
@@ -227,7 +227,7 @@ namespace GymSystemDataSQLServer
 
                 using (SqlConnection conexion = ConexionDA.ObtenerConexion())
                 {
-                    using (SqlCommand comando = new SqlCommand("PersonaBuscarPorEmailPassword", conexion))
+                    using (SqlCommand comando = new SqlCommand("PersonaTraerTodos", conexion))
                     {
                         comando.CommandType = CommandType.StoredProcedure;
                         SqlCommandBuilder.DeriveParameters(comando);

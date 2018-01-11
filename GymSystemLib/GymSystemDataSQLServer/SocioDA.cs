@@ -107,7 +107,7 @@ namespace GymSystemDataSQLServer
 
                 using (SqlConnection conexion = ConexionDA.ObtenerConexion())
                 {
-                    using (SqlCommand comando = new SqlCommand("ActualizarFoto", conexion))
+                    using (SqlCommand comando = new SqlCommand("PersonaActualizarFoto", conexion))
                     {
                         comando.CommandType = CommandType.StoredProcedure;
                         SqlCommandBuilder.DeriveParameters(comando);
@@ -134,7 +134,7 @@ namespace GymSystemDataSQLServer
 
                 using (SqlConnection conexion = ConexionDA.ObtenerConexion())
                 {
-                    using (SqlCommand comando = new SqlCommand("PersonaBuscarEmail", conexion))
+                    using (SqlCommand comando = new SqlCommand("PersonaExisteEmail", conexion))
                     {
                         comando.CommandType = CommandType.StoredProcedure;
                         SqlCommandBuilder.DeriveParameters(comando);
@@ -274,7 +274,7 @@ namespace GymSystemDataSQLServer
                         comando.Parameters["@FechaNacimiento"].Value = socio.FechaNacimiento.Date.ToString("yyyy-MM-dd");
                         comando.Parameters["@Sexo"].Value = socio.Sexo;
                         comando.Parameters["@TipoPersona"].Value = socio.tipoPersona;
-                        comando.Parameters["@FechaActualizacion"].Value = socio.FechaActualizacion?.Date.ToString("yyyy-MM-dd HH:mm:ss");
+                       // comando.Parameters["@FechaActualizacion"].Value = socio.FechaActualizacion?.Date.ToString("yyyy-MM-dd HH:mm:ss");
                         comando.Parameters["@NroTarjetaIdentificacion"].Value = socio.NroTarjetaIdentificacion;
                         comando.Parameters["@idEstado"].Value = socio.IdEstado;
                         comando.ExecuteNonQuery();
@@ -294,7 +294,7 @@ namespace GymSystemDataSQLServer
 
                 using (SqlConnection conexion = ConexionDA.ObtenerConexion())
                 {
-                    using (SqlCommand comando = new SqlCommand("SocioBuscarId", conexion))
+                    using (SqlCommand comando = new SqlCommand("SocioBuscarPorId", conexion))
                     {
                         comando.CommandType = CommandType.StoredProcedure;
                         SqlCommandBuilder.DeriveParameters(comando);

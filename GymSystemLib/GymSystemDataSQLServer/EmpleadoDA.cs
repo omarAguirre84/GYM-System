@@ -77,7 +77,7 @@ namespace GymSystemDataSQLServer
                         comando.Parameters["@Sexo"].Value = empleado.Sexo;
                         comando.Parameters["@TipoPersona"].Value = empleado.tipoPersona;
                         comando.Parameters["@FechaRegistracion"].Value = empleado.FechaRegistracion;
-                        comando.Parameters["@FechaActualizacion"].Value = empleado.FechaActualizacion;
+                        //comando.Parameters["@FechaActualizacion"].Value = empleado.FechaActualizacion;
                         comando.Parameters["@TipoEmpleado"].Value = empleado.tipoEmpleado;
                         comando.Parameters["@fechaDeIngreso"].Value = empleado.fechaIngreso;
                         comando.Parameters["@fechaDeEgreso"].Value = empleado.fechaEgreso;
@@ -110,7 +110,7 @@ namespace GymSystemDataSQLServer
                 
                 using (SqlConnection conexion = ConexionDA.ObtenerConexion())
                 {
-                    using (SqlCommand comando = new SqlCommand("ActualizarFoto", conexion))
+                    using (SqlCommand comando = new SqlCommand("PersonaActualizarFoto", conexion))
                     {
                         comando.CommandType = CommandType.StoredProcedure;
                         SqlCommandBuilder.DeriveParameters(comando);
@@ -137,7 +137,7 @@ namespace GymSystemDataSQLServer
 
                 using (SqlConnection conexion = ConexionDA.ObtenerConexion())
                 {
-                    using (SqlCommand comando = new SqlCommand("PersonaBuscarEmail", conexion))
+                    using (SqlCommand comando = new SqlCommand("PersonaExisteEmail", conexion))
                     {
                         comando.CommandType = CommandType.StoredProcedure;
                         SqlCommandBuilder.DeriveParameters(comando);
@@ -218,7 +218,7 @@ namespace GymSystemDataSQLServer
                         comando.Parameters["@TipoPersona"].Value = empleado.tipoPersona;
                         //comando.Parameters["@FechaActualizacion"].Value = empleado.FechaActualizacion.Date.ToString("yyyy-MM-dd HH:mm:ss");
                         comando.Parameters["@fechaDeIngreso"].Value = empleado.fechaIngreso.Date.ToString("yyyy-MM-dd");
-                        comando.Parameters["@@fechaDeEgreso"].Value = empleado.fechaEgreso.Date.ToString("yyyy-MM-dd");
+                        comando.Parameters["@fechaDeEgreso"].Value = empleado.fechaEgreso.Date.ToString("yyyy-MM-dd");
                         comando.ExecuteNonQuery();
                     }
 
