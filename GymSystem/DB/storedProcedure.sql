@@ -541,7 +541,7 @@ VALUES
 );
  
 
-RETURN SCOPE_IDENTITY()
+RETURN @id
 
 create PROCEDURE [dbo].[SocioTraerTodos]
 

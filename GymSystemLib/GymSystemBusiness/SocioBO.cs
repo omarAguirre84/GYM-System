@@ -20,7 +20,17 @@ namespace GymSystemBusiness
         }
 
         public PersonaEntity newSocio(PersonaEntity personaSocio) {
-            return daSocio.InsertarSocio(personaSocio);
+            try
+            {
+                if (daSocio.ExisteEmail(personaSocio.Email))
+                    throw new EmailExisteExcepcionBO();
+                return daSocio.InsertarSocio(personaSocio);
+            }
+            catch (ExcepcionDA ex)
+            {
+                throw new ExcepcionBO("No se pudo realizar la registración del usuario.", ex);
+            }
+            
         }
 
         public void Registrar(SocioEntity socio, string emailVerificacion)

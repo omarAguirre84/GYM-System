@@ -108,7 +108,7 @@ namespace GymSystemDataSQLServer
                 comando.Parameters["@FechaRegistracion"].Value = DateTime.Today;
                 comando.Parameters["@Dni"].Value = usuario.dni;
                 comando.Parameters["@Telefono"].Value = " ";
-                comando.Parameters["@FechaActualizacion"].Value = DateTime.Today;
+                //comando.Parameters["@FechaActualizacion"].Value = DateTime.Today;
                 return comando;
             }
             catch (Exception ex)
