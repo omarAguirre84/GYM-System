@@ -13,21 +13,40 @@ public partial class CreateEmpleado : System.Web.UI.Page
 {
     private EmpleadoBO boEmpleado;
     private ActividadBO boActividad;
-    private ActividadEntity[] actividadesArr;
+    protected ActividadEntity[] actividadesArr;
+
 
     protected void Page_Load(object sender, EventArgs e)
     {
         boEmpleado = new EmpleadoBO();
-        
-        boActividad = new ActividadBO();
-        actividadesArr = boActividad.GetList();
-        llenarViewActividades();
+        if (!Page.IsPostBack)
+        {
+           
+            
+            boActividad = new ActividadBO();
+            actividadesArr = boActividad.GetList();
+            llenarViewActividades();
+            loadDayWeek();
+        }
     }
+
 
     protected void btnRegister_Click(object sender, EventArgs e)
     {
         try
         {
+            
+            foreach (ListItem item in actividades.Items)
+            {
+
+                if (item.Selected)
+                {
+
+                    Console.WriteLine(item.Text);
+
+                }
+
+            }
             EmpleadoEntity entityEmpleado = new EmpleadoEntity(1, DateTime.Today, DateTime.MinValue);
             entityEmpleado = (EmpleadoEntity)popularEntity(entityEmpleado);
 
@@ -89,13 +108,40 @@ public partial class CreateEmpleado : System.Web.UI.Page
 
     public void llenarViewActividades() {
         ListItem li = new ListItem();
+        actividades.Items.Clear();
         foreach (ActividadEntity act in actividadesArr) {
             if (act != null) { 
                 li = new ListItem();
                 li.Text = act.descripcion;
                 li.Value = act.descripcion;
-                actividades.Items.Add(li);
+                actividades.Items.Add(new ListItem(act.descripcion, act.idActividad.ToString()));
             }
+        }
+    }
+
+    public void loadDayWeek()
+    {
+        ListItem li = new ListItem();
+        DayList.Items.Add(new ListItem("Lunes", "0"));
+        DayList.Items.Add(new ListItem("Martes", "1"));
+        DayList.Items.Add(new ListItem("Miercoles", "2"));
+        DayList.Items.Add(new ListItem("Jueves", "3"));
+        DayList.Items.Add(new ListItem("Viernes", "4"));
+        DayList.Items.Add(new ListItem("Sabado", "5"));
+        DayList.Items.Add(new ListItem("Domingo", "6"));
+
+        var names = new List<string>(new string[] { "4", "6" });
+
+        foreach (ListItem item in DayList.Items)
+        {
+
+            if (names.Contains(item.Value))
+            {
+
+                item.Selected = true;
+
+            }
+
         }
     }
 

@@ -68,12 +68,12 @@
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12" runat="server">
                           <div class="btn-group" data-toggle="buttons" runat="server">
-                            <div>
-                             
+                            <div>                             
                                 <asp:RadioButtonList id="sexos" class="flat" runat="server">
                                     <asp:ListItem Value="M" Text="Masculino"/>
                                     <asp:ListItem Value="F" Text="Femenino"/>
                                 </asp:RadioButtonList>
+                             </div>
                           </div>
                         </div>
                       </div>

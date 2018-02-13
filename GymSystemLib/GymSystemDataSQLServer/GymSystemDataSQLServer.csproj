@@ -58,6 +58,7 @@
     <Compile Include="ConexionDA.cs" />
     <Compile Include="ActividadDA.cs" />
     <Compile Include="EmpleadoDA.cs" />
+    <Compile Include="SalaDA.cs" />
     <Compile Include="SocioDA.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PersonaDA.cs" />

@@ -49,8 +49,8 @@ namespace GymSystemDataSQLServer
                 empleado.FechaActualizacion = cursor.GetDateTime(cursor.GetOrdinal("FechaActualizacion"));
             }
             
-            empleado.actividad = cursor.GetString(cursor.GetOrdinal("descripcion"));
-            empleado.dia = cursor.GetString(cursor.GetOrdinal("dia"));
+            //empleado.actividad = cursor.GetString(cursor.GetOrdinal("descripcion"));
+            //empleado.dia = cursor.GetString(cursor.GetOrdinal("dia"));
 
             
             return empleado;

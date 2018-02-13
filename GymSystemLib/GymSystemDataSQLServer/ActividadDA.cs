@@ -24,42 +24,35 @@ namespace GymSystemDataSQLServer
             ActividadEntity actividad = new ActividadEntity();
             
             actividad.idActividad = cursor.GetInt32(cursor.GetOrdinal("idActividad"));
-            actividad.descripcion = cursor.GetString(cursor.GetOrdinal("descripcion"));
-            actividad.tarifa = cursor.GetInt32(cursor.GetOrdinal("tarifa"));
-            actividad.horaInicio = cursor.GetDateTime(cursor.GetOrdinal("horarioInicio"));// .Date.ToString("yyyy-MM-dd HH:mm:ss"));
-            actividad.horaFin = cursor.GetDateTime(cursor.GetOrdinal("horarioFin"));
-            
-             return actividad;   
+            actividad.name = cursor.GetString(cursor.GetOrdinal("descripcion"));
+            actividad.tarifa = (float)cursor.GetDouble(cursor.GetOrdinal("tarifa"));
+            actividad.horaInicio = cursor.GetTimeSpan(cursor.GetOrdinal("horarioInicio"));// .Date.ToString("yyyy-MM-dd HH:mm:ss"));
+            actividad.horaFin = cursor.GetTimeSpan(cursor.GetOrdinal("horarioFin"));
+            actividad.dia = cursor.GetString(cursor.GetOrdinal("dia"));
+
+            return actividad;   
         }
         #endregion Métodos Privados
 
         #region Métodos Públicos
 
-        /*public void Insertar(ActividadEntity actividad)
+        public void insertarActividad(ActividadEntity actividad)
         {
             try
             {
                 using (SqlConnection conexion = ConexionDA.ObtenerConexion())
                 {
-                    using (SqlCommand comando = new SqlCommand("EmpleadoInsert", conexion))
+                    using (SqlCommand comando = new SqlCommand("ActividadAlta", conexion))
                     {
                         comando.CommandType = CommandType.StoredProcedure;
                         SqlCommandBuilder.DeriveParameters(comando);
 
-                        comando.Parameters["@Dni"].Value = empleado.Dni;
-                        comando.Parameters["@Nombre"].Value = empleado.Nombre.Trim();
-                        comando.Parameters["@Apellido"].Value = empleado.Apellido.Trim();
-                        comando.Parameters["@Telefono"].Value = empleado.Telefono;
-                        comando.Parameters["@Email"].Value = empleado.Email.Trim();
-                        comando.Parameters["@Password"].Value = empleado.Password.Trim();
-                        comando.Parameters["@FechaNacimiento"].Value = empleado.FechaNacimiento;
-                        comando.Parameters["@Sexo"].Value = empleado.Sexo;
-                        comando.Parameters["@TipoPersona"].Value = empleado.tipoPersona;
-                        comando.Parameters["@FechaRegistracion"].Value = empleado.FechaRegistracion;
-                        comando.Parameters["@FechaActualizacion"].Value = empleado.FechaActualizacion;
-                        comando.Parameters["@TipoEmpleado"].Value = empleado.tipoEmpleado;
-                        comando.Parameters["@fechaDeIngreso"].Value = empleado.fechaIngreso;
-                        comando.Parameters["@fechaDeEgreso"].Value = empleado.fechaEgreso;
+                        comando.Parameters["@Descripcion"].Value = actividad.name;
+                        comando.Parameters["@Tarifa"].Value = actividad.tarifa;
+                        comando.Parameters["@HorarioInicio"].Value = actividad.horaInicio;
+                        comando.Parameters["@HorarioFin"].Value = actividad.horaFin;
+                        comando.Parameters["@Dia"].Value = actividad.dia;
+                        comando.Parameters["@idSala"].Value = actividad.idSala;
                         comando.ExecuteNonQuery();
                     }
                     
@@ -68,9 +61,9 @@ namespace GymSystemDataSQLServer
             }
             catch (Exception ex)
             {
-                throw new ExcepcionDA("Se produjo un error al insertar el usuario.", ex);
+                throw new ExcepcionDA("Se produjo un error al insertar la actividad.", ex);
             }
-        }*/
+        }
 
        /* public void Actualizar(ActividadEntity actividad, int idActividad)
         {
@@ -152,7 +145,7 @@ namespace GymSystemDataSQLServer
                         using (SqlDataReader cursor = comando.ExecuteReader())
                         {
                             int i = 0;
-                            actividad = new ActividadEntity[cursor.FieldCount];
+                            actividad = new ActividadEntity[cursor.FieldCount-1];
 
                             while (cursor.Read())
                             {

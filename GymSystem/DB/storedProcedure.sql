@@ -26,20 +26,17 @@ WHERE idSala=@idSala
 RETURN SCOPE_IDENTITY()
 
 CREATE PROCEDURE [dbo].[ActividadAlta]
-@idActividad int,
 @Descripcion nvarchar(30),
 @Tarifa float,
 @HorarioInicio time,
 @HorarioFin time,
 @Dia nvarchar(10),
-@idSala int,
-@idEmpleado int
+@idSala int
 
 AS
 
 INSERT INTO ACTIVIDAD
 (
-idActividad ,
 Descripcion ,
 Tarifa,
 HorarioInicio,
@@ -48,14 +45,14 @@ Dia
 )
 VALUES
 (
-@idActividad ,
 @Descripcion ,
 @Tarifa,
 @HorarioInicio,
 @HorarioFin,
 @Dia 
 );
-
+DECLARE @IdActividad int;
+SET @IdActividad = (SELECT SCOPE_IDENTITY());
 
 INSERT INTO [dbo].[ACTIVIDADSALA]
 (
@@ -64,22 +61,10 @@ idSala
 )
 VALUES
 (
-@idActividad ,
+@IdActividad ,
 @idSala
 );
 
-INSERT INTO [dbo].[EMPLEADOACTIVIDAD]
-(
-idActividad ,
-idEmpleado 
-)
-VALUES
-(
-@idActividad ,
-@idEmpleado 
-);
-
-RETURN SCOPE_IDENTITY()
 
 create PROCEDURE [dbo].[ActividadBaja]
 @idActividad int
@@ -215,12 +200,14 @@ SET @id = (SELECT idPersona FROM PERSONA WHERE Email=@Email);
 
 INSERT INTO EMPLEADO
 (
+idPersona,
 TipoEmpleado,
 fechaDeIngreso,
 fechaDeEgreso
 )
 VALUES
 (
+@id ,
 @TipoEmpleado,
 @fechaDeIngreso,
 @fechaDeEgreso
@@ -550,3 +537,26 @@ AS
 	SELECT * 
 	FROM PERSONA
 	inner join SOCIO on PERSONA.idPersona=SOCIO.idPersona
+
+Create PROCEDURE [dbo].[ActividadTraerTodos]
+
+
+AS
+
+select * 
+from ACTIVIDAD
+
+
+RETURN SCOPE_IDENTITY()
+
+
+CREATE PROCEDURE [dbo].[SalaTraerTodos]
+
+AS
+
+	SELECT 
+	sala.idSala,
+	sala.nombre,
+	sala.numero,
+	sala.capacidad
+	FROM SALA sala

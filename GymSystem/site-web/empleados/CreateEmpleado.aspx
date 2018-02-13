@@ -2,7 +2,6 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
             <div class="clearfix"></div>
-
             <div class="row">
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
@@ -90,13 +89,10 @@
                         </label>
                           <div class="btn-group" data-toggle="buttons">
                             <div>
-                                <asp:CheckBoxList id="dias" class="flat" runat="server">
-                                    <asp:ListItem Value="Lunes" Text="Lunes" Selected="True"/>
-                                    <asp:ListItem Value="Martes" Text="Martes"/>
-                                    <asp:ListItem Value="Miercoles" Text="Miercoles"/>
-                                    <asp:ListItem Value="Jueves" Text="Jueves"/>
-                                    <asp:ListItem Value="Viernes" Text="Viernes"/>
-                                </asp:CheckBoxList>
+                              
+                                <asp:CheckBoxList id="DayList" RepeatDirection="Horizontal"  Width="500"
+                                    runat="server" CssClass="chkChoicedaysWeek"  TabIndex="2" >
+                               </asp:CheckBoxList>
                               </div>
                             </div>
                           </div>
@@ -107,8 +103,8 @@
                       <div class="btn-group" data-toggle="buttons">
                           <div class="btn-group" data-toggle="buttons">
                             <div>
-                                <asp:CheckBoxList id="actividades" class="flat" runat="server">
-                                </asp:CheckBoxList>
+                                <asp:ListBox ID="actividades" CssClass="select--multiple" runat="server" multiple="multiple">
+                                </asp:ListBox>
                               </div>
                             </div>
                           </div>

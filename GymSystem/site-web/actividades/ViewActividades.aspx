@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/site-web/template-master/HomePrincipal.master" AutoEventWireup="true" CodeFile="ViewActividades.aspx.cs" Inherits="ViewSocios" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/site-web/template-master/HomePrincipal.master" AutoEventWireup="true" CodeFile="ViewActividades.aspx.cs" Inherits="ViewActividades" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
         <div class="clearfix"></div>
@@ -7,12 +7,12 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>Grilla de Actividades<small></small></h2>
+                    <h2>Listas de Actividades<small></small></h2>
                     <ul class="nav navbar-right panel_toolbox">
-                      <a class="btn btn-app", href="CreateActividades.aspx">
+                      <a class="btn btn-app", href="EditCreateActividad.aspx">
                         <span class="badge bg-green"></span>
-                      <i class="fa fa-users"></i> Alta Actividades
-                    </a>
+                        <i class="fa fa-users"></i> Alta Actividades
+                       </a>
                     </ul>
                 <div class="clearfix"></div>
                 </div>
@@ -20,6 +20,7 @@
                 <p class="text-muted font-13 m-b-30">
                    <%-- DataTables has most features enabled by default, so all you need to do to use it with your own tables is to call the construction function: <code>$().DataTable();</code>--%>
                 </p>
+                <asp:Table ID="Table1" runat="server"></asp:Table>
                 <table id="datatable" class="table table-striped table-bordered">
                     <thead>
                     <tr>
@@ -35,61 +36,40 @@
 
 
                     <tbody>
-                        <tr>
-                            <td>PILATES</td>
-                            <td>$100</td>
-                            <td>19:00</td>
-                            <td>20:00</td>
-                            <td>Lunes</td>
-                            <td>
-                                <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-thumbs-o-down"></i> no activo </a>
-                            </td>
-                            <td>
-                                <a href="#" class="btn btn-primary btn-xs"><i class="fa fa-eye"></i> Ver </a>
-                                <a href="#" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Editar </a>
-                            </td>
-                         </tr>
-                        <tr>
-                            <td>SPINNING</td>
-                            <td>$100</td>
-                            <td>19:00</td>
-                            <td>20:00</td>
-                            <td>Martes</td>
-                            <td>
-                                <a href="#" class="btn btn-warning btn-xs"><i class="fa fa-pause"></i> suspendido </a>
-                            </td>
-                            <td>
-                                <a href="#" class="btn btn-primary btn-xs"><i class="fa fa-eye"></i> Ver </a>
-                                <a href="#" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Editar </a>
-                            </td>
-                         </tr>
-                        <tr>
-                            <td>GAP</td>
-                            <td>$100</td>
-                            <td>19:00</td>
-                            <td>20:00</td>
-                            <td>Miercoles</td>
-                            <td>
-                                <a href="#" class="btn btn-success btn-xs"><i class="fa fa-thumbs-o-up"></i> activo </a>
-                            </td>
-                            <td>
-                                <a href="#" class="btn btn-primary btn-xs"><i class="fa fa-eye"></i> Ver </a>
-                                <a href="#" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Editar </a>
-                            </td>
-                          <tr>
-                            <td>LOCALIZADA</td>
-                            <td>$100</td>
-                            <td>19:00</td>
-                            <td>20:00</td>
-                            <td>Jueves</td>
-                            <td>
-                                <a href="#" class="btn btn-success btn-xs"><i class="fa fa-thumbs-o-up"></i> activo </a>
-                            </td>
-                            <td>
-                                <a href="#" class="btn btn-primary btn-xs"><i class="fa fa-eye"></i> Ver </a>
-                                <a href="#" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Editar </a>
-                            </td>
-                         </tr>
+                        <% foreach (var actividad in listActiv) { %>
+                                <tr>
+                                    <td><%= actividad.name %></td>
+                                    <td><%= actividad.tarifa %></td>
+                                    <td><%= actividad.horaInicio %></td>
+                                    <td><%= actividad.horaFin %></td>
+                                    <td><%= actividad.dia %></td>
+                                    <td>
+                                        <%--<%switch(actividad.???)
+                                        {
+                                            case "active":%>
+                                                // Use the text block below to separate html elements from code
+                                                <a href="#" class="btn btn-success btn-xs"><i class="fa fa-thumbs-o-up"></i> activo </a>
+                                                <%break;  // Always break each case
+                                            case "notactive":%>
+                                                <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-thumbs-o-down"></i> no activo </a>
+                                                <% break;
+                                            default:%>
+                                                <a href="#" class="btn btn-warning btn-xs"><i class="fa fa-pause"></i> suspendido </a>
+                                                 <%break;%>                   
+                                        <%} %>
+
+                                        <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-thumbs-o-down"></i> no activo </a>
+                                        <a href="#" class="btn btn-warning btn-xs"><i class="fa fa-pause"></i> suspendido </a>
+                                        <a href="#" class="btn btn-success btn-xs"><i class="fa fa-thumbs-o-up"></i> activo </a>--%>
+                                    </td>
+                                    <td>
+                                        <a href="./EditCreateActividad.aspx?id=<%=actividad.idActividad%>&action=view" class="btn btn-primary btn-xs"><i class="fa fa-eye"></i> Ver </a>
+                                        <a href="./EditCreateActividad.aspx?id=<%=actividad.idActividad%>&action=edit"  class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Editar </a>
+                                        <a href="./ViewActividades.aspx?id=<%=actividad.idActividad%>&action=delete"  class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Eliminar </a>
+                                    </td>
+                                </tr>
+                        <% } %>
+                        
                     </tbody>
                 </table>
                 </div>

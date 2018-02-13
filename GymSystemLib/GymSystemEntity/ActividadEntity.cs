@@ -10,10 +10,13 @@ namespace GymSystemEntity
     {
         public int idActividad { get; set; }
         public string descripcion{ get; set; }
-        public int tarifa { get; set; }
-        public DateTime horaInicio { get; set; }
-        public DateTime horaFin { get; set; }
+        public float tarifa { get; set; }
+        public TimeSpan horaInicio { get; set; }
+        public TimeSpan horaFin { get; set; }
         public string dia { get; set; }
+        public string status { get; set; }
+        public string name { get; set; }
+        public int idSala { get; set; }
 
         public ActividadEntity()
         {

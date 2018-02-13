@@ -36,6 +36,17 @@ namespace GymSystemBusiness
             }
         }
 
+        public void saveActividad(ActividadEntity actividad) {
+            try
+            {
+                daActividad.insertarActividad(actividad);
+            }
+            catch (ExcepcionDA ex)
+            {
+                throw new ExcepcionBO("No se pudo guardar la actividad.", ex);
+            }
+        }
+
         public ActividadEntity[] GetList()
         {
             try
