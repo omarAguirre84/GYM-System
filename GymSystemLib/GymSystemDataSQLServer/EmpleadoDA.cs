@@ -77,7 +77,7 @@ namespace GymSystemDataSQLServer
                         comando.Parameters["@Sexo"].Value = empleado.Sexo;
                         comando.Parameters["@TipoPersona"].Value = empleado.tipoPersona;
                         comando.Parameters["@FechaRegistracion"].Value = empleado.FechaRegistracion;
-                        //comando.Parameters["@FechaActualizacion"].Value = empleado.FechaActualizacion;
+                        comando.Parameters["@FechaActualizacion"].Value = empleado.FechaActualizacion;
                         comando.Parameters["@TipoEmpleado"].Value = empleado.tipoEmpleado;
                         comando.Parameters["@fechaDeIngreso"].Value = empleado.fechaIngreso;
                         comando.Parameters["@fechaDeEgreso"].Value = empleado.fechaEgreso;

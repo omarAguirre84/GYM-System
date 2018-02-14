@@ -94,7 +94,7 @@ public partial class ViewSocio : System.Web.UI.Page
             boSocio.ActualizarSocio(nuevoEntity(boSocio.BuscarSocio(Int32.Parse(Request.QueryString["id"]))));
             PopularView(boSocio.BuscarSocio(Int32.Parse(Request.QueryString["id"])), true);
             //Response.Redirect(HttpContext.Current.Request.Url.ToString(), true);
-            //WebHelper.MostrarMensaje(Page, "Actualizado con exito");
+            WebHelper.MostrarMensaje(Page, "Actualizado con exito");
         }
         catch (Exception ex)
         {
