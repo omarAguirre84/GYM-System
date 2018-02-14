@@ -29,10 +29,22 @@ namespace GymSystemDataSQLServer
             actividad.horaInicio = cursor.GetTimeSpan(cursor.GetOrdinal("horarioInicio"));// .Date.ToString("yyyy-MM-dd HH:mm:ss"));
             actividad.horaFin = cursor.GetTimeSpan(cursor.GetOrdinal("horarioFin"));
             actividad.dia = cursor.GetString(cursor.GetOrdinal("dia"));
-
+            if (ColumExist(cursor, "idSala")) {
+                actividad.idSala = cursor.GetInt32(cursor.GetOrdinal("idSala"));
+            }
             return actividad;   
         }
         #endregion Métodos Privados
+
+        private Boolean ColumExist(SqlDataReader cursor, string columnName) {
+            for (int i = 0; i < cursor.FieldCount; i++)
+            {
+
+                if (cursor.GetName(i).Equals(columnName, StringComparison.InvariantCultureIgnoreCase))
+                    return true;
+            }
+            return false;
+        }
 
         #region Métodos Públicos
 
@@ -65,30 +77,23 @@ namespace GymSystemDataSQLServer
             }
         }
 
-       /* public void Actualizar(ActividadEntity actividad, int idActividad)
+        public void ActualizarActividad(ActividadEntity actividad)
         {
             try
             {
-                FileInfo infoArchivo = new FileInfo(nombreArchivo);
-                
-                string rutaFotos = ConfigurationManager.AppSettings["RutaFotos"];
-                string nuevoNombreArchivo = id.ToString() + infoArchivo.Extension;
-
-                using (FileStream archivo = File.Create(rutaFotos + nuevoNombreArchivo))
-                {
-                    archivo.Write(archivoFoto, 0, archivoFoto.Length);
-                    archivo.Close();
-                }
-                
                 using (SqlConnection conexion = ConexionDA.ObtenerConexion())
                 {
-                    using (SqlCommand comando = new SqlCommand("ActualizarFoto", conexion))
+                    using (SqlCommand comando = new SqlCommand("ActividadActualizar", conexion))
                     {
                         comando.CommandType = CommandType.StoredProcedure;
                         SqlCommandBuilder.DeriveParameters(comando);
-
-                        comando.Parameters["@idpersona"].Value = id;
-                        comando.Parameters["@Foto"].Value = nuevoNombreArchivo;
+                        comando.Parameters["@idActividad"].Value = actividad.idActividad;
+                        comando.Parameters["@Descripcion"].Value = actividad.name;
+                        comando.Parameters["@Tarifa"].Value = actividad.tarifa;
+                        comando.Parameters["@HorarioInicio"].Value = actividad.horaInicio;
+                        comando.Parameters["@HorarioFin"].Value = actividad.horaFin;
+                        comando.Parameters["@Dia"].Value = actividad.dia;
+                        comando.Parameters["@idSala"].Value = actividad.idSala;
                         comando.ExecuteNonQuery();
                     }
 
@@ -97,9 +102,9 @@ namespace GymSystemDataSQLServer
             }
             catch (Exception ex)
             {
-                throw new ExcepcionDA("Se produjo un error al actualizar la foto.", ex);
+                throw new ExcepcionDA("Se produjo un error al actualizar la Actividad.", ex);
             }
-        }*/
+        }
         /*
         public bool Existe(int idActividad)
         {
@@ -129,11 +134,11 @@ namespace GymSystemDataSQLServer
             }
         }
         */
-        public ActividadEntity[] ListarActividades()
+        public List<ActividadEntity> ListarActividades()
         {
             try
             {
-                ActividadEntity[] actividad = null;
+                List<ActividadEntity> actividad = new List<ActividadEntity>();
 
                 using (SqlConnection conexion = ConexionDA.ObtenerConexion())
                 {
@@ -144,14 +149,13 @@ namespace GymSystemDataSQLServer
 
                         using (SqlDataReader cursor = comando.ExecuteReader())
                         {
-                            int i = 0;
-                            actividad = new ActividadEntity[cursor.FieldCount-1];
-
-                            while (cursor.Read())
-                            {
-                                actividad[i] = CrearActividad(cursor);
-                                i++;
-                            }
+                          
+                                
+                                while (cursor.Read())
+                                {
+                                    actividad.Add(CrearActividad(cursor));
+                                    
+                                }
                             cursor.Close();
                         }
                     }
@@ -165,15 +169,14 @@ namespace GymSystemDataSQLServer
             }
         }
 
-        
-        public ActividadEntity BuscarActividad(int idActividad)
+        public Boolean deleteActividad(int idActividad)
         {
             try
             {
-                ActividadEntity actividad = null;
+                Boolean isDelete = false;
                 using (SqlConnection conexion = ConexionDA.ObtenerConexion())
                 {
-                    using (SqlCommand comando = new SqlCommand("ActividadSalaBuscarPorIdActividad", conexion))
+                    using (SqlCommand comando = new SqlCommand("ActividadBaja", conexion))
                     {
                         comando.CommandType = CommandType.StoredProcedure;
                         SqlCommandBuilder.DeriveParameters(comando);
@@ -182,22 +185,91 @@ namespace GymSystemDataSQLServer
 
                         using (SqlDataReader cursor = comando.ExecuteReader())
                         {
-                            if (cursor.Read())
+                            if (cursor.RecordsAffected > 0)
                             {
-                                actividad = CrearActividad(cursor);
+                                isDelete = true;
                             }
                             cursor.Close();
                         }
                     }
                     conexion.Close();
-                return actividad;
+                }
+                return isDelete;
+            }
+            catch (Exception ex)
+            {
+                throw new ExcepcionDA("Se produjo un error al buscar por email y contraseña.", ex);
+            }
+        }
+
+        public Boolean ValidadDiaHoraActividad(string dia, int? idActividad)
+        {
+            try
+            {                
+                using (SqlConnection conexion = ConexionDA.ObtenerConexion())
+                {
+                    Boolean isOkDia = false;
+                    using (SqlCommand comando = new SqlCommand("ActividadValidaDia&Horario", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+                        SqlCommandBuilder.DeriveParameters(comando);
+
+                        comando.Parameters["@Dia"].Value = dia;
+                        comando.Parameters["@idActividad"].Value = idActividad == null ? 0 : idActividad;
+
+                        using (SqlDataReader cursor = comando.ExecuteReader())
+                        {
+                            if (cursor.Read())
+                            {
+                                isOkDia = cursor.GetInt32(cursor.GetOrdinal("isfree")) == 1 ? false : true;
+                            }
+                            cursor.Close();
+                        }
+                    }
+                    conexion.Close();
+                    return isOkDia;
                 }
             }
             catch (Exception ex)
             {
                 throw new ExcepcionDA("Se produjo un error al buscar por ID.", ex);
             }
-            }
-            #endregion Métodos Públicos
         }
+
+        public ActividadEntity BuscarActividad(int idActividad)
+        {
+            try
+            {
+                ActividadEntity actividad = null;
+
+                using (SqlConnection conexion = ConexionDA.ObtenerConexion())
+                {
+                    using (SqlCommand comando = new SqlCommand("ActividadBuscarPorId", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+                        SqlCommandBuilder.DeriveParameters(comando);
+
+                        comando.Parameters["@idActividad"].Value = idActividad;
+                        int i = 0;
+                        using (SqlDataReader cursor = comando.ExecuteReader())
+                        {
+                            if (cursor.Read())
+                            {
+                                actividad = CrearActividad(cursor);
+                                i++;
+                            }
+                            cursor.Close();
+                        }
+                    }
+                    conexion.Close();
+                }
+                return actividad;
+            }
+            catch (Exception ex)
+            {
+                throw new ExcepcionDA("Se produjo un error al buscar por ID.", ex);
+            }
+        }
+            #endregion Métodos Públicos
+    }
 }

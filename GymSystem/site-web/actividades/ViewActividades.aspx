@@ -29,7 +29,6 @@
                         <th>Horario Inicio</th>
                         <th>Horario Fin</th>
                         <th>Dia Semana</th>
-                        <th>Estado</th>
                         <th>Acciones</th>
                     </tr>
                     </thead>
@@ -44,26 +43,6 @@
                                     <td><%= actividad.horaFin %></td>
                                     <td><%= actividad.dia %></td>
                                     <td>
-                                        <%--<%switch(actividad.???)
-                                        {
-                                            case "active":%>
-                                                // Use the text block below to separate html elements from code
-                                                <a href="#" class="btn btn-success btn-xs"><i class="fa fa-thumbs-o-up"></i> activo </a>
-                                                <%break;  // Always break each case
-                                            case "notactive":%>
-                                                <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-thumbs-o-down"></i> no activo </a>
-                                                <% break;
-                                            default:%>
-                                                <a href="#" class="btn btn-warning btn-xs"><i class="fa fa-pause"></i> suspendido </a>
-                                                 <%break;%>                   
-                                        <%} %>
-
-                                        <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-thumbs-o-down"></i> no activo </a>
-                                        <a href="#" class="btn btn-warning btn-xs"><i class="fa fa-pause"></i> suspendido </a>
-                                        <a href="#" class="btn btn-success btn-xs"><i class="fa fa-thumbs-o-up"></i> activo </a>--%>
-                                    </td>
-                                    <td>
-                                        <a href="./EditCreateActividad.aspx?id=<%=actividad.idActividad%>&action=view" class="btn btn-primary btn-xs"><i class="fa fa-eye"></i> Ver </a>
                                         <a href="./EditCreateActividad.aspx?id=<%=actividad.idActividad%>&action=edit"  class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Editar </a>
                                         <a href="./ViewActividades.aspx?id=<%=actividad.idActividad%>&action=delete"  class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Eliminar </a>
                                     </td>

@@ -13,7 +13,7 @@ public partial class CreateEmpleado : System.Web.UI.Page
 {
     private EmpleadoBO boEmpleado;
     private ActividadBO boActividad;
-    protected ActividadEntity[] actividadesArr;
+    protected List<ActividadEntity> actividadesArr;
 
 
     protected void Page_Load(object sender, EventArgs e)

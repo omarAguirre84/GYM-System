@@ -6,12 +6,13 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using GymSystemWebUtil;
 
 public partial class ViewActividades : System.Web.UI.Page
 {
-    ActividadBO activBo = new ActividadBO();
-    protected ActividadEntity[] listActiv;
-    SalaBO salaBO = new SalaBO();
+    protected ActividadBO activBo = new ActividadBO();
+    protected List<ActividadEntity> listActiv;
+    protected SalaBO salaBO = new SalaBO();
     protected SalaEntity[] listSalas;
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -24,13 +25,20 @@ public partial class ViewActividades : System.Web.UI.Page
 
         if (Request.QueryString["action"] == "delete")
         {
-            this.deleteActividad();
+            deleteActividad(Int32.Parse(Request.QueryString["id"]));
         }
     }
 
-    protected void deleteActividad()
+    protected void deleteActividad(int idActividad)
     {
         Console.WriteLine("Se Eliminar Actividad");
-        Response.Redirect("ViewActividades.aspx");
+        if (activBo.DeleteActividad(idActividad))
+        {
+            Response.Redirect("ViewActividades.aspx");
+        }
+        else {
+            WebHelper.MostrarMensaje(Page, "No es posible eliminar la actividad. Intente nuevamente");
+        }
+        
     }
 }

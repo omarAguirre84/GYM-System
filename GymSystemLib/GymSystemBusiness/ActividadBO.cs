@@ -47,7 +47,19 @@ namespace GymSystemBusiness
             }
         }
 
-        public ActividadEntity[] GetList()
+        public Boolean getValidateActividad(string dia, int idActividad)
+        {
+            try
+            {
+                return daActividad.ValidadDiaHoraActividad(dia, idActividad);
+            }
+            catch (ExcepcionDA ex)
+            {
+                throw new ExcepcionBO("No es posible guardar la actividad. Ya  hay una actividad asignado a tal día", ex);
+            }
+        }
+
+        public List<ActividadEntity> GetList()
         {
             try
             {
@@ -59,11 +71,11 @@ namespace GymSystemBusiness
             }
         }
 
-        public ActividadEntity BuscarActividad(int idPersona)
+        public ActividadEntity BuscarActividadPorId(int idActividad)
         {
             try
             {
-                return daActividad.BuscarActividad(idPersona);
+                return daActividad.BuscarActividad(idActividad);
             }
             catch (ExcepcionDA ex)
             {
@@ -71,11 +83,23 @@ namespace GymSystemBusiness
             }
         }
 
-        public void ActualizarEmpleado(EmpleadoEntity empleado)
+        public Boolean DeleteActividad(int idActividad)
         {
             try
             {
-                //daActividad.ActualizarEmpleado(empleado);
+                return daActividad.deleteActividad(idActividad);
+            }
+            catch (ExcepcionDA ex)
+            {
+                throw new ExcepcionBO("No se pudo realizar listar Empleados.", ex);
+            }
+        }
+
+        public void ActualizarActividad(ActividadEntity actividad)
+        {
+            try
+            {
+               daActividad.ActualizarActividad(actividad);
             }
             catch (ExcepcionDA ex)
             {
