@@ -75,7 +75,8 @@ public partial class EditCreateActividad : System.Web.UI.Page
     protected void btnConfirmSaveActividad(object sender, EventArgs e)
     {
         Console.WriteLine();
-        if (actividadBo.getValidateActividad(diaSelectList.SelectedItem.Text, Int32.Parse(Request.QueryString["id"])))
+        int idActividad = Request.QueryString["id"] != null ? Int32.Parse(Request.QueryString["id"]) : 0;
+        if (actividadBo.getValidateActividad(diaSelectList.SelectedItem.Text, idActividad))
         {
             if (Request.QueryString["action"] != "edit")
             {
