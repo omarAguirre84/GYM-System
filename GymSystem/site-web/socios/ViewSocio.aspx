@@ -8,7 +8,7 @@
                 <div class="x_panel">
                   <div class="x_content">
                     <form class="form-horizontal form-label-left" novalidate runat="server">
-                      <span class="section">Crear Socio</span>
+                      <span class="section">Actualizar Datos de Socio</span>
                       <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Nombre <span class="required"></span>
                         </label>
@@ -70,7 +70,7 @@
                               <input ID="masculino" type="radio" name="gender" class="btn btn-default" value="male" runat="server"> Masculino
                             </label>
                             <label id="femeninoLbl" class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-primary" runat="server">
-                              <input ID="femenino" type="radio" name="gender" value="female" runat="server" > Femenino
+                              <input ID="femenino" type="radio" name="gender" value="female" runat="server"> Femenino
                             </label>
                           </div>
                       </div>

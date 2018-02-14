@@ -19,10 +19,18 @@ public partial class ViewEmpleado : System.Web.UI.Page
 
 
     protected void Page_Load(object sender, EventArgs e)
-     {
+    {
         boEmpleado = new EmpleadoBO();
-        PopularView(boEmpleado.BuscarEmpleado(Int32.Parse(Request.QueryString["id"])), false);
         boActividad = new ActividadBO();
+
+        if (!IsPostBack) //false = primera vez que se carga, true= segunda vez, se cambiaron los datos
+        {
+            cargarDatoscargarDatosEmpleadoEnVista();
+        }
+    }
+
+    protected void cargarDatoscargarDatosEmpleadoEnVista() {
+        PopularView(boEmpleado.BuscarEmpleado(Int32.Parse(Request.QueryString["id"])), false);
     }
 
      protected void PopularView(EmpleadoEntity empleado, Boolean origen)
@@ -41,21 +49,14 @@ public partial class ViewEmpleado : System.Web.UI.Page
             string[] fechaIng = empleado.fechaIngreso.ToString("dd'/'MM'/'yyyy").Split('/');
             fechaIngreso.Attributes.Add("value", (fechaIng[2] + "-" + fechaIng[1] + "-" + fechaIng[0]));
 
-            /*
-             if (masculinoLbl.Attributes["class"].Equals("btn btn-default active"))
-             { 
-
-             }
-             */
-
             if (empleado.Sexo == 'm' || empleado.Sexo == 'M')
-             {
+            {
                  
-             }
-             if (empleado.Sexo == 'f' || empleado.Sexo == 'F')
-             {
+            }
+            if (empleado.Sexo == 'f' || empleado.Sexo == 'F')
+            {
                  
-             }
+            }
             llenarViewActividadesConDatosEmpleado(empleado);
             llenarDiasConDatosEmpleado(empleado);
          }
@@ -79,8 +80,9 @@ public partial class ViewEmpleado : System.Web.UI.Page
          {
              boEmpleado.ActualizarEmpleado(nuevoEntity(boEmpleado.BuscarEmpleado(Int32.Parse(Request.QueryString["id"]))));
              PopularView(boEmpleado.BuscarEmpleado(Int32.Parse(Request.QueryString["id"])), true);
-             //Response.Redirect(HttpContext.Current.Request.Url.ToString(), true);
-             //WebHelper.MostrarMensaje(Page, "Actualizado con exito");
+            //Response.Redirect(HttpContext.Current.Request.Url.ToString(), true);
+            cargarDatoscargarDatosEmpleadoEnVista();
+             WebHelper.MostrarMensaje(Page, "Actualizado con exito");
          }
          catch (Exception ex)
          {
