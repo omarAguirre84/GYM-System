@@ -8,7 +8,7 @@
                 <div class="x_panel">
                   <div class="x_content">
                     <form class="form-horizontal form-label-left" novalidate runat="server">
-                      <span class="section">Crear Empleado</span>
+                      <span class="section">Actualizar Datos Empleado</span>
                       <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Nombre <span class="required"></span>
                         </label>

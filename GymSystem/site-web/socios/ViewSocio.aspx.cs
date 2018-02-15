@@ -17,11 +17,19 @@ public partial class ViewSocio : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         boSocio = new SocioBO();
+
+        if (!IsPostBack) //false = primera vez que se carga, true= segunda vez, se cambiaron los datos
+        {
+            cargarDatosSocioEnVista();
+        }
+    }
+
+    protected void cargarDatosSocioEnVista() {
         PopularView(boSocio.BuscarSocio(Int32.Parse(Request.QueryString["id"])), false);
     }
 
     protected void PopularView(SocioEntity socio, Boolean origen)
-    {//origen = true debe 
+    {
         try
         {
             nombre.Attributes.Add("Value", socio.Nombre);
@@ -34,26 +42,25 @@ public partial class ViewSocio : System.Web.UI.Page
             fechaNacimiento.Attributes.Add("value", (fechaArr[2] + "-" + fechaArr[1] + "-" + fechaArr[0]));
 
 
-            /*
-            if (masculinoLbl.Attributes["class"].Equals("btn btn-default active"))
-            { 
-
-            }
-            */
-
             if (socio.Sexo == 'm' || socio.Sexo == 'M')
             {
                 masculinoLbl.Attributes.Remove("class");
                 masculinoLbl.Attributes.Add("class", "btn btn-default active");
                 masculino.Attributes.Add("checked", "checked");
+
+                femeninoLbl.Attributes.Remove("class");
                 femenino.Attributes.Remove("checked");
+                femeninoLbl.Attributes.Add("class", "btn btn-default");
             }
             if (socio.Sexo == 'f' || socio.Sexo == 'F')
             {
                 femeninoLbl.Attributes.Remove("class");
                 femeninoLbl.Attributes.Add("class", "btn btn-default active");
                 femenino.Attributes.Add("checked", "checked");
+
+                masculinoLbl.Attributes.Remove("class");
                 masculino.Attributes.Remove("checked");
+                masculinoLbl.Attributes.Add("class", "btn btn-default");
             }
             
 
@@ -62,17 +69,22 @@ public partial class ViewSocio : System.Web.UI.Page
                 activoLbl.Attributes.Remove("class");
                 activoLbl.Attributes.Add("class", "btn btn-default active");
                 activo.Attributes.Add("checked", "checked");
+
+                inactivoLbl.Attributes.Remove("class");
                 inactivo.Attributes.Remove("checked");
+                inactivoLbl.Attributes.Add("class", "btn btn-default");
             }
             if (socio.IdEstado == 2)
             {
                 inactivoLbl.Attributes.Remove("class");
                 inactivoLbl.Attributes.Add("class", "btn btn-default active");
                 inactivo.Attributes.Add("checked", "checked");
+
+                activoLbl.Attributes.Remove("class");
                 activo.Attributes.Remove("checked");
+                activoLbl.Attributes.Add("class", "btn btn-default");
             }
             
-
         }
         catch (AutenticacionExcepcionBO ex)
         {
@@ -91,10 +103,11 @@ public partial class ViewSocio : System.Web.UI.Page
     {
         try
         {
-            boSocio.ActualizarSocio(nuevoEntity(boSocio.BuscarSocio(Int32.Parse(Request.QueryString["id"]))));
+            boSocio.ActualizarSocio(generarNuevoEntity(boSocio.BuscarSocio(Int32.Parse(Request.QueryString["id"]))));
             PopularView(boSocio.BuscarSocio(Int32.Parse(Request.QueryString["id"])), true);
             //Response.Redirect(HttpContext.Current.Request.Url.ToString(), true);
-            //WebHelper.MostrarMensaje(Page, "Actualizado con exito");
+            cargarDatosSocioEnVista();
+            WebHelper.MostrarMensaje(Page, "Actualizado con exito");
         }
         catch (Exception ex)
         {
@@ -102,7 +115,7 @@ public partial class ViewSocio : System.Web.UI.Page
         }
     }
 
-    protected SocioEntity nuevoEntity(SocioEntity anterior)
+    protected SocioEntity generarNuevoEntity(SocioEntity anterior)
     {
         int estado = (activo.Checked) ? 1 : 2 ;
         SocioEntity nuevoEntity = new SocioEntity(
@@ -129,15 +142,10 @@ public partial class ViewSocio : System.Web.UI.Page
             if (masculino.Checked)
             {
                 gen = 'M';
-                masculino.Attributes.Add("checked", "checked");
-                femenino.Attributes.Remove("checked");
             }
             else {
-                gen = 'M';
-                femenino.Attributes.Add("checked", "checked");
-                masculino.Attributes.Remove("checked");
+                gen = 'F';
             }
-                
 
             nuevoEntity.Sexo = gen;
             nuevoEntity.Foto = null;

@@ -26,7 +26,7 @@ public partial class CreateEmpleado : System.Web.UI.Page
             boActividad = new ActividadBO();
             actividadesArr = boActividad.GetList();
             llenarViewActividades();
-            loadDayWeek();
+            //loadDayWeek();
         }
     }
 
@@ -118,7 +118,7 @@ public partial class CreateEmpleado : System.Web.UI.Page
             }
         }
     }
-
+    /*
     public void loadDayWeek()
     {
         ListItem li = new ListItem();
@@ -144,7 +144,7 @@ public partial class CreateEmpleado : System.Web.UI.Page
 
         }
     }
-
+    */
     protected void Btn_cancelar(object sender, EventArgs e)
     {
         Response.Redirect("../empleados/ViewEmpleados.aspx");

@@ -84,18 +84,6 @@
                         </div>
                       </div>
                           </div>
-                      <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="days">Dias<span class="required"></span>
-                        </label>
-                          <div class="btn-group" data-toggle="buttons">
-                            <div>
-                              
-                                <asp:CheckBoxList id="DayList" RepeatDirection="Horizontal"  Width="500"
-                                    runat="server" CssClass="chkChoicedaysWeek"  TabIndex="2" >
-                               </asp:CheckBoxList>
-                              </div>
-                            </div>
-                          </div>
 
                       <div class="item form-group">
                       <label class="control-label col-md-3 col-sm-3 col-xs-12" for="days">Actividades<span class="required"></span>
