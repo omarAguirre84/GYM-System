@@ -75,22 +75,41 @@ public partial class EditCreateActividad : System.Web.UI.Page
     protected void btnConfirmSaveActividad(object sender, EventArgs e)
     {
         Console.WriteLine();
-        int idActividad = Request.QueryString["id"] != null ? Int32.Parse(Request.QueryString["id"]) : 0;
-        if (actividadBo.getValidateActividad(diaSelectList.SelectedItem.Text, idActividad))
-        {
-            if (Request.QueryString["action"] != "edit")
+        if (TimeSpan.Parse(datein.Value) >= TimeSpan.Parse(dateout.Value)) {
+            WebHelper.MostrarMensaje(Page, "La hora de fin no debe ser inferior a la hora de inicio");
+        } else {
+            TimeSpan auxTime = TimeSpan.Parse(datein.Value);
+            auxTime = auxTime.Add(TimeSpan.FromHours(1));
+            if (auxTime <= TimeSpan.Parse(dateout.Value))
             {
-                actividadBo.saveActividad(crearActividad());
-                
+                if (actividadBo.getValidateActividadNombre(descripcion.Value)) {
+                    int idActividad = Request.QueryString["id"] != null ? Int32.Parse(Request.QueryString["id"]) : 0;
+                    if (actividadBo.getValidateActividad(diaSelectList.SelectedItem.Text, idActividad))
+                    {
+                        if (Request.QueryString["action"] != "edit")
+                        {
+                            actividadBo.saveActividad(crearActividad());
+
+                        }
+                        else
+                        {
+                            actividadBo.ActualizarActividad(crearActividad());
+
+                        }
+                        Response.Redirect("ViewActividades.aspx");
+                    }
+                    else
+                    {
+                        WebHelper.MostrarMensaje(Page, "No es posible guardar la actividad. Ya  hay una actividad asignado a tal día");
+                    }
+            } else {
+                    WebHelper.MostrarMensaje(Page, "No es posible guardar la actividad. Ya  hay una actividad con el mismo nombre");
+                }
+            
             }
             else {
-                actividadBo.ActualizarActividad(crearActividad());
-                
+                WebHelper.MostrarMensaje(Page, "Debe tener un rango mayor a 1 hora");
             }
-            Response.Redirect("ViewActividades.aspx");
-        }
-        else {
-            WebHelper.MostrarMensaje(Page, "No es posible guardar la actividad. Ya  hay una actividad asignado a tal día");
         }
          
     }

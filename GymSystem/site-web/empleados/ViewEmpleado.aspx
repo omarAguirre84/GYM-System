@@ -85,27 +85,14 @@
                         </div>
                       </div>
                           </div>
-                      
-                        <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="datebirth">Dias<span class="required"></span>
-                        </label>
-                          <div class="btn-group" data-toggle="buttons">
-                            <div>
-                                <asp:CheckBoxList id="dias" class="flat" runat="server">
-                                </asp:CheckBoxList>
-                              </div>
-                            </div>
-                          </div>
-
                         <br />
-
                          <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="datebirth">Actividades<span class="required"></span>
                         </label>
                           <div class="btn-group" data-toggle="buttons">
                             <div>
-                                <asp:CheckBoxList id="actividades" class="flat" runat="server">
-                                </asp:CheckBoxList>
+                                <asp:ListBox ID="actividades" CssClass="select--multiple"   runat="server" SelectionMode="Multiple" multiple="multiple">
+                                </asp:ListBox>
                               </div>
                             </div>
                           </div>

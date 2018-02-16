@@ -14,7 +14,7 @@ public partial class ViewEmpleado : System.Web.UI.Page
     private EmpleadoBO boEmpleado;
     private EmpleadoEntity nuevoEmpleado;
     private ActividadBO boActividad;
-    private string[] actividadesArr;
+    protected List<ActividadEntity> actividadesArr;
     private string[] diasArr;
 
 
@@ -25,6 +25,9 @@ public partial class ViewEmpleado : System.Web.UI.Page
 
         if (!IsPostBack) //false = primera vez que se carga, true= segunda vez, se cambiaron los datos
         {
+            //boActividad = new ActividadBO();
+            actividadesArr = boActividad.GetList();
+            loadActividadList();
             cargarDatoscargarDatosEmpleadoEnVista();
         }
     }
@@ -58,7 +61,7 @@ public partial class ViewEmpleado : System.Web.UI.Page
                  
             }
             llenarViewActividadesConDatosEmpleado(empleado);
-            llenarDiasConDatosEmpleado(empleado);
+//            llenarDiasConDatosEmpleado(empleado);
          }
          catch (AutenticacionExcepcionBO ex)
          {
@@ -90,7 +93,38 @@ public partial class ViewEmpleado : System.Web.UI.Page
          }
      }
 
-     protected EmpleadoEntity nuevoEntity(EmpleadoEntity anterior)
+    protected void loadActividadList()
+    {
+        int index = 0;
+        //actividades.Items.Insert(index++, new ListItem("Seleccione Actividad", "0"));
+        foreach (ActividadEntity ActEnt in actividadesArr)
+        {
+            actividades.Items.Insert(index++, new ListItem(ActEnt.name, ActEnt.idActividad.ToString()));
+        };
+        loadEditActividad();
+    }
+
+    private void loadEditActividad()
+    {
+        List<int> listSelectActividad = boActividad.BuscarActividadEmpleadoPorId(Int32.Parse(Request.QueryString["id"]));
+
+        foreach (ListItem item in actividades.Items)
+        {
+
+            if (listSelectActividad.Contains(Int32.Parse(item.Value)))
+            {
+
+                item.Selected = true;
+
+            }
+            else {
+                item.Selected = false;
+            }
+
+        }
+    }
+
+        protected EmpleadoEntity nuevoEntity(EmpleadoEntity anterior)
      {
          EmpleadoEntity nuevoEntity = new EmpleadoEntity(
              anterior.tipoEmpleado, anterior.fechaIngreso, anterior.fechaEgreso
@@ -135,7 +169,18 @@ public partial class ViewEmpleado : System.Web.UI.Page
              nuevoEntity.Foto = null;
              nuevoEntity.FechaRegistracion = anterior.FechaRegistracion;
              nuevoEntity.FechaActualizacion = DateTime.Now;
-         }
+            foreach (ListItem item in actividades.Items)
+            {
+
+                if (item.Selected)
+                {
+                    nuevoEntity.actividad = string.Concat(nuevoEntity.actividad, item.Value + ",");
+                    Console.WriteLine(item.Text);
+
+                }
+
+            }
+        }
          catch (AutenticacionExcepcionBO ex)
          {
              WebHelper.MostrarMensaje(Page, ex.Message);
@@ -156,7 +201,7 @@ public partial class ViewEmpleado : System.Web.UI.Page
         li.Text = empleado.actividad;
         li.Value = empleado.actividad;
         li.Selected = true;
-        actividades.Items.Add(li);
+        //actividades.Items.Add(li);
         /*foreach (ActividadEntity act in actividadesArr)
         {
             if (act != null)
@@ -169,26 +214,5 @@ public partial class ViewEmpleado : System.Web.UI.Page
         }*/
     }
 
-    public void llenarDiasConDatosEmpleado(EmpleadoEntity empleado)
-    {
-        //foreach (string valu in empleado.actividad){}
-        ListItem d = new ListItem();
-        d = new ListItem();
-        d.Text = empleado.dia;
-        d.Value = empleado.dia;
-        d.Selected = true;
-        dias.Items.Add(d);
-        /*
-        foreach (string d in diasArr)
-        {
-            if (act != null)
-            {
-                li = new ListItem();
-                li.Text = act.descripcion;
-                li.Value = act.descripcion;
-                actividades.Items.Add(li);
-            }
-        }*/
-    }
     
 }

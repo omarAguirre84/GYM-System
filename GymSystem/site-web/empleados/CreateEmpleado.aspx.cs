@@ -36,18 +36,19 @@ public partial class CreateEmpleado : System.Web.UI.Page
         try
         {
             
+            EmpleadoEntity entityEmpleado = new EmpleadoEntity(1, DateTime.Today, DateTime.MinValue);
             foreach (ListItem item in actividades.Items)
             {
 
                 if (item.Selected)
                 {
-
+                    entityEmpleado.actividad = string.Concat(entityEmpleado.actividad, item.Value + ",");
                     Console.WriteLine(item.Text);
 
                 }
 
             }
-            EmpleadoEntity entityEmpleado = new EmpleadoEntity(1, DateTime.Today, DateTime.MinValue);
+            //entityEmpleado.actividad = entityEmpleado.actividad == null ? null : entityEmpleado.actividad.Trim(',');
             entityEmpleado = (EmpleadoEntity)popularEntity(entityEmpleado);
 
             boEmpleado.Registrar(entityEmpleado, entityEmpleado.Email.Trim());
@@ -114,7 +115,7 @@ public partial class CreateEmpleado : System.Web.UI.Page
                 li = new ListItem();
                 li.Text = act.descripcion;
                 li.Value = act.descripcion;
-                actividades.Items.Add(new ListItem(act.descripcion, act.idActividad.ToString()));
+                actividades.Items.Add(new ListItem(act.name, act.idActividad.ToString()));
             }
         }
     }

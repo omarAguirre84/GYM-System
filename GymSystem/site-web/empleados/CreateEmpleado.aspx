@@ -91,7 +91,7 @@
                       <div class="btn-group" data-toggle="buttons">
                           <div class="btn-group" data-toggle="buttons">
                             <div>
-                                <asp:ListBox ID="actividades" CssClass="select--multiple" runat="server" multiple="multiple">
+                                <asp:ListBox ID="actividades" CssClass="select--multiple" runat="server" SelectionMode="Multiple" multiple="multiple">
                                 </asp:ListBox>
                               </div>
                             </div>

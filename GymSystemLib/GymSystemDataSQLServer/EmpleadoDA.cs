@@ -81,6 +81,7 @@ namespace GymSystemDataSQLServer
                         comando.Parameters["@TipoEmpleado"].Value = empleado.tipoEmpleado;
                         comando.Parameters["@fechaDeIngreso"].Value = empleado.fechaIngreso;
                         comando.Parameters["@fechaDeEgreso"].Value = empleado.fechaEgreso;
+                        comando.Parameters["@ListActividad"].Value = empleado.actividad;
                         comando.ExecuteNonQuery();
                     }
                     
@@ -219,6 +220,7 @@ namespace GymSystemDataSQLServer
                         //comando.Parameters["@FechaActualizacion"].Value = empleado.FechaActualizacion.Date.ToString("yyyy-MM-dd HH:mm:ss");
                         comando.Parameters["@fechaDeIngreso"].Value = empleado.fechaIngreso.Date.ToString("yyyy-MM-dd");
                         comando.Parameters["@fechaDeEgreso"].Value = empleado.fechaEgreso.Date.ToString("yyyy-MM-dd");
+                        comando.Parameters["@ListActividad"].Value = empleado.actividad;
                         comando.ExecuteNonQuery();
                     }
 

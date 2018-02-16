@@ -169,6 +169,41 @@ namespace GymSystemDataSQLServer
             }
         }
 
+        public List<int> BuscarActividadEmpleadoPorId(int empleado)
+        {
+            try
+            {
+                List<int> empleadoActividad = new List<int>();
+
+                using (SqlConnection conexion = ConexionDA.ObtenerConexion())
+                {
+                    using (SqlCommand comando = new SqlCommand("ActividadEmpleadoGetList", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+                        SqlCommandBuilder.DeriveParameters(comando);
+                        comando.Parameters["@Idempleado"].Value = empleado;
+                        using (SqlDataReader cursor = comando.ExecuteReader())
+                        {
+
+
+                            while (cursor.Read())
+                            {
+                                empleadoActividad.Add(cursor.GetInt32(cursor.GetOrdinal("idActividad")));
+
+                            }
+                            cursor.Close();
+                        }
+                    }
+                    conexion.Close();
+                }
+                return empleadoActividad;
+            }
+            catch (Exception ex)
+            {
+                throw new ExcepcionDA("Se produjo un error al buscar por email y contraseña.", ex);
+            }
+        }
+
         public Boolean deleteActividad(int idActividad)
         {
             try
@@ -217,6 +252,38 @@ namespace GymSystemDataSQLServer
                         comando.Parameters["@Dia"].Value = dia;
                         comando.Parameters["@idActividad"].Value = idActividad == null ? 0 : idActividad;
 
+                        using (SqlDataReader cursor = comando.ExecuteReader())
+                        {
+                            if (cursor.Read())
+                            {
+                                isOkDia = cursor.GetInt32(cursor.GetOrdinal("isfree")) == 1 ? false : true;
+                            }
+                            cursor.Close();
+                        }
+                    }
+                    conexion.Close();
+                    return isOkDia;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ExcepcionDA("Se produjo un error al buscar por ID.", ex);
+            }
+        }
+
+        public Boolean ActividadValidaNombre(string nombre)
+        {
+            try
+            {
+                using (SqlConnection conexion = ConexionDA.ObtenerConexion())
+                {
+                    Boolean isOkDia = false;
+                    using (SqlCommand comando = new SqlCommand("ActividadValidaNombre", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+                        SqlCommandBuilder.DeriveParameters(comando);
+
+                        comando.Parameters["@Nombre"].Value = nombre;
                         using (SqlDataReader cursor = comando.ExecuteReader())
                         {
                             if (cursor.Read())
