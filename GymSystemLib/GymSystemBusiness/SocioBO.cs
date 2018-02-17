@@ -100,5 +100,16 @@ namespace GymSystemBusiness
                 throw new ExcepcionBO("No se pudo realizar listar socios.", ex);
             }
         }
+
+        public void ActualizarEstadoSocio(int idSocio, int estadoNuevo) {
+            try
+            {
+                daSocio.ActualizarEstadoSocio(idSocio, estadoNuevo);
+            }
+            catch {
+
+            }
+            
+        }
     }
 }

@@ -59,11 +59,11 @@ namespace GymSystemBusiness
             }
         }
 
-        public Boolean getValidateActividadNombre(string nombre)
+        public Boolean getValidateActividadNombre(string nombre, int id)
         {
             try
             {
-                return daActividad.ActividadValidaNombre(nombre);
+                return daActividad.ActividadValidaNombre(nombre, id);
             }
             catch (ExcepcionDA ex)
             {
@@ -79,7 +79,7 @@ namespace GymSystemBusiness
             }
             catch (ExcepcionDA ex)
             {
-                throw new ExcepcionBO("No se pudo realizar listar Empleados.", ex);
+                throw new ExcepcionBO("No se pudo realizar listar Actividades.", ex);
             }
         }
 
@@ -91,7 +91,7 @@ namespace GymSystemBusiness
             }
             catch (ExcepcionDA ex)
             {
-                throw new ExcepcionBO("No se pudo realizar listar Actividad Empleados.", ex);
+                throw new ExcepcionBO("No se pudo realizar listar Actividad.", ex);
             }
         }
 
@@ -103,7 +103,7 @@ namespace GymSystemBusiness
             }
             catch (ExcepcionDA ex)
             {
-                throw new ExcepcionBO("No se pudo realizar listar Actividad Empleados.", ex);
+                throw new ExcepcionBO("No se pudo realizar listar Actividades.", ex);
             }
         }
 
@@ -115,7 +115,7 @@ namespace GymSystemBusiness
             }
             catch (ExcepcionDA ex)
             {
-                throw new ExcepcionBO("No se pudo realizar listar Empleados.", ex);
+                throw new ExcepcionBO("No se pudo realizar listar Actividades.", ex);
             }
         }
 
@@ -127,7 +127,7 @@ namespace GymSystemBusiness
             }
             catch (ExcepcionDA ex)
             {
-                throw new ExcepcionBO("No se pudo realizar listar Empleados.", ex);
+                throw new ExcepcionBO("No se pudo realizar listar Actividades.", ex);
             }
         }
 

@@ -284,7 +284,7 @@ namespace GymSystemDataSQLServer
             }
             catch (Exception ex)
             {
-                throw new ExcepcionDA("Se produjo un error al actualizar la foto.", ex);
+                throw new ExcepcionDA("Se produjo un error al actualizar el socio.", ex);
             }
         }
 
@@ -318,6 +318,29 @@ namespace GymSystemDataSQLServer
             catch (Exception ex)
             {
                 throw new ExcepcionDA("Se produjo un error al buscar por ID.", ex);
+            }
+        }
+
+        public void ActualizarEstadoSocio(int idSocio, int estadoNuevo) {
+            try
+            {
+                using (SqlConnection conexion = ConexionDA.ObtenerConexion())
+                {
+                    using (SqlCommand comando = new SqlCommand("SocioActualizarEstado", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+                        SqlCommandBuilder.DeriveParameters(comando);
+
+                        comando.Parameters["@idPersona"].Value = idSocio;
+                        comando.Parameters["@idEstado"].Value = estadoNuevo;
+                        comando.ExecuteNonQuery();
+                        conexion.Close();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ExcepcionDA("Se produjo un error al actualizar es estado.", ex);
             }
         }
         #endregion Métodos Públicos

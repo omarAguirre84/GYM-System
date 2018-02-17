@@ -17,10 +17,11 @@ namespace GymSystemEntity
         public string status { get; set; }
         public string name { get; set; }
         public int idSala { get; set; }
+        public SalaEntity sala { get; set; }
 
         public ActividadEntity()
         {
-            
+            sala = new SalaEntity();
         }
     }
 }

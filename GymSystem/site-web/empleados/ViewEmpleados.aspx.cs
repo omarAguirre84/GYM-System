@@ -18,7 +18,6 @@ public partial class ViewSocios : System.Web.UI.Page
     {
         this.e = new EmpleadoBO();
         GenerarTabla(htmlTable);
-        
     }
 
     private void GenerarTabla(StringBuilder htmlTable)
@@ -47,6 +46,4 @@ public partial class ViewSocios : System.Web.UI.Page
             Text = htmlTable.ToString()
         });
     }
-
-    
 }

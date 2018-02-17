@@ -81,11 +81,10 @@ public partial class ViewEmpleado : System.Web.UI.Page
      {
          try
          {
-             boEmpleado.ActualizarEmpleado(nuevoEntity(boEmpleado.BuscarEmpleado(Int32.Parse(Request.QueryString["id"]))));
-             PopularView(boEmpleado.BuscarEmpleado(Int32.Parse(Request.QueryString["id"])), true);
-            //Response.Redirect(HttpContext.Current.Request.Url.ToString(), true);
+            boEmpleado.ActualizarEmpleado(nuevoEntity(boEmpleado.BuscarEmpleado(Int32.Parse(Request.QueryString["id"]))));
+            PopularView(boEmpleado.BuscarEmpleado(Int32.Parse(Request.QueryString["id"])), true);
             cargarDatoscargarDatosEmpleadoEnVista();
-             WebHelper.MostrarMensaje(Page, "Actualizado con exito");
+            WebHelper.MostrarMensaje(Page, "Actualizado con exito");
          }
          catch (Exception ex)
          {

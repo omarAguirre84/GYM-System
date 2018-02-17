@@ -1,28 +1,32 @@
 ﻿using GymSystemBusiness;
 using GymSystemEntity;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 public partial class ViewSocios : System.Web.UI.Page
 {
-    SocioBO s;
+    SocioBO socioBO;
     StringBuilder htmlTable;
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        s = new SocioBO();
-        GenerarTabla(htmlTable);
+        socioBO = new SocioBO();
+        
+
+        if ((Request.QueryString["accion"] == "actualizar"))
+        {
+            actualizarEstado(Int32.Parse(Request.QueryString["id"]), Int32.Parse(Request.QueryString["estadoActual"]));
+        }
+        else {
+            GenerarTabla(htmlTable);
+        }
     }
 
     private void GenerarTabla(StringBuilder htmlTable)
     {
         htmlTable = new StringBuilder();
-        foreach (SocioEntity socio in s.GetList())
+        foreach (SocioEntity socio in socioBO.GetList())
         {
             if(socio != null)
             {
@@ -34,7 +38,7 @@ public partial class ViewSocios : System.Web.UI.Page
                 htmlTable.Append("<td>" + socio.FechaNacimiento.ToString("dd'/'MM'/'yyyy")+ "</td>");
                 htmlTable.Append("<td>" + socio.NroTarjetaIdentificacion + "</td>");
                 htmlTable.Append("<td>");
-                htmlTable.Append(SetBtnEstado(socio.IdEstado));
+                htmlTable.Append(SetBtnEstado(socio.IdEstado, socio.Id));
                 htmlTable.Append("</td>");
                 htmlTable.Append("<td>");
                 htmlTable.Append("<a href=\"../socios/ViewSocio.aspx?id="+ socio.Id + "\"class=\"btn btn-primary btn-xs\" ><i class=\"fa fa-eye\" ></i> Ver / Editar </a>");
@@ -48,7 +52,7 @@ public partial class ViewSocios : System.Web.UI.Page
         });
     }
 
-    private string SetBtnEstado(int estado) {
+    private string SetBtnEstado(int estado, int id) {
         StringBuilder cadena = new StringBuilder();
         string btn;
         string thumb;
@@ -71,7 +75,7 @@ public partial class ViewSocios : System.Web.UI.Page
         }
         
         //< a href = "#" class="btn btn-success btn-xs"><i class="fa fa-thumbs-o-up"></i> activo</a>
-        cadena.Append("<a href = \"#\" class=\"btn btn-");
+        cadena.Append("<a href=\"../socios/ViewSocios.aspx?id="+id+"&accion=actualizar&estadoActual="+estado + "\" class=\"btn btn-");
         cadena.Append(btn);
         cadena.Append("btn-xs\"><i class=\"fa fa-thumbs-o-");
         cadena.Append(thumb);
@@ -82,6 +86,10 @@ public partial class ViewSocios : System.Web.UI.Page
         return cadena.ToString();
     }
 
-       
+    protected void actualizarEstado(int id, int estadoActual) {
+        int estadoNuevo = (estadoActual == 2) ? 1 : 2;
+        socioBO.ActualizarEstadoSocio(id, estadoNuevo);
+        Response.Redirect("ViewSocios.aspx");
+    }
 }
 

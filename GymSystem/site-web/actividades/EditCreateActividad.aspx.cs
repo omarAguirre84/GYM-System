@@ -25,11 +25,11 @@ public partial class EditCreateActividad : System.Web.UI.Page
             loadDayWeek();
             if (Request.QueryString["action"] == "delete")
             {
-                loadEditActividad();
+                loadEditActividad("delete");
             }
             if (Request.QueryString["action"] == "edit")
             {
-                loadEditActividad();
+                loadEditActividad("edit");
             }
             if (Request.UrlReferrer != null)
             {
@@ -37,19 +37,15 @@ public partial class EditCreateActividad : System.Web.UI.Page
         }
     }
 
-    private void loadEditActividad() {
+    private void loadEditActividad(String action) {
         actividadEnt = actividadBo.BuscarActividadPorId(Int32.Parse(Request.QueryString["id"]));
 
         foreach(ListItem item in salasListItems.Items)
         {
-
             if (actividadEnt.idSala == Int32.Parse(item.Value))
             {
-
                 item.Selected = true;
-
             }
-
         }
         descripcion.Value = actividadEnt.name;
         //salasListItems.SelectedItem.Value = actividadEnt.idSala.ToString();
@@ -82,14 +78,14 @@ public partial class EditCreateActividad : System.Web.UI.Page
             auxTime = auxTime.Add(TimeSpan.FromHours(1));
             if (auxTime <= TimeSpan.Parse(dateout.Value))
             {
-                if (actividadBo.getValidateActividadNombre(descripcion.Value)) {
-                    int idActividad = Request.QueryString["id"] != null ? Int32.Parse(Request.QueryString["id"]) : 0;
+                int idActividad = Request.QueryString["id"] != null ? Int32.Parse(Request.QueryString["id"]) : 0;
+
+                if (actividadBo.getValidateActividadNombre(descripcion.Value, idActividad)) {
                     if (actividadBo.getValidateActividad(diaSelectList.SelectedItem.Text, idActividad))
                     {
                         if (Request.QueryString["action"] != "edit")
                         {
                             actividadBo.saveActividad(crearActividad());
-
                         }
                         else
                         {

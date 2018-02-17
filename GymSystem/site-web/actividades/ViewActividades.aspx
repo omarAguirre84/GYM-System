@@ -29,21 +29,23 @@
                         <th>Horario Inicio</th>
                         <th>Horario Fin</th>
                         <th>Dia Semana</th>
+                        <th>Sala</th>
                         <th>Acciones</th>
                     </tr>
                     </thead>
 
 
                     <tbody>
-                        <% foreach (var actividad in listActiv) { %>
+                        <% foreach (var actividad in listaActividades) { %>
                                 <tr>
                                     <td><%= actividad.name %></td>
                                     <td><%= actividad.tarifa %></td>
                                     <td><%= actividad.horaInicio %></td>
                                     <td><%= actividad.horaFin %></td>
                                     <td><%= actividad.dia %></td>
+                                    <td><%= actividad.sala.Nombre %></td>
                                     <td>
-                                        <a href="./EditCreateActividad.aspx?id=<%=actividad.idActividad%>&action=edit"  class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Editar </a>
+                                        <a href="./EditCreateActividad.aspx?id=<%=actividad.idActividad%>&action=edit"  class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Ver / Editar </a>
                                         <a href="./ViewActividades.aspx?id=<%=actividad.idActividad%>&action=delete"  class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Eliminar </a>
                                     </td>
                                 </tr>

@@ -29,6 +29,11 @@ namespace GymSystemDataSQLServer
             actividad.horaInicio = cursor.GetTimeSpan(cursor.GetOrdinal("horarioInicio"));// .Date.ToString("yyyy-MM-dd HH:mm:ss"));
             actividad.horaFin = cursor.GetTimeSpan(cursor.GetOrdinal("horarioFin"));
             actividad.dia = cursor.GetString(cursor.GetOrdinal("dia"));
+            
+            if (ColumExist(cursor, "nombre")) {
+                actividad.sala.Nombre = cursor.GetString(cursor.GetOrdinal("nombre"));
+            }
+
             if (ColumExist(cursor, "idSala")) {
                 actividad.idSala = cursor.GetInt32(cursor.GetOrdinal("idSala"));
             }
@@ -149,8 +154,6 @@ namespace GymSystemDataSQLServer
 
                         using (SqlDataReader cursor = comando.ExecuteReader())
                         {
-                          
-                                
                                 while (cursor.Read())
                                 {
                                     actividad.Add(CrearActividad(cursor));
@@ -307,7 +310,7 @@ namespace GymSystemDataSQLServer
             }
         }
 
-        public Boolean ActividadValidaNombre(string nombre)
+        public Boolean ActividadValidaNombre(string nombre, int id)
         {
             try
             {
@@ -320,6 +323,7 @@ namespace GymSystemDataSQLServer
                         SqlCommandBuilder.DeriveParameters(comando);
 
                         comando.Parameters["@Nombre"].Value = nombre;
+                        comando.Parameters["@idActividad"].Value = id;
                         using (SqlDataReader cursor = comando.ExecuteReader())
                         {
                             if (cursor.Read())

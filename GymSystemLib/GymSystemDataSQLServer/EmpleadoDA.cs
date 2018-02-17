@@ -207,7 +207,7 @@ namespace GymSystemDataSQLServer
                         comando.CommandType = CommandType.StoredProcedure;
                         SqlCommandBuilder.DeriveParameters(comando);
 
-                        comando.Parameters["@idPersona"].Value = empleado.Id;
+                        //comando.Parameters["@idPersona"].Value = empleado.Id;
                         comando.Parameters["@Dni"].Value = empleado.dni;
                         comando.Parameters["@Nombre"].Value = empleado.Nombre.Trim();
                         comando.Parameters["@Apellido"].Value = empleado.Apellido.Trim();
@@ -216,6 +216,7 @@ namespace GymSystemDataSQLServer
                         comando.Parameters["@Password"].Value = empleado.Password.Trim();
                         comando.Parameters["@FechaNacimiento"].Value = empleado.FechaNacimiento.Date.ToString("yyyy-MM-dd");
                         comando.Parameters["@Sexo"].Value = empleado.Sexo;
+                        comando.Parameters["@TipoEmpleado"].Value = empleado.tipoEmpleado;
                         comando.Parameters["@TipoPersona"].Value = empleado.tipoPersona;
                         //comando.Parameters["@FechaActualizacion"].Value = empleado.FechaActualizacion.Date.ToString("yyyy-MM-dd HH:mm:ss");
                         comando.Parameters["@fechaDeIngreso"].Value = empleado.fechaIngreso.Date.ToString("yyyy-MM-dd");
