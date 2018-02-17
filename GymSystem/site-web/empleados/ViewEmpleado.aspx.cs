@@ -106,7 +106,7 @@ public partial class ViewEmpleado : System.Web.UI.Page
 
     private void loadEditActividad()
     {
-        List<int> listSelectActividad = boActividad.BuscarActividadEmpleadoPorId(Int32.Parse(Request.QueryString["id"]));
+        List<int> listSelectActividad = boActividad.BuscarActividadPersonaPorId(Int32.Parse(Request.QueryString["id"]));
 
         foreach (ListItem item in actividades.Items)
         {

@@ -91,6 +91,34 @@ namespace GymSystemDataSQLServer
             }
         }
 
+        public void saveProfile(PersonaEntity persona)
+        {
+            try
+            {
+                using (SqlConnection conexion = ConexionDA.ObtenerConexion())
+                {
+                    using (SqlCommand comando = new SqlCommand("ActualizarProfilePersona", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+                        SqlCommandBuilder.DeriveParameters(comando);
+                        comando.Parameters["@idPersona"].Value = persona.Id;
+                        comando.Parameters["@Nombre"].Value = persona.Nombre.Trim();
+                        comando.Parameters["@Apellido"].Value = persona.Apellido.Trim();
+                        comando.Parameters["@Dni"].Value = persona.dni;
+                        comando.Parameters["@Password"].Value = persona.Password.Trim();
+                        comando.Parameters["@FechaNacimiento"].Value = persona.FechaNacimiento;
+                        comando.Parameters["@Sexo"].Value = persona.Sexo;
+                        comando.ExecuteNonQuery();
+                    }
+
+                    conexion.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ExcepcionDA("Se produjo un error al gaurdar el profile.", ex);
+            }
+        }
         public SqlCommand InsertarPersona(PersonaEntity usuario, SqlCommand comando, SqlConnection conexion)
         {
             try

@@ -83,11 +83,23 @@ namespace GymSystemBusiness
             }
         }
 
-        public List<int> BuscarActividadEmpleadoPorId(int idEmpleado)
+        public List<int> BuscarActividadPersonaPorId(int idPersona)
         {
             try
             {
-                return daActividad.BuscarActividadEmpleadoPorId(idEmpleado); ;
+                return daActividad.BuscarActividadPersonaPorId(idPersona); ;
+            }
+            catch (ExcepcionDA ex)
+            {
+                throw new ExcepcionBO("No se pudo realizar listar Actividad Empleados.", ex);
+            }
+        }
+
+        public List<ActividadEntity> ListActividadPersonaPorId(int idPersona)
+        {
+            try
+            {
+                return daActividad.ListActividadPersonaPorId(idPersona); ;
             }
             catch (ExcepcionDA ex)
             {

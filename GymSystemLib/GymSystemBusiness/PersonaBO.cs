@@ -72,6 +72,18 @@ namespace GymSystemBusiness
             }
         }
 
+        public void saveProfile(PersonaEntity persona)
+        {
+            try
+            {
+                personaDa.saveProfile(persona);
+            }
+            catch (ExcepcionDA ex)
+            {
+                throw new ExcepcionBO("No se pudo realizar guardar el profile del usuario.", ex);
+            }
+        }
+
         public void RegistrarPersona(PersonaEntity usuario, string emailVerificacion)
         {
             try

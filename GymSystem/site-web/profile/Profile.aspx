@@ -11,7 +11,7 @@
                     <div class="profile_img">
                     <div id="crop-avatar">
                         <!-- Current avatar -->
-                        <img class="img-responsive avatar-view" src="images/picture.jpg" alt="Avatar" title="Change the avatar">
+                        <img src="../../Imagenes/img-perfil.png" alt="..." class="img-circle profile_img">
                     </div>
                     </div>
                     <h3><%=persona.Nombre %>, <%=persona.Apellido %></h3>
@@ -33,9 +33,17 @@
  
                                 }%>
                         </li>
+                        <li><i class="fa fa-birthday-cake user-profile-icon"><%=persona.FechaNacimiento.ToString("dd/MM/yyyy") %></i></li>
+                        <li><i class="fa fa-book user-profile-icon"><%=persona.dni%></i></li>
+                        <%if(persona.Sexo == 'M'){ %>
+                            <li><i class="fa fa-male user-profile-icon">Masculino</i></li>
+                            <%}else{ %>
+                            <li><i class="fa fa-female user-profile-icon">Femenino</i></li>
+                            <%} %>
+                            
                     </ul>
 
-                    <a  href="#" class="btn btn-success"><i class="fa fa-edit m-right-xs"></i>Edit Profile</a>
+                    <a  href="EditProfile.aspx" class="btn btn-success"><i class="fa fa-edit m-right-xs"></i>Edit Profile</a>
                     <br />
 
                 </div>
@@ -45,37 +53,49 @@
                     <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
                         <li role="presentation" class="active"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Actividades Registradas</a>
                         </li>
-                        <li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Actividades</a>
+                        <li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Todas las actividades</a>
                         </li>
                     </ul>
                     <div id="myTabContent" class="tab-content">
                         <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
 
                         <!-- start recent activity -->
-                        <ul class="messages">
-                            <li>
-                            <img src="images/img.jpg" class="avatar" alt="Avatar">
-                            <div class="message_date">
-                                <h3 class="date text-info">24</h3>
-                                <p class="month">May</p>
-                            </div>
-                            <div class="message_wrapper">
-                                <h4 class="heading">Desmond Davison</h4>
-                                <blockquote class="message">Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua butcher retro keffiyeh dreamcatcher synth.</blockquote>
-                                <br />
-                                <p class="url">
-                                <span class="fs1 text-info" aria-hidden="true" data-icon=""></span>
-                                <a href="#"><i class="fa fa-paperclip"></i> User Acceptance Test.doc </a>
-                                </p>
-                            </div>
-                            </li>
-                        </ul>
+                        <% if (listActivSelect.Count != 0)
+                            {%>
+                        <table class="data table table-striped no-margin">
+                            <thead>
+                            <tr>
+                                <th>Nombre de la actividad</th>
+                                <th>Dia</th>
+                                <th>Hora de Inicio</th>
+                                <th>Hora de Fin</th>
+                                <th>Tarifa</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                 <% foreach (var actividad in listActivSelect)
+                                                              { %>
+                                <tr>
+                                    <td><%= actividad.name %></td>
+                                    <td><%= actividad.dia %></td>
+                                    <td><%= actividad.horaInicio %></td>
+                                    <td><%= actividad.horaFin %></td>
+                                    <td><%= actividad.tarifa %></td>
+                                    
+                                <%} %>
+                            </tbody>
+                        </table>
+                            <%}else{ %>
+                                <span> No hay actividades Registradas</span>
+                            <%} %>
                         <!-- end recent activity -->
 
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
 
                         <!-- start user projects -->
+                            <% if (listActiv.Count != 0)
+                            {%>
                         <table class="data table table-striped no-margin">
                             <thead>
                             <tr>
@@ -99,6 +119,9 @@
                                 <%} %>
                             </tbody>
                         </table>
+                            <%}else{ %>
+                                <span> No hay actividades Disponible</span>
+                            <%} %>
                         <!-- end user projects -->
 
                         </div>
