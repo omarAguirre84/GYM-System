@@ -22,7 +22,7 @@ namespace GymSystemBusiness
             try
             {
                 empleado.ValidarDatos();
-
+                           
                 if (daEmpleado.ExisteEmail(empleado.Email))
                     throw new EmailExisteExcepcionBO();
 

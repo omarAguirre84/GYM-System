@@ -22,6 +22,7 @@ namespace GymSystemBusiness
         public PersonaEntity newSocio(PersonaEntity personaSocio) {
             try
             {
+                personaSocio.ValidarDatos();
                 if (daSocio.ExisteEmail(personaSocio.Email))
                     throw new EmailExisteExcepcionBO();
                 return daSocio.InsertarSocio(personaSocio);

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using GymSystemComun;
 
 namespace GymSystemEntity
 {
@@ -21,5 +17,6 @@ namespace GymSystemEntity
             this.fechaIngreso = fechaIngreso;
             this.fechaEgreso = fechaEgreso;
         }
+     
     }
 }

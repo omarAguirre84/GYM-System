@@ -4,8 +4,6 @@ using GymSystemEntity;
 using GymSystemWebUtil;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -70,8 +68,9 @@ public partial class CreateEmpleado : System.Web.UI.Page
             entityPersona.Apellido = apellido.Value;
             entityPersona.dni = dni.Value;
             entityPersona.Email = email.Value;
-            entityPersona.Password = (passw1.Value.Equals(passw2.Value)) ? passw1.Value : null;
-
+            //entityPersona.Password = (passw1.Value.Equals(passw2.Value)) ? passw1.Value : null;
+            entityPersona.Password = passw1.Value;
+            entityPersona.Password2 = passw2.Value;
             string[] fechaArr = fechaNacimiento.Value.Split('-');
             entityPersona.FechaNacimiento = Util.ObtenerFecha(
                 int.Parse(fechaArr[0]),

@@ -54,6 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExceptionMuestraMensaje.cs" />
     <Compile Include="EmailExcepcion.cs" />
     <Compile Include="ActividadEntity.cs" />
     <Compile Include="EnumPersona.cs" />
