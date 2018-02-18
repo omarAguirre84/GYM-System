@@ -95,6 +95,18 @@ namespace GymSystemBusiness
             }
         }
 
+        public List<ActividadEntity> ActividadPorPersonaId(int idPersona)
+        {
+            try
+            {
+                return daActividad.ActividadPorPersonaId(idPersona); ;
+            }
+            catch (ExcepcionDA ex)
+            {
+                throw new ExcepcionBO("No se pudo realizar listar Actividad.", ex);
+            }
+        }
+
         public List<ActividadEntity> ListActividadPersonaPorId(int idPersona)
         {
             try

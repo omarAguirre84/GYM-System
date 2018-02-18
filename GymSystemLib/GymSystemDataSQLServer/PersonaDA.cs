@@ -18,7 +18,7 @@ namespace GymSystemDataSQLServer
         }
 
         #region Métodos Privados
-        protected PersonaEntity CrearPersona(SqlDataReader cursor)
+        public PersonaEntity CrearPersona(SqlDataReader cursor)
         {
             PersonaEntity persona;
 

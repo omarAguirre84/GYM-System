@@ -110,35 +110,7 @@ namespace GymSystemDataSQLServer
                 throw new ExcepcionDA("Se produjo un error al actualizar la Actividad.", ex);
             }
         }
-        /*
-        public bool Existe(int idActividad)
-        {
-            try
-            {
-                bool existeEmail;
-
-                using (SqlConnection conexion = ConexionDA.ObtenerConexion())
-                {
-                    using (SqlCommand comando = new SqlCommand("PersonaBuscarEmail", conexion))
-                    {
-                        comando.CommandType = CommandType.StoredProcedure;
-                        SqlCommandBuilder.DeriveParameters(comando);
-
-                        comando.Parameters["@Email"].Value = email.Trim();
-                        existeEmail = Convert.ToBoolean(comando.ExecuteScalar());
-                    }
-
-                    conexion.Close();
-                }
-
-                return existeEmail;
-            }
-            catch (Exception ex)
-            {
-                throw new ExcepcionDA("Se produjo un error al buscar por email.", ex);
-            }
-        }
-        */
+        
         public List<ActividadEntity> ListarActividades()
         {
             try
@@ -200,6 +172,80 @@ namespace GymSystemDataSQLServer
                     conexion.Close();
                 }
                 return empleadoActividad;
+            }
+            catch (Exception ex)
+            {
+                throw new ExcepcionDA("Se produjo un error al buscar por email y contraseña.", ex);
+            }
+        }
+
+        public List<ActividadEntity> ActividadPorPersonaId(int idPersona)
+        {
+            try
+            {
+                List<ActividadEntity> actividades = new List<ActividadEntity>();
+
+                using (SqlConnection conexion = ConexionDA.ObtenerConexion())
+                {
+                    using (SqlCommand comando = new SqlCommand("[ActividadPorPersonaId]", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+                        SqlCommandBuilder.DeriveParameters(comando);
+                        comando.Parameters["@idPersona"].Value = idPersona;
+                        using (SqlDataReader cursor = comando.ExecuteReader())
+                        {
+
+
+                            while (cursor.Read())
+                            {
+                                ActividadEntity auxActi = CrearActividad(cursor);
+                                auxActi.listPersonas = PersonaPorActividadId(auxActi.idActividad);
+                                actividades.Add(auxActi);
+
+                            }
+                            cursor.Close();
+                        }
+                    }
+                    conexion.Close();
+                }
+                return actividades;
+            }
+            catch (Exception ex)
+            {
+                throw new ExcepcionDA("Se produjo un error al buscar por email y contraseña.", ex);
+            }
+        }
+
+        public List<PersonaEntity> PersonaPorActividadId(int idActividad)
+        {
+            try
+            {
+                List<PersonaEntity> profesores = new List<PersonaEntity>();
+                PersonaDA personaDA = new PersonaDA();
+
+                using (SqlConnection conexion = ConexionDA.ObtenerConexion())
+                {
+                    using (SqlCommand comando = new SqlCommand("[PersonaPorActividadId]", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+                        SqlCommandBuilder.DeriveParameters(comando);
+                        comando.Parameters["@idActividad"].Value = idActividad;
+                        comando.Parameters["@TipoPersona"].Value = 'P';
+                        using (SqlDataReader cursor = comando.ExecuteReader())
+                        {
+
+
+                            while (cursor.Read())
+                            {
+                                profesores.Add(personaDA.CrearPersona(cursor));
+
+                            }
+                            cursor.Close();
+                        }
+                    }
+                    conexion.Close();
+                }
+                return profesores;
             }
             catch (Exception ex)
             {

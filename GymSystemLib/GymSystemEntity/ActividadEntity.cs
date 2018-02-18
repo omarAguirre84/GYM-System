@@ -18,6 +18,7 @@ namespace GymSystemEntity
         public string name { get; set; }
         public int idSala { get; set; }
         public SalaEntity sala { get; set; }
+        public List<PersonaEntity> listPersonas { get; set; }
 
         public ActividadEntity()
         {

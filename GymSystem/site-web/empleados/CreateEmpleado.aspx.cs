@@ -64,7 +64,7 @@ public partial class CreateEmpleado : System.Web.UI.Page
     {
         try
         {
-            entityPersona.tipoPersona = 'S';
+            entityPersona.tipoPersona = 'P';
             entityPersona.Telefono = System.Convert.ToInt32(telefono.Value);
             entityPersona.Nombre = nombre.Value;
             entityPersona.Apellido = apellido.Value;

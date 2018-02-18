@@ -22,6 +22,7 @@ namespace GymSystemEntity
         public string dni { get; set; }
         public int Telefono { get; set; }
         public string actividad { get; set; }
+        public List<ActividadEntity> actividades { get; set; }
 
         public PersonaEntity()
         {
@@ -38,6 +39,7 @@ namespace GymSystemEntity
             FechaRegistracion = DateTime.Now;
             FechaActualizacion = DateTime.MinValue;
             actividad = "";
+            actividades = new List<ActividadEntity>();
         }
 
 
