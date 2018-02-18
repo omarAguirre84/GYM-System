@@ -33,13 +33,12 @@ public partial class CreateSocio : System.Web.UI.Page
                 if (item.Selected)
                 {
                     entitySocio.actividad = string.Concat(entitySocio.actividad, item.Value + ",");
-                    Console.WriteLine(item.Text);
                 }
             }
-            
+
             entitySocio = (SocioEntity)popularEntity(entitySocio);
             boSocio.Registrar(entitySocio, entitySocio.Email.Trim());
-            WebHelper.MostrarMensaje(Page, ("Socio "+entitySocio.Nombre +" "+ entitySocio.Apellido + " creado con exito."));
+            WebHelper.MostrarMensaje(Page, ("Socio " + entitySocio.Nombre + " " + entitySocio.Apellido + " creado con exito."));
         }
         catch (ValidacionExcepcionAbstract ex)
         {
@@ -54,6 +53,9 @@ public partial class CreateSocio : System.Web.UI.Page
         {
             //WebHelper.MostrarMensaje(Page, ex.Message);
             WebHelper.MostrarMensaje(Page, ("Error en ingreso de datos: " + ex));
+        }
+        finally {
+            Response.Redirect("../socios/ViewSocios.aspx");
         }
     }
 

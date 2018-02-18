@@ -85,18 +85,13 @@
                       </div>
                     </div>
 
-                      <div class="item form-group">
-                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="days">Actividades<span class="required"></span>
-                      </label>
-                      <div class="btn-group" data-toggle="buttons">
-                          <div class="btn-group" data-toggle="buttons">
-                            <div>
-                                <asp:ListBox ID="actividades" CssClass="select--multiple" runat="server" SelectionMode="Multiple" multiple="multiple">
-                                </asp:ListBox>
-                              </div>
+                    <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="datebirth">Actividades<span class="required"></span></label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <asp:ListBox ID="actividades" CssClass="select--multiple" runat="server" SelectionMode="Multiple" multiple="multiple"></asp:ListBox>
                             </div>
-                          </div>
-                      </div>
+                    </div>
+
                       <div class="ln_solid"></div>
                       <div class="form-group">
                         <div class="col-md-6 col-md-offset-3">

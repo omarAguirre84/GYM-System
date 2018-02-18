@@ -37,10 +37,8 @@ public partial class CreateEmpleado : System.Web.UI.Page
                 if (item.Selected)
                 {
                     entityEmpleado.actividad = string.Concat(entityEmpleado.actividad, item.Value + ",");
-                    Console.WriteLine(item.Text);
                 }
             }
-            //entityEmpleado.actividad = entityEmpleado.actividad == null ? null : entityEmpleado.actividad.Trim(',');
             entityEmpleado = (EmpleadoEntity)popularEntity(entityEmpleado);
 
             boEmpleado.Registrar(entityEmpleado, entityEmpleado.Email.Trim());
@@ -64,7 +62,7 @@ public partial class CreateEmpleado : System.Web.UI.Page
     {
         try
         {
-            entityPersona.tipoPersona = 'S';
+            entityPersona.tipoPersona = 'P';
             entityPersona.Telefono = System.Convert.ToInt32(telefono.Value);
             entityPersona.Nombre = nombre.Value;
             entityPersona.Apellido = apellido.Value;
