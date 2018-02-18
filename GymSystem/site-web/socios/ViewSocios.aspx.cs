@@ -8,19 +8,22 @@ using System.Web.UI.WebControls;
 public partial class ViewSocios : System.Web.UI.Page
 {
     protected SocioBO socioBO;
-    protected StringBuilder htmlTable;
     protected List<SocioEntity> listaSocios;
 
     protected void Page_Load(object sender, EventArgs e)
     {
         socioBO = new SocioBO();
-
-        if ((Request.QueryString["accion"] == "actualizar"))
+        switch (Request.QueryString["accion"])
         {
-            actualizarEstado(Int32.Parse(Request.QueryString["id"]), Int32.Parse(Request.QueryString["estadoActual"]));
-        }
-        else {
-            listaSocios = socioBO.GetList();
+            case "actualizarEstado":
+                actualizarEstado(Int32.Parse(Request.QueryString["id"]), Int32.Parse(Request.QueryString["estadoActual"]));
+                break;
+            case "eliminar":
+                elmininarSocio(Int32.Parse(Request.QueryString["id"]));
+                break;
+            default:
+                listaSocios = socioBO.GetList();
+                break;
         }
     }
 
@@ -61,6 +64,11 @@ public partial class ViewSocios : System.Web.UI.Page
         int estadoNuevo = (estadoActual == 2) ? 1 : 2;
         socioBO.ActualizarEstadoSocio(id, estadoNuevo);
         Response.Redirect("ViewSocios.aspx");
+    }
+
+    protected void elmininarSocio(int idPersona)
+    {
+        Console.WriteLine("asd");
     }
 }
 
