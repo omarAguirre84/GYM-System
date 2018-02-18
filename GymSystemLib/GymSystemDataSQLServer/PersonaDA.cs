@@ -135,9 +135,9 @@ namespace GymSystemDataSQLServer
                 comando.Parameters["@FechaNacimiento"].Value = usuario.FechaNacimiento;
                 comando.Parameters["@Sexo"].Value = usuario.Sexo;
                 comando.Parameters["@TipoPersona"].Value = usuario.tipoPersona;
-                comando.Parameters["@FechaRegistracion"].Value = DateTime.Today;
+                //comando.Parameters["@FechaRegistracion"].Value = DateTime.Today;
                 comando.Parameters["@Dni"].Value = usuario.dni;
-                comando.Parameters["@Telefono"].Value = " ";
+                comando.Parameters["@Telefono"].Value = usuario.Telefono;
                 //comando.Parameters["@FechaActualizacion"].Value = DateTime.Today;
                 return comando;
             }
