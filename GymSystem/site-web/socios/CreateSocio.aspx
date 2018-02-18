@@ -77,11 +77,23 @@
                           </div>
                         </div>
                       </div>
+
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="days">Actividades<span class="required"></span></label>
+                                <div class="btn-group" data-toggle="buttons">
+                                    <div class="btn-group" data-toggle="buttons">
+                                        <div>
+                                            <asp:ListBox ID="actividades" CssClass="select--multiple" runat="server" SelectionMode="Multiple" multiple="multiple">
+                                            </asp:ListBox>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+
                       <div class="ln_solid"></div>
                       <div class="form-group">
                         <div class="col-md-6 col-md-offset-3">
-                          <button type="submit" class="btn btn-primary">Cancelar</button>
-                          
+                          <asp:Button ID="Button2" runat="server" class="btn btn-primary" Text="Cancelar" OnClick="btnCancelar_Click" />
                           <asp:Button ID="Button1" runat="server" class="btn btn-success" Text="Generar" OnClick="btnRegister_Click" />
                         </div>
                       </div>

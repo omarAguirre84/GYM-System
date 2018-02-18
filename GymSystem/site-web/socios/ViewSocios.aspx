@@ -36,8 +36,21 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!--Table rows-->
-                            <asp:PlaceHolder ID="TablaPlaceHolder" runat="server"></asp:PlaceHolder>
+                        <% foreach (var socio in listaSocios) { %>
+                                <tr>
+                                    <td><%= socio.Nombre %></td>
+                                    <td><%= socio.Apellido %></td>
+                                    <td><%= socio.Email %></td>
+                                    <td><%= socio.Telefono %></td>
+                                    <td><%= socio.FechaNacimiento %></td>
+                                    <td><%= socio.NroTarjetaIdentificacion %></td>
+                                    <td><%= this.SetBtnEstado(socio.IdEstado, socio.Id) %></td>
+                                    <td>
+                                        <a href="./ViewSocio.aspx?id=<%=socio.Id%>&accion=actualizar"  class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i> Ver / Editar </a>
+                                        <a href="./ViewSocio.aspx?id=<%=socio.Id%>&action=delete"  class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Eliminar </a>
+                                    </td>
+                                </tr>
+                        <% } %>
                         </tbody>
                     </table>  
                 </form>  

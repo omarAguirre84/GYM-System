@@ -45,8 +45,8 @@
                                     <td><%= actividad.dia %></td>
                                     <td><%= actividad.sala.Nombre %></td>
                                     <td>
-                                        <a href="./EditCreateActividad.aspx?id=<%=actividad.idActividad%>&action=edit"  class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Ver / Editar </a>
-                                        <a href="./ViewActividades.aspx?id=<%=actividad.idActividad%>&action=delete"  class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Eliminar </a>
+                                        <a href="./EditCreateActividad.aspx?id=<%=actividad.idActividad %>&action=edit"  class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i> Ver / Editar </a>
+                                        <a href="./ViewActividades.aspx?id=<%=actividad.idActividad %>&action=delete"  class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Eliminar </a>
                                     </td>
                                 </tr>
                         <% } %>

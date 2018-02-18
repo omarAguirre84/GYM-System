@@ -17,7 +17,6 @@ public partial class ViewActividades : System.Web.UI.Page
         {
             listaActividades = activBo.GetList();
             listaSalas = salaBO.GetListSalas();
-            //Console.WriteLine(listActiv);
         }
 
         if (Request.QueryString["action"] == "delete")
@@ -28,8 +27,6 @@ public partial class ViewActividades : System.Web.UI.Page
 
     protected void deleteActividad(int idActividad)
     {
-        //Console.WriteLine("Se Eliminar Actividad");
-
         if (activBo.DeleteActividad(idActividad))
         {
             Response.Redirect("ViewActividades.aspx");

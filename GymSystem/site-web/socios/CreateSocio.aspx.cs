@@ -4,18 +4,23 @@ using GymSystemEntity;
 using GymSystemWebUtil;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 public partial class CreateSocio : System.Web.UI.Page
 {
     private SocioBO boSocio;
+    private ActividadBO boActividad;
+    protected List<ActividadEntity> listaActividades;
 
     protected void Page_Load(object sender, EventArgs e)
     {
         boSocio = new SocioBO();
+        if (!Page.IsPostBack)
+        {
+            boActividad = new ActividadBO();
+            listaActividades = boActividad.GetList();
+            llenarViewActividades();
+        }
     }
 
     protected void btnRegister_Click(object sender, EventArgs e)
@@ -23,8 +28,16 @@ public partial class CreateSocio : System.Web.UI.Page
         try
         {
             SocioEntity entitySocio = new SocioEntity(new Random().Next(1, 99999), 1);
+            foreach (ListItem item in actividades.Items)
+            {
+                if (item.Selected)
+                {
+                    entitySocio.actividad = string.Concat(entitySocio.actividad, item.Value + ",");
+                    Console.WriteLine(item.Text);
+                }
+            }
+            
             entitySocio = (SocioEntity)popularEntity(entitySocio);
-
             boSocio.Registrar(entitySocio, entitySocio.Email.Trim());
             WebHelper.MostrarMensaje(Page, ("Socio "+entitySocio.Nombre +" "+ entitySocio.Apellido + " creado con exito."));
         }
@@ -79,4 +92,24 @@ public partial class CreateSocio : System.Web.UI.Page
         return entityPersona;
     }
 
+    protected void btnCancelar_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("../socios/ViewSocios.aspx");
+    }
+
+    public void llenarViewActividades()
+    {
+        ListItem li = new ListItem();
+        actividades.Items.Clear();
+        foreach (ActividadEntity act in listaActividades)
+        {
+            if (act != null)
+            {
+                li = new ListItem();
+                li.Text = act.descripcion;
+                li.Value = act.descripcion;
+                actividades.Items.Add(new ListItem(act.name, act.idActividad.ToString()));
+            }
+        }
+    }
 }

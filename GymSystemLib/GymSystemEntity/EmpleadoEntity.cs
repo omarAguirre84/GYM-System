@@ -11,7 +11,6 @@ namespace GymSystemEntity
         public int tipoEmpleado { get; set; }
         public DateTime fechaIngreso { get; set; }
         public DateTime fechaEgreso { get; set; }
-        public string actividad { get; set; }
         public string dia { get; set; }
 
         public EmpleadoEntity() { }

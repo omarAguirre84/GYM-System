@@ -83,7 +83,7 @@
                           </div>
                         </div>
                       </div>
-                          </div>
+                    </div>
 
                       <div class="item form-group">
                       <label class="control-label col-md-3 col-sm-3 col-xs-12" for="days">Actividades<span class="required"></span>
@@ -100,7 +100,7 @@
                       <div class="ln_solid"></div>
                       <div class="form-group">
                         <div class="col-md-6 col-md-offset-3">
-                          <asp:Button ID="Button2" OnClick="Btn_cancelar" runat="server" class="btn btn-primary" Text="< Volver" />
+                          <asp:Button ID="Button2" runat="server" class="btn btn-primary" Text="Cancelar" OnClick="BtnCancelar_click"/>
                           <asp:Button ID="Button1" runat="server" class="btn btn-success" Text="Generar" OnClick="btnRegister_Click" />
                         </div>
                       </div>

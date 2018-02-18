@@ -13,7 +13,7 @@ public partial class CreateEmpleado : System.Web.UI.Page
 {
     private EmpleadoBO boEmpleado;
     private ActividadBO boActividad;
-    protected List<ActividadEntity> actividadesArr;
+    protected List<ActividadEntity> ListaActividades;
 
 
     protected void Page_Load(object sender, EventArgs e)
@@ -21,32 +21,24 @@ public partial class CreateEmpleado : System.Web.UI.Page
         boEmpleado = new EmpleadoBO();
         if (!Page.IsPostBack)
         {
-           
-            
-            boActividad = new ActividadBO();
-            actividadesArr = boActividad.GetList();
-            llenarViewActividades();
-            //loadDayWeek();
+           boActividad = new ActividadBO();
+           ListaActividades = boActividad.GetList();
+           llenarViewActividades();
         }
     }
-
 
     protected void btnRegister_Click(object sender, EventArgs e)
     {
         try
         {
-            
             EmpleadoEntity entityEmpleado = new EmpleadoEntity(1, DateTime.Today, DateTime.MinValue);
             foreach (ListItem item in actividades.Items)
             {
-
                 if (item.Selected)
                 {
                     entityEmpleado.actividad = string.Concat(entityEmpleado.actividad, item.Value + ",");
                     Console.WriteLine(item.Text);
-
                 }
-
             }
             //entityEmpleado.actividad = entityEmpleado.actividad == null ? null : entityEmpleado.actividad.Trim(',');
             entityEmpleado = (EmpleadoEntity)popularEntity(entityEmpleado);
@@ -60,12 +52,10 @@ public partial class CreateEmpleado : System.Web.UI.Page
         }
         catch (FormatException ex)
         {
-            //WebHelper.MostrarMensaje(Page, ex.Message);
             WebHelper.MostrarMensaje(Page, ("Error en ingreso de datos: " + ex));
         }
         catch (Exception ex)
         {
-            //WebHelper.MostrarMensaje(Page, ex.Message);
             WebHelper.MostrarMensaje(Page, ("Error en ingreso de datos: " + ex));
         }
     }
@@ -110,7 +100,7 @@ public partial class CreateEmpleado : System.Web.UI.Page
     public void llenarViewActividades() {
         ListItem li = new ListItem();
         actividades.Items.Clear();
-        foreach (ActividadEntity act in actividadesArr) {
+        foreach (ActividadEntity act in ListaActividades) {
             if (act != null) { 
                 li = new ListItem();
                 li.Text = act.descripcion;
@@ -119,34 +109,8 @@ public partial class CreateEmpleado : System.Web.UI.Page
             }
         }
     }
-    /*
-    public void loadDayWeek()
-    {
-        ListItem li = new ListItem();
-        DayList.Items.Add(new ListItem("Lunes", "0"));
-        DayList.Items.Add(new ListItem("Martes", "1"));
-        DayList.Items.Add(new ListItem("Miercoles", "2"));
-        DayList.Items.Add(new ListItem("Jueves", "3"));
-        DayList.Items.Add(new ListItem("Viernes", "4"));
-        DayList.Items.Add(new ListItem("Sabado", "5"));
-        DayList.Items.Add(new ListItem("Domingo", "6"));
-
-        var names = new List<string>(new string[] { "4", "6" });
-
-        foreach (ListItem item in DayList.Items)
-        {
-
-            if (names.Contains(item.Value))
-            {
-
-                item.Selected = true;
-
-            }
-
-        }
-    }
-    */
-    protected void Btn_cancelar(object sender, EventArgs e)
+    
+    protected void BtnCancelar_click(object sender, EventArgs e)
     {
         Response.Redirect("../empleados/ViewEmpleados.aspx");
     }

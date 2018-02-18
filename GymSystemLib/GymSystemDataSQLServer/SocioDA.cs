@@ -15,6 +15,7 @@ namespace GymSystemDataSQLServer
     public class SocioDA : PersonaDA
     {
         private PersonaDA personaDA;
+
         public SocioDA()
         {
             personaDA = new PersonaDA();
@@ -74,10 +75,9 @@ namespace GymSystemDataSQLServer
                         comando.Parameters["@FechaNacimiento"].Value = socio.FechaNacimiento;
                         comando.Parameters["@Sexo"].Value = socio.Sexo;
                         comando.Parameters["@TipoPersona"].Value = socio.tipoPersona;
-                        comando.Parameters["@FechaRegistracion"].Value = socio.FechaRegistracion;
-                        comando.Parameters["@FechaActualizacion"].Value = socio.FechaActualizacion;
                         comando.Parameters["@NroTarjetaIdentificacion"].Value = socio.NroTarjetaIdentificacion;
                         comando.Parameters["@idEstado"].Value = socio.IdEstado;
+                        comando.Parameters["@ListActividad"].Value = socio.actividad;
                         comando.ExecuteNonQuery();
                     }
 
@@ -86,7 +86,7 @@ namespace GymSystemDataSQLServer
             }
             catch (Exception ex)
             {
-                throw new ExcepcionDA("Se produjo un error al insertar el usuario.", ex);
+                throw new ExcepcionDA("Se produjo un error al insertar el socio.", ex);
             }
         }
 
@@ -189,12 +189,11 @@ namespace GymSystemDataSQLServer
             }
         }
 
-        public SocioEntity[] ListarSocios()
+        public List<SocioEntity> ListarSocios()
         {
+            List<SocioEntity> socios = new List<SocioEntity>();
             try
             {
-                SocioEntity[] socios = null;
-
                 using (SqlConnection conexion = ConexionDA.ObtenerConexion())
                 {
                     using (SqlCommand comando = new SqlCommand("SocioTraerTodos", conexion))
@@ -204,13 +203,9 @@ namespace GymSystemDataSQLServer
 
                         using (SqlDataReader cursor = comando.ExecuteReader())
                         {
-                            int i = 0;
-                            socios = new SocioEntity[cursor.FieldCount];
-
                             while (cursor.Read())
                             {
-                                socios[i] = CrearSocio(cursor);
-                                i++;
+                                socios.Add(CrearSocio(cursor));
                             }
                             cursor.Close();
                         }

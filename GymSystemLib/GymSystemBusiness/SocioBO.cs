@@ -53,7 +53,7 @@ namespace GymSystemBusiness
             }
         }
 
-        public SocioEntity[] GetList()
+        public List<SocioEntity> GetList()
         {
             try
             {
