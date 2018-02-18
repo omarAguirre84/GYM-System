@@ -27,8 +27,7 @@
                                 <th>Apellido</th>
                                 <th>Email</th>
                                 <th>Telefono</th>
-                                <th>Actividad</th>
-                                <th>Dia</th>
+                                <th>Tipo Empleado</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>

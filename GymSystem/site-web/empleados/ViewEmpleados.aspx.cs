@@ -29,7 +29,14 @@ public partial class ViewSocios : System.Web.UI.Page
                 htmlTable.Append("<td>" + empleado.Apellido + "</td>");
                 htmlTable.Append("<td>" + empleado.Email + "</td>");
                 htmlTable.Append("<td>" + empleado.Telefono + "</td>");
-                htmlTable.Append("<td>" + empleado.actividad + "</td>");
+                if (empleado.tipoEmpleado == 1)
+                {
+                    htmlTable.Append("<td>" + "Profesor" + "</td>");
+                }
+                else {
+                    htmlTable.Append("<td>" + "Otro Empleado" + "</td>");
+                }
+                
             
                 htmlTable.Append("<td>");
                 htmlTable.Append("<a href=\"../empleados/ViewEmpleado.aspx?id=" + empleado.Id + "\"class=\"btn btn-primary btn-xs\" ><i class=\"fa fa-eye\" ></i> Ver / Editar </a>");
