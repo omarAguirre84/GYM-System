@@ -12,15 +12,21 @@ using System.Web.UI.WebControls;
 public partial class ViewSocio : System.Web.UI.Page
 {
     private SocioBO boSocio;
-    SocioEntity nuevoSocio;
+    private SocioEntity nuevoSocio;
+    private ActividadBO boActividad;
+    protected List<ActividadEntity> listaActividades;
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        boActividad = new ActividadBO();
         boSocio = new SocioBO();
 
         if (!IsPostBack) //false = primera vez que se carga, true= segunda vez, se cambiaron los datos
         {
             cargarDatosSocioEnVista();
+            listaActividades = boActividad.GetList();
+            loadEditActividad();
+            loadActividadList();
         }
     }
 
@@ -84,6 +90,8 @@ public partial class ViewSocio : System.Web.UI.Page
                 activo.Attributes.Remove("checked");
                 activoLbl.Attributes.Add("class", "btn btn-default");
             }
+
+
             
         }
         catch (AutenticacionExcepcionBO ex)
@@ -118,9 +126,7 @@ public partial class ViewSocio : System.Web.UI.Page
     protected SocioEntity generarNuevoEntity(SocioEntity anterior)
     {
         int estado = (activo.Checked) ? 1 : 2 ;
-        SocioEntity nuevoEntity = new SocioEntity(
-            anterior.NroTarjetaIdentificacion, estado
-            );
+        SocioEntity nuevoEntity = new SocioEntity(anterior.NroTarjetaIdentificacion, estado);
         try
         {
             nuevoEntity.Id = anterior.Id;
@@ -129,7 +135,7 @@ public partial class ViewSocio : System.Web.UI.Page
             nuevoEntity.Telefono = System.Convert.ToInt32(telefono.Text);
             nuevoEntity.Apellido = apellido.Text;
             nuevoEntity.dni = dni.Text;
-            nuevoEntity.Email = email.Text;
+            nuevoEntity.Email = email.Text.ToLower();
             nuevoEntity.Password = (passw1.Text.Equals(passw2.Text) & !passw1.Text.Equals("********")) ? passw1.Text: anterior.Password;
 
             string[] fechaArr = fechaNacimiento.Value.Split('-');
@@ -151,6 +157,14 @@ public partial class ViewSocio : System.Web.UI.Page
             nuevoEntity.Foto = null;
             nuevoEntity.FechaRegistracion = anterior.FechaRegistracion;
             nuevoEntity.FechaActualizacion = DateTime.Now;
+            foreach (ListItem item in actividades.Items)
+            {
+                if (item.Selected)
+                {
+                    nuevoEntity.actividad = string.Concat(nuevoEntity.actividad, item.Value + ",");
+                    Console.WriteLine(item.Text);
+                }
+            }
         }
         catch (AutenticacionExcepcionBO ex)
         {
@@ -165,5 +179,23 @@ public partial class ViewSocio : System.Web.UI.Page
         return nuevoEntity;
     }
 
-    
+    private void loadEditActividad()
+    {
+        List<int> listaComboActividad = boActividad.BuscarActividadPersonaPorId(Int32.Parse(Request.QueryString["id"]));
+        foreach (ListItem item in actividades.Items)
+        {
+            item.Selected = (listaComboActividad.Contains(Int32.Parse(item.Value)))?true:false;
+        }
+    }
+
+    protected void loadActividadList()
+    {
+        int index = 0;
+        foreach (ActividadEntity actividadEntity in listaActividades)
+        {
+            actividades.Items.Insert(index++, new ListItem(actividadEntity.name, actividadEntity.idActividad.ToString()));
+        }
+        loadEditActividad();
+    }
+
 }
