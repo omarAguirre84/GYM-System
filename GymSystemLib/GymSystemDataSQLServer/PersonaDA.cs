@@ -78,6 +78,7 @@ namespace GymSystemDataSQLServer
                         comando.Parameters["@Sexo"].Value = persona.Sexo;
                         comando.Parameters["@Profesor"].Value = persona.tipoPersona;
                         comando.Parameters["@FechaRegistracion"].Value = persona.FechaRegistracion;
+                        comando.Parameters["@Telefono"].Value = persona.Telefono;
                         comando.ExecuteNonQuery();
                         //persona.Id = Convert.ToInt32(comando.Parameters["@RETURN_VALUE"].Value);
                     }
@@ -108,6 +109,7 @@ namespace GymSystemDataSQLServer
                         comando.Parameters["@Password"].Value = persona.Password.Trim();
                         comando.Parameters["@FechaNacimiento"].Value = persona.FechaNacimiento;
                         comando.Parameters["@Sexo"].Value = persona.Sexo;
+                       
                         comando.ExecuteNonQuery();
                     }
 

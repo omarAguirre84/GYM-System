@@ -22,12 +22,14 @@ public partial class site_web_login_registrationform : System.Web.UI.Page
         try
         {
             Console.Write(RegTypeUser.Value);
-            WebHelper.MostrarMensaje(Page, "error");
+            //WebHelper.MostrarMensaje(Page, "error");
             PersonaEntity usuario = personaBo.factoryPersona(Convert.ToChar(RegTypeUser.Value));
             usuario.Nombre = RegName.Value;
             usuario.Apellido = RegApell.Value;
+            usuario.Telefono = System.Convert.ToInt32(RegTel.Value);
             usuario.Email = RegEmail.Value;
             usuario.Password = RegPass.Value;
+            usuario.Password2 = RegRepetPass.Value;
             usuario.FechaNacimiento = Convert.ToDateTime(RegfechaNac.Value);
             usuario.Sexo = Convert.ToChar( RegGender.Value);
             usuario.tipoPersona = Convert.ToChar(RegTypeUser.Value);

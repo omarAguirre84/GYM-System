@@ -21,6 +21,10 @@
                   <label style="align-content: left; display: flex;"> Apellido *:</label>
                 <input id="RegApell" name="RegApell" type="text" class="form-control" placeholder="Apellido" required="" runat="server"/>
               </div>
+         <div class="form-group">
+                  <label style="align-content: left; display: flex;"> Telefono *:</label>
+                <input id="RegTel" name="RegTel" type="text" class="form-control" placeholder="Telefono" required="" runat="server"/>
+              </div>
                <div class="form-group">
                   <label style="align-content: left; display: flex;"> DNI *:</label>
                 <input id="RegDni" name="RegDni" type="text" class="form-control" placeholder="DNI" required="" runat="server"/>

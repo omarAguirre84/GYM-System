@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using GymSystemEntity;
 using GymSystemData;
 using GymSystemDataSQLServer;
-using GymSystemComun;
+
 
 namespace GymSystemBusiness
 {
@@ -20,12 +17,10 @@ namespace GymSystemBusiness
                     break;
                 case 'P':
                     throw new NotImplementedException();
-                    //person = new ProfesorEntity();
-                    //break;
+              
                 case 'E':
                     throw new NotImplementedException();
-                    //person = new EmpleadoEntity();
-                    //break;
+                 
             }
             return person;
         }
@@ -43,7 +38,7 @@ namespace GymSystemBusiness
 
                 if (persona == null)
                     throw new AutenticacionExcepcionBO();
-                    //throw new ValidacionExcepcionAbstract();
+                    
                 return persona;
             }
             catch (ExcepcionDA ex)

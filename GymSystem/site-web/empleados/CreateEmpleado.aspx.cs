@@ -4,8 +4,6 @@ using GymSystemEntity;
 using GymSystemWebUtil;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -26,7 +24,7 @@ public partial class CreateEmpleado : System.Web.UI.Page
             boActividad = new ActividadBO();
             actividadesArr = boActividad.GetList();
             llenarViewActividades();
-            //loadDayWeek();
+
         }
     }
 
@@ -80,8 +78,9 @@ public partial class CreateEmpleado : System.Web.UI.Page
             entityPersona.Apellido = apellido.Value;
             entityPersona.dni = dni.Value;
             entityPersona.Email = email.Value;
-            entityPersona.Password = (passw1.Value.Equals(passw2.Value)) ? passw1.Value : null;
-
+            //entityPersona.Password = (passw1.Value.Equals(passw2.Value)) ? passw1.Value : null;
+            entityPersona.Password = passw1.Value;
+            entityPersona.Password2 = passw2.Value;
             string[] fechaArr = fechaNacimiento.Value.Split('-');
             entityPersona.FechaNacimiento = Util.ObtenerFecha(
                 int.Parse(fechaArr[0]),
@@ -119,33 +118,7 @@ public partial class CreateEmpleado : System.Web.UI.Page
             }
         }
     }
-    /*
-    public void loadDayWeek()
-    {
-        ListItem li = new ListItem();
-        DayList.Items.Add(new ListItem("Lunes", "0"));
-        DayList.Items.Add(new ListItem("Martes", "1"));
-        DayList.Items.Add(new ListItem("Miercoles", "2"));
-        DayList.Items.Add(new ListItem("Jueves", "3"));
-        DayList.Items.Add(new ListItem("Viernes", "4"));
-        DayList.Items.Add(new ListItem("Sabado", "5"));
-        DayList.Items.Add(new ListItem("Domingo", "6"));
-
-        var names = new List<string>(new string[] { "4", "6" });
-
-        foreach (ListItem item in DayList.Items)
-        {
-
-            if (names.Contains(item.Value))
-            {
-
-                item.Selected = true;
-
-            }
-
-        }
-    }
-    */
+   
     protected void Btn_cancelar(object sender, EventArgs e)
     {
         Response.Redirect("../empleados/ViewEmpleados.aspx");

@@ -49,6 +49,7 @@ namespace GymSystemEntity
         public string Apellido { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
+        public string Password2 { get; set; }
         public DateTime FechaNacimiento { get; set; }
         public char Sexo { get; set; }
         public string Foto { get; set; }
@@ -70,9 +71,13 @@ namespace GymSystemEntity
                 FechaNacimiento == DateTime.MinValue ||
                 Sexo == ' '
                 )
+
+
             {
                 throw new DatosObligatoriosExcepcion();
             }
+            if (Password.Trim().Equals(Password2.Trim()) == false)
+                throw new ExceptionMuestraMensaje("Las contraseñas no coinciden");
 
             if (!Util.EsEmail(Email))
             {
