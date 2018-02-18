@@ -5,7 +5,7 @@
         <form id="form_login" runat="server">
             <h1>Gym System Login</h1>
                 <div>
-                <input type="text" ID="username" class="form-control" placeholder="Username" required=""  runat="server" />
+                <input type="email" ID="username" class="form-control" placeholder="Username" required=""  runat="server" />
                 </div>
                 <div>
                 <input type="password" ID="password"  class="form-control" placeholder="Password" required="" runat="server"/>
