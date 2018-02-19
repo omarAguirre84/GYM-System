@@ -302,12 +302,11 @@ namespace GymSystemDataSQLServer
 
                 using (SqlConnection conexion = ConexionDA.ObtenerConexion())
                 {
-                    using (SqlCommand comando = new SqlCommand("[ActividadPersonaGetList]", conexion))
+                    using (SqlCommand comando = new SqlCommand("ActividadPorPersonaId", conexion))
                     {
                         comando.CommandType = CommandType.StoredProcedure;
                         SqlCommandBuilder.DeriveParameters(comando);
                         comando.Parameters["@idPersona"].Value = idPersona;
-                        comando.Parameters["@valueAll"].Value = 1;
                         using (SqlDataReader cursor = comando.ExecuteReader())
                         {
 
