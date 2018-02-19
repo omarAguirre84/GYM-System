@@ -10,21 +10,21 @@
                     <form class="form-horizontal form-label-left" novalidate runat="server">
                       <span class="section">Actualizar Datos Empleado</span>
                       <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Nombre <span class="required"></span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nombre">Nombre <span class="required"></span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <asp:TextBox rows="1" ID="nombre" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="nombre" placeholder="Willy" required="required" type="text" data-parsley-error-message="my message" runat="server"/>
                         </div>
                       </div>
                       <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Apellido <span class="required"></span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="apellido">Apellido <span class="required"></span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <asp:TextBox rows="1" ID="apellido" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="apellido" placeholder="Wonka" required="required" type="text" data-parsley-error-message="my message" runat="server"/>
                         </div>
                       </div>
                       <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">DNI <span class="required"></span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="DNI">DNI <span class="required"></span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <asp:TextBox rows="1" id="dni" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="DNI" placeholder="12345678" required="required" type="number" data-parsley-error-message="dni incorrecto" runat="server"/>
@@ -38,7 +38,7 @@
                         </div>
                       </div>
                       <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">Telefono <span class="required"></span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="telefono">Telefono <span class="required"></span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <asp:TextBox rows="1" type="tel" id="telefono" name="telefono" required="required" class="form-control col-md-7 col-xs-12" value="****" runat="server"/>
@@ -65,7 +65,7 @@
                       </div>
                       
                       <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="datebirth">Fecha de Ingreso <span class="required"></span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="fechaIngreso">Fecha de Ingreso <span class="required"></span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <input id="fechaIngreso" type="date" name="fechaIngreso" data-validate-length-range="5,20" class="optional form-control col-md-7 col-xs-12" runat="server">
@@ -73,11 +73,11 @@
                       </div>
                       
                       <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="gender">Genero <span class="required"></span></label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="genero">Género <span class="required"></span></label>
                         <div class="col-md-6 col-sm-6 col-xs-12" >
                           <div class="btn-group" data-toggle="buttons" >
                             <div>
-                                <asp:RadioButtonList id="sexos" class="flat" runat="server">
+                                <asp:RadioButtonList id="sexos" name="genero" class="flat" runat="server">
                                     <asp:ListItem Value="masculino" Text="Masculino" Selected="True"/>
                                     <asp:ListItem Value="femenino" Text="Femenino"/>
                                 </asp:RadioButtonList>
@@ -87,11 +87,11 @@
                           </div>
                         <br />
                          <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="datebirth">Actividades<span class="required"></span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="actividades">Actividades<span class="required"></span>
                         </label>
                           <div class="btn-group" data-toggle="buttons">
                             <div>
-                                <asp:ListBox ID="actividades" CssClass="select--multiple"   runat="server" SelectionMode="Multiple" multiple="multiple">
+                                <asp:ListBox ID="actividades" name="actividades" CssClass="select--multiple"   runat="server" SelectionMode="Multiple" multiple="multiple">
                                 </asp:ListBox>
                               </div>
                             </div>

@@ -80,6 +80,19 @@ public partial class ViewEmpleado : System.Web.UI.Page
 
     protected void Btn_actualizar(object sender, EventArgs e)
     {
+        if (hayCamposVacios())
+        {
+            WebHelper.MostrarMensaje(Page, "No es posible guardar cambios. Se deben completar todos los campos.");
+        }
+        else if (!PassSonIguales())
+        {
+            WebHelper.MostrarMensaje(Page, "No es posible guardar cambios. Las Contraseñas deben coincidir.");
+        }
+        else if(!EsFechaValida())
+        {
+            WebHelper.MostrarMensaje(Page, "No es posible guardar cambios. La fecha de nacimiento debe ser menor al día de la fecha.");
+        }
+
         try
         {
             boEmpleado.ActualizarEmpleado(nuevoEntity(boEmpleado.BuscarEmpleado(Int32.Parse(Request.QueryString["id"]))));
@@ -103,7 +116,51 @@ public partial class ViewEmpleado : System.Web.UI.Page
         loadEditActividad();
     }
 
-    private void loadEditActividad()
+    private bool hayCamposVacios()
+    {
+        bool hayVacios = false;
+
+        if (
+            nombre.Text.Trim().Equals("")
+            || apellido.Text.Trim().Equals("")
+            || dni.Text.Trim().Equals("")
+            || email.Text.Trim().Equals("")
+            || telefono.Text.Trim().Equals("")
+            || passw1.Text.Trim().Equals("")
+            || passw2.Text.Trim().Equals("")               
+            || fechaNacimiento.Value.Trim().Equals("")
+            || fechaIngreso.Value.Trim().Equals("")
+                )
+        {
+            hayVacios = true;
+        }
+        return hayVacios;
+    }
+
+    private bool PassSonIguales()
+    {
+        return passw1.Text.Trim().Equals(passw2.Text.Trim());
+    }
+
+    private bool EsFechaValida()
+    {
+        bool esFechaValida = true;
+
+        string sFecha = fechaNacimiento.Value.Trim();
+        string format = "yyyy-MM-dd";
+        System.Globalization.CultureInfo info = System.Globalization.CultureInfo.InvariantCulture;
+
+        DateTime fecha = DateTime.ParseExact(sFecha, format, info);
+
+        if (fecha >= DateTime.Today)
+        {
+            esFechaValida = false;
+        }
+        return esFechaValida;
+    }
+
+
+private void loadEditActividad()
     {
         List<int> listSelectActividad = boActividad.BuscarActividadPersonaPorId(Int32.Parse(Request.QueryString["id"]));
 
