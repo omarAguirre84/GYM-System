@@ -59,7 +59,8 @@ namespace GymSystemEntity
             this.Foto = foto;
             this.FechaRegistracion = fechaRegistracion;
             this.FechaActualizacion = fechaActualizacion;
-        }
+            public int Telefono { get; set; }
+    }
     
         public void ValidarDatos()
         {
