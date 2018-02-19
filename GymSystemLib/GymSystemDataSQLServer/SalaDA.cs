@@ -1,14 +1,8 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Configuration;
-using System.IO;
 using GymSystemEntity;
 using GymSystemData;
-using System.Diagnostics;
 
 namespace GymSystemDataSQLServer
 {
