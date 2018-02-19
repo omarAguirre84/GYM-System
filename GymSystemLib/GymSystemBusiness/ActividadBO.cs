@@ -107,6 +107,18 @@ namespace GymSystemBusiness
             }
         }
 
+        public List<ActividadEntity> ActividadGetAll()
+        {
+            try
+            {
+                return daActividad.ActividadGetAll(); ;
+            }
+            catch (ExcepcionDA ex)
+            {
+                throw new ExcepcionBO("No se pudo realizar listar Actividad.", ex);
+            }
+        }
+
         public List<ActividadEntity> ListActividadPersonaPorId(int idPersona)
         {
             try
@@ -136,6 +148,30 @@ namespace GymSystemBusiness
             try
             {
                 return daActividad.deleteActividad(idActividad);
+            }
+            catch (ExcepcionDA ex)
+            {
+                throw new ExcepcionBO("No se pudo realizar listar Actividades.", ex);
+            }
+        }
+
+        public void borrarActividadPersona(int idActividad, int idPersona)
+        {
+            try
+            {
+                daActividad.borrarActividadPersona(idActividad, idPersona);
+            }
+            catch (ExcepcionDA ex)
+            {
+                throw new ExcepcionBO("No se pudo realizar listar Actividades.", ex);
+            }
+        }
+
+        public void insertarActividadPersona(int idActividad, int idPersona)
+        {
+            try
+            {
+                daActividad.insertarActividadPersona(idActividad, idPersona);
             }
             catch (ExcepcionDA ex)
             {
