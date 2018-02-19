@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using GymSystemEntity;
 using GymSystemData;
 using GymSystemDataSQLServer;
@@ -21,6 +19,7 @@ namespace GymSystemBusiness
             try
             {
                 empleado.ValidarDatos();
+                
 
                 if (daActividad.ExisteEmail(empleado.Email))
                     throw new EmailExisteExcepcionBO();
@@ -39,6 +38,7 @@ namespace GymSystemBusiness
         public void saveActividad(ActividadEntity actividad) {
             try
             {
+                //actividad.ValidarDatos();
                 daActividad.insertarActividad(actividad);
             }
             catch (ExcepcionDA ex)
