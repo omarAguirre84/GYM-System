@@ -75,7 +75,17 @@ public partial class CreateEmpleado : System.Web.UI.Page
                 int.Parse(fechaArr[0]),
                 int.Parse(fechaArr[1]),
                 int.Parse(fechaArr[2]));
-            entityPersona.Sexo = System.Convert.ToChar(sexos.SelectedValue);
+
+            char gen;
+            if (masculino.Checked)
+            {
+                gen = 'M';
+            }
+            else
+            {
+                gen = 'F';
+            }
+            entityPersona.Sexo = gen;
             entityPersona.Foto = null;
             entityPersona.FechaRegistracion = DateTime.Now;
             entityPersona.FechaActualizacion = DateTime.Now;

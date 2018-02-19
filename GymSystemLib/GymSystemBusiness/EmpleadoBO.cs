@@ -37,7 +37,7 @@ namespace GymSystemBusiness
             }
         }
 
-        public EmpleadoEntity[] GetList()
+        public List<EmpleadoEntity> GetList()
         {
             try
             {
