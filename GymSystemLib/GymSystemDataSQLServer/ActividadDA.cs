@@ -33,6 +33,15 @@ namespace GymSystemDataSQLServer
             if (ColumExist(cursor, "idSala")) {
                 actividad.idSala = cursor.GetInt32(cursor.GetOrdinal("idSala"));
             }
+            if (ColumExist(cursor, "numero"))
+            {
+                actividad.sala.Numero = Int32.Parse(cursor.GetString(cursor.GetOrdinal("numero")));
+            }
+
+            if (ColumExist(cursor, "capacidad"))
+            {
+                actividad.sala.Capacidad = cursor.GetInt32(cursor.GetOrdinal("capacidad"));
+            }
             return actividad;   
         }
         #endregion Métodos Privados
@@ -211,6 +220,42 @@ namespace GymSystemDataSQLServer
                 throw new ExcepcionDA("Se produjo un error al buscar por email y contraseña.", ex);
             }
         }
+        public List<ActividadEntity> ActividadGetAll()
+        {
+            try
+            {
+                List<ActividadEntity> actividades = new List<ActividadEntity>();
+
+                using (SqlConnection conexion = ConexionDA.ObtenerConexion())
+                {
+                    using (SqlCommand comando = new SqlCommand("[ActividadTraerTodos]", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+                        SqlCommandBuilder.DeriveParameters(comando);
+                        using (SqlDataReader cursor = comando.ExecuteReader())
+                        {
+
+
+                            while (cursor.Read())
+                            {
+                                ActividadEntity auxActi = CrearActividad(cursor);
+                                auxActi.listPersonas = PersonaPorActividadId(auxActi.idActividad);
+                                actividades.Add(auxActi);
+
+                            }
+                            cursor.Close();
+                        }
+                    }
+                    conexion.Close();
+                }
+                return actividades;
+            }
+            catch (Exception ex)
+            {
+                throw new ExcepcionDA("Se produjo un error al buscar por email y contraseña.", ex);
+            }
+        }
+
 
         public List<PersonaEntity> PersonaPorActividadId(int idActividad)
         {
@@ -393,7 +438,7 @@ namespace GymSystemDataSQLServer
 
                 using (SqlConnection conexion = ConexionDA.ObtenerConexion())
                 {
-                    using (SqlCommand comando = new SqlCommand("ActividadBuscarPorId", conexion))
+                    using (SqlCommand comando = new SqlCommand("InsertarActividadPersona", conexion))
                     {
                         comando.CommandType = CommandType.StoredProcedure;
                         SqlCommandBuilder.DeriveParameters(comando);
@@ -419,6 +464,61 @@ namespace GymSystemDataSQLServer
                 throw new ExcepcionDA("Se produjo un error al buscar por ID.", ex);
             }
         }
-            #endregion Métodos Públicos
+        #endregion Métodos Públicos
+
+        public void insertarActividadPersona(int idActividad, int idPersona) {
+
+            try
+            {
+                using (SqlConnection conexion = ConexionDA.ObtenerConexion())
+                {
+                    using (SqlCommand comando = new SqlCommand("[InsertarActividadPersona]", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+                        SqlCommandBuilder.DeriveParameters(comando);
+
+                        comando.Parameters["@idActividad"].Value = idActividad;
+                        comando.Parameters["@idPersona"].Value = idPersona;
+                        using (SqlDataReader cursor = comando.ExecuteReader())
+                        {
+                            cursor.Close();
+                        }
+                    }
+                    conexion.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ExcepcionDA("Se produjo un error al buscar por ID.", ex);
+            }
+        }
+
+        public void borrarActividadPersona(int idActividad, int idPersona)
+        {
+            try
+            {
+                using (SqlConnection conexion = ConexionDA.ObtenerConexion())
+                {
+                    using (SqlCommand comando = new SqlCommand("[BorrarActividadPersona]", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+                        SqlCommandBuilder.DeriveParameters(comando);
+
+                        comando.Parameters["@idActividad"].Value = idActividad;
+                        comando.Parameters["@idPersona"].Value = idPersona;
+                        int i = 0;
+                        using (SqlDataReader cursor = comando.ExecuteReader())
+                        {
+                            cursor.Close();
+                        }
+                    }
+                    conexion.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ExcepcionDA("Se produjo un error al buscar por ID.", ex);
+            }
+        }
     }
 }

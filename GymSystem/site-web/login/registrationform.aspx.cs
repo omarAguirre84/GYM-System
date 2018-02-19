@@ -13,6 +13,7 @@ public partial class site_web_login_registrationform : System.Web.UI.Page
 {
     private PersonaBO personaBo = new PersonaBO();
     private SocioBO socioBO = new SocioBO();
+    private EmpleadoBO empleadoBO = new EmpleadoBO();
     protected void Page_Load(object sender, EventArgs e)
     {
 
@@ -31,7 +32,7 @@ public partial class site_web_login_registrationform : System.Web.UI.Page
             usuario.Password = RegPass.Value;
             usuario.Password2 = RegRepetPass.Value;
             usuario.FechaNacimiento = Convert.ToDateTime(RegfechaNac.Value);
-            usuario.Sexo = Convert.ToChar( RegGender.Value);
+            usuario.Sexo = Convert.ToChar(RegGender.Value);
             usuario.tipoPersona = Convert.ToChar(RegTypeUser.Value);
             usuario.dni = RegDni.Value;
 
@@ -40,15 +41,16 @@ public partial class site_web_login_registrationform : System.Web.UI.Page
             {
                 socioBO.newSocio(usuario);
                 
-                WebHelper.MostrarMensaje(Page,"Se registro con exito Usuario" + usuario.Nombre);
-                Page.Response.Redirect("~/site-web/login/SuccesCreateUser.aspx");
             }
-            //}
-
-           // personaBo.RegistrarPersona(usuario, usuario.Email);
+            if (usuario is EmpleadoEntity) {
+                EmpleadoEntity empleado = (EmpleadoEntity)usuario;
+                empleado.tipoEmpleado = 1;
+                empleadoBO.Registrar(empleado, usuario.Email);
+            }
+            WebHelper.MostrarMensaje(Page, "Se registro con exito Usuario" + usuario.Nombre);
+            Page.Response.Redirect("~/site-web/login/SuccesCreateUser.aspx");
 
             Server.Transfer("\\Biografia.aspx");
-            //Page.Response.Redirect("~/site-web/login/registrationform.aspx#signup"); 
          } catch (ValidacionExcepcionAbstract ex)
         {
             WebHelper.MostrarMensaje(Page, ex.Message);

@@ -8,7 +8,7 @@ using GymSystemDataSQLServer;
 
 namespace GymSystemBusiness
 {
-    public class EmpleadoBO : PersonaBO
+    public class EmpleadoBO
     {
         private EmpleadoDA daEmpleado;
 
