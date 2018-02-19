@@ -13,13 +13,14 @@ public partial class ViewSocios : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         socioBO = new SocioBO();
+
         switch (Request.QueryString["accion"])
         {
             case "actualizarEstado":
                 actualizarEstado(Int32.Parse(Request.QueryString["id"]), Int32.Parse(Request.QueryString["estadoActual"]));
                 break;
             case "eliminar":
-                elmininarSocio(Int32.Parse(Request.QueryString["id"]));
+                //elmininarSocio(Int32.Parse(Request.QueryString["id"]));
                 break;
             default:
                 listaSocios = socioBO.GetList();
@@ -67,9 +68,5 @@ public partial class ViewSocios : System.Web.UI.Page
         Response.Redirect("ViewSocios.aspx");
     }
 
-    protected void elmininarSocio(int idPersona)
-    {
-        Console.WriteLine("asd");
-    }
 }
 
