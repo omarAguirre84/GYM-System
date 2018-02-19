@@ -44,7 +44,7 @@ namespace GymSystemEntity
         }
 
 
-        public PersonaEntity(char tipoPersona, int telefono, string nombre, string apellido, string dni, string email, 
+        public PersonaEntity(char tipoPersona, int telefono, string nombre, string apellido, string dni, string email,
             string password, DateTime fechaNacimiento, char sexo, string foto, DateTime fechaRegistracion, DateTime fechaActualizacion)
         {
             this.tipoPersona = tipoPersona;
@@ -92,4 +92,5 @@ namespace GymSystemEntity
             }
         }
     }
+
 }
