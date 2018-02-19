@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 using GymSystemEntity;
 using GymSystemWebUtil;
 using GymSystemBusiness;
-using System.Globalization;
 
 
 public partial class site_web_profile_EditProfile : System.Web.UI.Page
