@@ -38,6 +38,12 @@
                                     <td><%= empleado.Apellido %></td>
                                     <td><%= empleado.Email%></td>
                                     <td><%= empleado.Telefono %></td>
+                                    <td><%if (empleado.tipoEmpleado == 1) { %>
+                                        PROFESOR
+                                        <%}else {%>
+                                        OTRO
+                                            <%} %>
+                                    </td>
                                     <td>
                                         <a href="../empleados/ViewEmpleado.aspx?id=<%= empleado.Id %>" +  + class="btn btn-primary btn-xs" ><i class="fa fa-eye" ></i> Ver / Editar </a>
                                     </td>
