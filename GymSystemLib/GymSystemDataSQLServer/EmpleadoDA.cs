@@ -158,11 +158,11 @@ namespace GymSystemDataSQLServer
             }
         }
 
-        public EmpleadoEntity[] ListarEmpleados()
+        public List<EmpleadoEntity> ListarEmpleados()
         {
             try
             {
-                EmpleadoEntity[] empleados = null;
+                List<EmpleadoEntity> empleados = null;
 
                 using (SqlConnection conexion = ConexionDA.ObtenerConexion())
                 {
@@ -173,13 +173,11 @@ namespace GymSystemDataSQLServer
 
                         using (SqlDataReader cursor = comando.ExecuteReader())
                         {
-                            int i = 0;
-                            empleados = new EmpleadoEntity[cursor.FieldCount];
+                            empleados = new List<EmpleadoEntity>();
 
                             while (cursor.Read())
                             {
-                                empleados[i] = CrearEmpleado(cursor);
-                                i++;
+                                empleados.Add(CrearEmpleado(cursor));
                             }
                             cursor.Close();
                         }

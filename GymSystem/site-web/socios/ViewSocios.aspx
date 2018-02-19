@@ -46,8 +46,7 @@
                                     <td><%= socio.NroTarjetaIdentificacion %></td>
                                     <td><%= this.SetBtnEstado(socio.IdEstado, socio.Id) %></td>
                                     <td>
-                                        <a href="./ViewSocio.aspx?id=<%=socio.Id%>&accion=actualizarEstado"  class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i> Ver / Editar </a>
-                                        <a href="./ViewSocio.aspx?id=<%=socio.Id%>&action=eliminar"  class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Eliminar </a>
+                                        <a href="./ViewSocio.aspx?id=<%=socio.Id%>&accion=actualizar"  class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i> Ver / Editar </a>
                                     </td>
                                 </tr>
                         <% } %>
