@@ -32,9 +32,18 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!--Table rows-->
-                            <asp:PlaceHolder ID="TablaPlaceHolder" runat="server"></asp:PlaceHolder>
-                        </tbody>
+                        <% foreach (var empleado in listaEmpleados) { %>
+                                <tr>
+                                    <td><%= empleado.Nombre %></td>
+                                    <td><%= empleado.Apellido %></td>
+                                    <td><%= empleado.Email%></td>
+                                    <td><%= empleado.Telefono %></td>
+                                    <td>
+                                        <a href="../empleados/ViewEmpleado.aspx?id=" + <%= empleado.Id %> + class="btn btn-primary btn-xs" ><i class="fa fa-eye" ></i> Ver / Editar </a>
+                                    </td>
+                                </tr>
+                        <% } %>
+                    </tbody>
                     </table>  
                 </form>
                 </div>

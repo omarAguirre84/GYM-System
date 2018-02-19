@@ -25,7 +25,6 @@ public partial class ViewEmpleado : System.Web.UI.Page
 
         if (!IsPostBack) //false = primera vez que se carga, true= segunda vez, se cambiaron los datos
         {
-            //boActividad = new ActividadBO();
             actividadesArr = boActividad.GetList();
             loadActividadList();
             cargarDatoscargarDatosEmpleadoEnVista();
@@ -55,14 +54,24 @@ public partial class ViewEmpleado : System.Web.UI.Page
 
             if (empleado.Sexo == 'm' || empleado.Sexo == 'M')
             {
+                masculinoLbl.Attributes.Remove("class");
+                masculinoLbl.Attributes.Add("class", "btn btn-default active");
+                masculino.Attributes.Add("checked", "checked");
 
+                femeninoLbl.Attributes.Remove("class");
+                femenino.Attributes.Remove("checked");
+                femeninoLbl.Attributes.Add("class", "btn btn-default");
             }
             if (empleado.Sexo == 'f' || empleado.Sexo == 'F')
             {
+                femeninoLbl.Attributes.Remove("class");
+                femeninoLbl.Attributes.Add("class", "btn btn-default active");
+                femenino.Attributes.Add("checked", "checked");
 
+                masculinoLbl.Attributes.Remove("class");
+                masculino.Attributes.Remove("checked");
+                masculinoLbl.Attributes.Add("class", "btn btn-default");
             }
-            llenarViewActividadesConDatosEmpleado(empleado);
-            //            llenarDiasConDatosEmpleado(empleado);
         }
         catch (AutenticacionExcepcionBO ex)
         {
@@ -151,18 +160,15 @@ public partial class ViewEmpleado : System.Web.UI.Page
                 int.Parse(fechaIngrArr[2]));
 
             char gen;
-            if (sexos.SelectedValue.Equals("masculino"))
+            if (masculino.Checked)
             {
                 gen = 'M';
-                //masculino.Attributes.Add("checked", "checked");
-                //femenino.Attributes.Remove("checked");
             }
             else
             {
                 gen = 'F';
-                //femenino.Attributes.Add("checked", "checked");
-                //masculino.Attributes.Remove("checked");
             }
+
             nuevoEntity.Sexo = gen;
             nuevoEntity.Foto = null;
             nuevoEntity.FechaRegistracion = anterior.FechaRegistracion;

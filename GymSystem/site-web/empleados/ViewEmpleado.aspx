@@ -73,18 +73,20 @@
                       </div>
                       
                       <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="gender">Genero <span class="required"></span></label>
-                        <div class="col-md-6 col-sm-6 col-xs-12" >
-                          <div class="btn-group" data-toggle="buttons" >
-                            <div>
-                                <asp:RadioButtonList id="sexos" class="flat" runat="server">
-                                    <asp:ListItem Value="masculino" Text="Masculino" Selected="True"/>
-                                    <asp:ListItem Value="femenino" Text="Femenino"/>
-                                </asp:RadioButtonList>
-                          </div>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="datebirth">Sexo<span class="required"></span>
+                            </label>
+                              <div class="col-md-6 col-xs-12">
+                                  <div class="btn-group" data-toggle="buttons">
+                                    <label id="masculinoLbl" class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-primary" runat="server">
+                                      <input ID="masculino" type="radio" name="gender" class="btn btn-default" value="male" runat="server"> Masculino
+                                    </label>
+                                    <label id="femeninoLbl" class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-primary" runat="server">
+                                      <input ID="femenino" type="radio" name="gender" value="female" runat="server"> Femenino
+                                    </label>
+                                  </div>
+                            </div>
                         </div>
-                      </div>
-                          </div>
+
                         <br />
                          <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="datebirth">Actividades<span class="required"></span>
