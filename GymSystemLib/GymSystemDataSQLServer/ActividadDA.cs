@@ -438,7 +438,7 @@ namespace GymSystemDataSQLServer
 
                 using (SqlConnection conexion = ConexionDA.ObtenerConexion())
                 {
-                    using (SqlCommand comando = new SqlCommand("InsertarActividadPersona", conexion))
+                    using (SqlCommand comando = new SqlCommand("ActividadBuscarPorId", conexion))
                     {
                         comando.CommandType = CommandType.StoredProcedure;
                         SqlCommandBuilder.DeriveParameters(comando);

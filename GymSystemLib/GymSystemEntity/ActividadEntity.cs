@@ -21,6 +21,7 @@ namespace GymSystemEntity
         public ActividadEntity()
         {
             sala = new SalaEntity();
+            idActividad = 0;
         }
     }
 }

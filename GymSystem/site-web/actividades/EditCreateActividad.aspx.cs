@@ -70,28 +70,38 @@ public partial class EditCreateActividad : System.Web.UI.Page
 
     protected void btnConfirmSaveActividad(object sender, EventArgs e)
     {
-        if (hayCamposVacios())
+        try
         {
-            WebHelper.MostrarMensaje(Page, "No es posible guardar la actividad. Se deben completar todos los campos.");
-        }
-        else if (!esHorarioValido())
-        {
-            WebHelper.MostrarMensaje(Page, "No es posible guardar la actividad. La hora de inicio debe ser menor a la de finalización.");
-        }
-        else
-        {
-            ActividadEntity actividad = crearActividad();
-
-            if (Request.QueryString["action"] != "edit")
+            if (hayCamposVacios())
             {
-                actividadBo.saveActividad(actividad);
+                WebHelper.MostrarMensaje(Page, "No es posible guardar la actividad. Se deben completar todos los campos.");
+            }
+            else if (!esHorarioValido())
+            {
+                WebHelper.MostrarMensaje(Page, "No es posible guardar la actividad. La hora de inicio debe ser menor a la de finalización.");
             }
             else
             {
-                actividadBo.ActualizarActividad(actividad);
+                ActividadEntity actividad = crearActividad();
+                if (!actividadBo.getValidateActividadNombre(actividad.name, actividad.idActividad))
+                    throw new Exception("No es posible guardar la actividad. Ya  hay una actividad con el mismo nombre.");
+                if(!actividadBo.getValidateActividad(actividad.dia, actividad.idActividad))
+                    throw new Exception("No es posible guardar la actividad. Ya  hay una actividad asignado a tal día");
 
+                if (Request.QueryString["action"] != "edit")
+                {
+                    actividadBo.saveActividad(actividad);
+                }
+                else
+                {
+                    actividadBo.ActualizarActividad(actividad);
+
+                }
+                Response.Redirect("ViewActividades.aspx");
             }
-            Response.Redirect("ViewActividades.aspx");
+        }
+        catch (Exception ex){
+            WebHelper.MostrarMensaje(Page, ex.Message);
         }
     }
 
