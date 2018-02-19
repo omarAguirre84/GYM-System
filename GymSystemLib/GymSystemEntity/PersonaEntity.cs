@@ -44,7 +44,7 @@ namespace GymSystemEntity
         }
 
 
-        public PersonaEntity(char tipoPersona, int telefono, string nombre, string apellido, string dni, string email, 
+        public PersonaEntity(char tipoPersona, int telefono, string nombre, string apellido, string dni, string email,
             string password, DateTime fechaNacimiento, char sexo, string foto, DateTime fechaRegistracion, DateTime fechaActualizacion)
         {
             this.tipoPersona = tipoPersona;
@@ -59,9 +59,9 @@ namespace GymSystemEntity
             this.Foto = foto;
             this.FechaRegistracion = fechaRegistracion;
             this.FechaActualizacion = fechaActualizacion;
-            public int Telefono { get; set; }
-    }
-    
+        }
+
+
         public void ValidarDatos()
         {
             if (tipoPersona == ' ' ||
@@ -93,4 +93,5 @@ namespace GymSystemEntity
             }
         }
     }
+
 }
