@@ -2,9 +2,6 @@
 using GymSystemEntity;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 using GymSystemWebUtil;
 
@@ -37,10 +34,11 @@ public partial class EditCreateActividad : System.Web.UI.Page
         }
     }
 
-    private void loadEditActividad(String action) {
+    private void loadEditActividad(String action)
+    {
         actividadEnt = actividadBo.BuscarActividadPorId(Int32.Parse(Request.QueryString["id"]));
 
-        foreach(ListItem item in salasListItems.Items)
+        foreach (ListItem item in salasListItems.Items)
         {
             if (actividadEnt.idSala == Int32.Parse(item.Value))
             {
@@ -52,13 +50,15 @@ public partial class EditCreateActividad : System.Web.UI.Page
         datein.Value = actividadEnt.horaInicio.ToString();
         dateout.Value = actividadEnt.horaFin.ToString();
         tarifa.Value = actividadEnt.tarifa.ToString().Replace(',', '.');
-        diaSelectList.SelectedItem.Text =  actividadEnt.dia;
+        diaSelectList.SelectedItem.Text = actividadEnt.dia;
     }
 
-    protected void loadSalasList() {
+    protected void loadSalasList()
+    {
         int index = 0;
         salasListItems.Items.Insert(index++, new ListItem("Seleccione Sala", "0"));
-        foreach ( SalaEntity salEnt in listSalas){
+        foreach (SalaEntity salEnt in listSalas)
+        {
             salasListItems.Items.Insert(index++, new ListItem(salEnt.Nombre, salEnt.IdSala.ToString()));
         };
     }
@@ -70,56 +70,81 @@ public partial class EditCreateActividad : System.Web.UI.Page
 
     protected void btnConfirmSaveActividad(object sender, EventArgs e)
     {
-        Console.WriteLine();
-        if (TimeSpan.Parse(datein.Value) >= TimeSpan.Parse(dateout.Value)) {
-            WebHelper.MostrarMensaje(Page, "La hora de fin no debe ser inferior a la hora de inicio");
-        } else {
-            TimeSpan auxTime = TimeSpan.Parse(datein.Value);
-            auxTime = auxTime.Add(TimeSpan.FromHours(1));
-            if (auxTime <= TimeSpan.Parse(dateout.Value))
+        try
+        {
+            if (hayCamposVacios())
             {
-                int idActividad = Request.QueryString["id"] != null ? Int32.Parse(Request.QueryString["id"]) : 0;
-
-                if (actividadBo.getValidateActividadNombre(descripcion.Value, idActividad)) {
-                    if (actividadBo.getValidateActividad(diaSelectList.SelectedItem.Text, idActividad))
-                    {
-                        if (Request.QueryString["action"] != "edit")
-                        {
-                            actividadBo.saveActividad(crearActividad());
-                        }
-                        else
-                        {
-                            actividadBo.ActualizarActividad(crearActividad());
-
-                        }
-                        Response.Redirect("ViewActividades.aspx");
-                    }
-                    else
-                    {
-                        WebHelper.MostrarMensaje(Page, "No es posible guardar la actividad. Ya  hay una actividad asignado a tal día");
-                    }
-            } else {
-                    WebHelper.MostrarMensaje(Page, "No es posible guardar la actividad. Ya  hay una actividad con el mismo nombre");
-                }
-            
+                WebHelper.MostrarMensaje(Page, "No es posible guardar la actividad. Se deben completar todos los campos.");
             }
-            else {
-                WebHelper.MostrarMensaje(Page, "Debe tener un rango mayor a 1 hora");
+            else if (!esHorarioValido())
+            {
+                WebHelper.MostrarMensaje(Page, "No es posible guardar la actividad. La hora de inicio debe ser menor a la de finalización.");
+            }
+            else
+            {
+                ActividadEntity actividad = crearActividad();
+                if (!actividadBo.getValidateActividadNombre(actividad.name, actividad.idActividad))
+                    throw new Exception("No es posible guardar la actividad. Ya  hay una actividad con el mismo nombre.");
+                if(!actividadBo.getValidateActividad(actividad.dia, actividad.idActividad))
+                    throw new Exception("No es posible guardar la actividad. Ya  hay una actividad asignado a tal día");
+
+                if (Request.QueryString["action"] != "edit")
+                {
+                    actividadBo.saveActividad(actividad);
+                }
+                else
+                {
+                    actividadBo.ActualizarActividad(actividad);
+
+                }
+                Response.Redirect("ViewActividades.aspx");
             }
         }
-         
+        catch (Exception ex){
+            WebHelper.MostrarMensaje(Page, ex.Message);
+        }
     }
 
-    private ActividadEntity crearActividad() {
+    private bool hayCamposVacios()
+    {
+        bool hayVacios = false;
+
+        Console.WriteLine(diaSelectList.SelectedItem.Text.Trim());
+        Console.WriteLine(salasListItems.SelectedItem.Text.Trim());
+        Console.WriteLine(datein.Value.Trim());
+
+        if (descripcion.Value.Trim().Equals("")
+            || tarifa.Value.Trim().Equals("")
+            || datein.Value.Trim().Equals("")
+            || dateout.Value.Trim().Equals("")
+            || diaSelectList.SelectedItem.Text.Trim().Equals("")
+            || diaSelectList.SelectedItem.Text.Trim().Equals("Seleccione día")
+            || salasListItems.SelectedItem.Text.Trim().Equals("")
+            || salasListItems.SelectedItem.Text.Trim().Equals("Seleccione Sala")
+                )
+        {
+            hayVacios = true;
+        }
+        return hayVacios;
+    }
+
+    private bool esHorarioValido()
+    {
+        return TimeSpan.Parse(dateout.Value) > TimeSpan.Parse(datein.Value);
+    }
+
+    private ActividadEntity crearActividad()
+    {
         ActividadEntity actividad = new ActividadEntity();
-        if (Request.QueryString["id"] != null) {
+        if (Request.QueryString["id"] != null)
+        {
             actividad.idActividad = Int32.Parse(Request.QueryString["id"]);
         }
         actividad.name = descripcion.Value;
         actividad.idSala = Int32.Parse(salasListItems.SelectedItem.Value);
-        actividad.horaInicio = TimeSpan.Parse(datein.Value);
-        actividad.horaFin = TimeSpan.Parse(dateout.Value);
-        actividad.tarifa = float.Parse(tarifa.Value.Replace('.', ',')); ;
+        actividad.horaInicio = datein.Value.Equals("") ? TimeSpan.MinValue : TimeSpan.Parse(datein.Value);
+        actividad.horaFin = dateout.Value.Equals("") ? TimeSpan.MinValue : TimeSpan.Parse(dateout.Value);
+        actividad.tarifa = tarifa.Value.Equals("") ? -1 : float.Parse(tarifa.Value.Replace('.', ',')); ;
         actividad.dia = diaSelectList.SelectedItem.Text;
         return actividad;
     }
@@ -135,10 +160,11 @@ public partial class EditCreateActividad : System.Web.UI.Page
         diaSelectList.Items.Add(new ListItem("Viernes", "4"));
         diaSelectList.Items.Add(new ListItem("Sabado", "5"));
         diaSelectList.Items.Add(new ListItem("Domingo", "6"));
-                
+
     }
 
-    private void selectDay() {
+    private void selectDay()
+    {
         var names = new List<string>(new string[] { "4", "6" });
 
         foreach (ListItem item in diaSelectList.Items)

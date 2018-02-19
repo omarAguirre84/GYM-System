@@ -9,7 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Gentelella Alela! | </title>
+    <title>Bienvenido! | </title>
 
     <!-- Bootstrap -->
     <link href="../../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -29,9 +29,9 @@
         <div class="col-md-12">
           <div class="col-middle">
             <div class="text-center text-center">
-              <h1 class="error-number">Felicitaciones!!! :)</h1>
+              <h2 class="error-number">Felicitaciones!!! :)</h2>
               <h2>Se ha registrado con éxito a Gym SYSTEM</h2>
-              <p>Ahora puede iniciar sesión con sus datos registrados anteriormente haciendo click  --><a href="loginform.aspx">AQUÍ</a>
+              <p>Ahora puede iniciar sesión con sus datos registrados anteriormente haciendo click  --><h1><b><a href="loginform.aspx">AQUÍ</a></b></h1>
               </p>
             </div>
           </div>
