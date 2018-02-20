@@ -220,7 +220,7 @@ namespace GymSystemDataSQLServer
                 throw new ExcepcionDA("Se produjo un error al buscar por email y contraseña.", ex);
             }
         }
-        public List<ActividadEntity> ActividadGetAll()
+        public List<ActividadEntity> ActividadGetAll(char tipoPersona = 'P')
         {
             try
             {
@@ -239,7 +239,8 @@ namespace GymSystemDataSQLServer
                             while (cursor.Read())
                             {
                                 ActividadEntity auxActi = CrearActividad(cursor);
-                                auxActi.listPersonas = PersonaPorActividadId(auxActi.idActividad);
+                                auxActi.cantSocios = getTotalPersonaPorActividad(auxActi.idActividad,'S');
+                                auxActi.listPersonas = PersonaPorActividadId(auxActi.idActividad, tipoPersona);
                                 actividades.Add(auxActi);
 
                             }
@@ -256,8 +257,43 @@ namespace GymSystemDataSQLServer
             }
         }
 
+        public int getTotalPersonaPorActividad(int idActividad, char tipoPersona = 'P')
+        {
+            try
+            {
+                int totalPersona = 0;
+                using (SqlConnection conexion = ConexionDA.ObtenerConexion())
+                {
+                    using (SqlCommand comando = new SqlCommand("[getTotalPersonaPorActividad]", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+                        SqlCommandBuilder.DeriveParameters(comando);
+                        comando.Parameters["@idActividad"].Value = idActividad;
+                        comando.Parameters["@TipoPersona"].Value = tipoPersona;
+                        using (SqlDataReader cursor = comando.ExecuteReader())
+                        {
 
-        public List<PersonaEntity> PersonaPorActividadId(int idActividad)
+
+                            while (cursor.Read())
+                            {
+                                totalPersona = cursor.GetInt32(cursor.GetOrdinal("totalPersonas"));
+
+                            }
+                            cursor.Close();
+                        }
+                    }
+                    conexion.Close();
+                }
+                return totalPersona;
+            }
+            catch (Exception ex)
+            {
+                throw new ExcepcionDA("Se produjo un error al buscar por email y contraseña.", ex);
+            }
+        }
+
+
+        public List<PersonaEntity> PersonaPorActividadId(int idActividad, char tipoPersona = 'P')
         {
             try
             {
@@ -271,7 +307,44 @@ namespace GymSystemDataSQLServer
                         comando.CommandType = CommandType.StoredProcedure;
                         SqlCommandBuilder.DeriveParameters(comando);
                         comando.Parameters["@idActividad"].Value = idActividad;
-                        comando.Parameters["@TipoPersona"].Value = 'P';
+                        comando.Parameters["@TipoPersona"].Value = tipoPersona;
+                        using (SqlDataReader cursor = comando.ExecuteReader())
+                        {
+
+
+                            while (cursor.Read())
+                            {
+                                profesores.Add(personaDA.CrearPersona(cursor));
+
+                            }
+                            cursor.Close();
+                        }
+                    }
+                    conexion.Close();
+                }
+                return profesores;
+            }
+            catch (Exception ex)
+            {
+                throw new ExcepcionDA("Se produjo un error al buscar por email y contraseña.", ex);
+            }
+        }
+
+        public List<PersonaEntity> PersonaPorActividadIdTipoPersona(int idActividad, char tipoPersona)
+        {
+            try
+            {
+                List<PersonaEntity> profesores = new List<PersonaEntity>();
+                PersonaDA personaDA = new PersonaDA();
+
+                using (SqlConnection conexion = ConexionDA.ObtenerConexion())
+                {
+                    using (SqlCommand comando = new SqlCommand("[PersonaPorActividadId]", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+                        SqlCommandBuilder.DeriveParameters(comando);
+                        comando.Parameters["@idActividad"].Value = idActividad;
+                        comando.Parameters["@TipoPersona"].Value = tipoPersona;
                         using (SqlDataReader cursor = comando.ExecuteReader())
                         {
 
