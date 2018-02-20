@@ -22,7 +22,6 @@ namespace GymSystemDataSQLServer
         private SocioEntity CrearSocio(SqlDataReader cursor)
         {
             SocioEntity socio = new SocioEntity();
-            socio.IdEstado = cursor.GetInt32(cursor.GetOrdinal("idEstado"));
             
             socio.Id = cursor.GetInt32(cursor.GetOrdinal("idPersona"));
             socio.tipoPersona = cursor.GetString(cursor.GetOrdinal("TipoPersona"))[0];
@@ -34,7 +33,8 @@ namespace GymSystemDataSQLServer
             socio.Password = cursor.GetString(cursor.GetOrdinal("Password"));
             socio.FechaNacimiento = cursor.GetDateTime(cursor.GetOrdinal("FechaNacimiento"));
             socio.Sexo = cursor.GetString(cursor.GetOrdinal("Sexo"))[0];
-            socio.NroTarjetaIdentificacion = cursor.GetInt32(cursor.GetOrdinal("nroTarjetaIdentificacion"));
+            if (ColumExist(cursor, "nroTarjetaIdentificacion"))
+                socio.NroTarjetaIdentificacion = cursor.GetInt32(cursor.GetOrdinal("nroTarjetaIdentificacion"));
            
             if (!cursor.IsDBNull(cursor.GetOrdinal("Foto"))) {
                 socio.Foto = cursor.GetString(cursor.GetOrdinal("Foto"));
@@ -46,6 +46,17 @@ namespace GymSystemDataSQLServer
             }
 
             return socio;   
+        }
+
+        private Boolean ColumExist(SqlDataReader cursor, string columnName)
+        {
+            for (int i = 0; i < cursor.FieldCount; i++)
+            {
+
+                if (cursor.GetName(i).Equals(columnName, StringComparison.InvariantCultureIgnoreCase))
+                    return true;
+            }
+            return false;
         }
         #endregion Métodos Privados
 
@@ -195,6 +206,40 @@ namespace GymSystemDataSQLServer
                     {
                         comando.CommandType = CommandType.StoredProcedure;
                         SqlCommandBuilder.DeriveParameters(comando);
+
+                        using (SqlDataReader cursor = comando.ExecuteReader())
+                        {
+                            while (cursor.Read())
+                            {
+                                socios.Add(CrearSocio(cursor));
+                            }
+                            cursor.Close();
+                        }
+                    }
+                    conexion.Close();
+                }
+
+                return socios;
+            }
+            catch (Exception ex)
+            {
+                throw new ExcepcionDA("Se produjo un error al buscar por email y contraseña.", ex);
+            }
+        }
+
+        public List<SocioEntity> GetListSocioPorActividadId(int idActividad)
+        {
+            List<SocioEntity> socios = new List<SocioEntity>();
+            try
+            {
+                using (SqlConnection conexion = ConexionDA.ObtenerConexion())
+                {
+                    using (SqlCommand comando = new SqlCommand("[PersonaPorActividadId]", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+                        SqlCommandBuilder.DeriveParameters(comando);
+                        comando.Parameters["@idActividad"].Value = idActividad;
+                        comando.Parameters["@TipoPersona"].Value = 'S' ;
 
                         using (SqlDataReader cursor = comando.ExecuteReader())
                         {
