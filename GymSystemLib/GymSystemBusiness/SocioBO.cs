@@ -63,6 +63,19 @@ namespace GymSystemBusiness
             }
         }
 
+        public List<SocioEntity> GetListSocioPorActividadId(int idActividad)
+        {
+            try
+            {
+                return daSocio.GetListSocioPorActividadId(idActividad); ;
+            }
+            catch (ExcepcionDA ex)
+            {
+                throw new ExcepcionBO("No se pudo realizar listar socios.", ex);
+            }
+        }
+
+
         public SocioEntity BuscarSocio(string email, string password)
         {
             try
