@@ -81,8 +81,8 @@
                     <%} %>
                   <li><a><i class="fa fa-table"></i> Socios <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="../socios/ViewSocios.aspx">Listados</a></li>
-                      <li><a href="../socios/CreateSocio.aspx">Crear Socios</a></li>
+                      <li><a href="../socios/ViewSocios.aspx">Ver Socios</a></li>
+                      <li><a href="../socios/CreateSocio.aspx">Crear Socio</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-table"></i> Empleados <span class="fa fa-chevron-down"></span></a>
@@ -94,9 +94,15 @@
                   <li><a><i class="fa fa-table"></i> Actividades <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="../actividades/ViewActividades.aspx">Ver Actividades</a></li>
-                      <li><a href="../actividades/EditCreateActividad.aspx"> Crear Actividades</a></li>
+                      <li><a href="../actividades/EditCreateActividad.aspx"> Crear Actividad</a></li>
                     </ul>
-                  </li>
+                    </li>
+                        <li><a><i class="fa fa-table"></i> Salas <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                        <li><a href="../salas/ViewSalas.aspx">Ver Salas</a></li>
+                        <li><a href="../salas/CreateSala.aspx">Crear Sala</a></li>
+                    </ul>
+                    </li>
                 </ul>
               </div>
 

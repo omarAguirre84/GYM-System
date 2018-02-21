@@ -9,7 +9,7 @@ public partial class EditCreateActividad : System.Web.UI.Page
 {
 
     SalaBO salaBO = new SalaBO();
-    protected SalaEntity[] listSalas;
+    protected List<SalaEntity> listSalas;
     ActividadBO actividadBo;
     ActividadEntity actividadEnt;
     protected void Page_Load(object sender, EventArgs e)

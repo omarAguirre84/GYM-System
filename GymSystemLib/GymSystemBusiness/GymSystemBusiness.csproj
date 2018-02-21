@@ -56,6 +56,8 @@
   <ItemGroup>
     <Compile Include="AutenticacionExcepcionBO.cs" />
     <Compile Include="ActividadBO.cs" />
+    <Compile Include="ActividadSinLugarExceptionBO.cs" />
+    <Compile Include="SalaExisteExcepcionBO.cs" />
     <Compile Include="EmpleadoBO.cs" />
     <Compile Include="SalaBO.cs" />
     <Compile Include="SocioBO.cs" />

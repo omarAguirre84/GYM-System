@@ -19,8 +19,6 @@ namespace GymSystemDataSQLServer
         }
 
         #region Métodos Privados
-
-        
         private SocioEntity CrearSocio(SqlDataReader cursor)
         {
             SocioEntity socio = new SocioEntity();
@@ -243,7 +241,6 @@ namespace GymSystemDataSQLServer
                 throw new ExcepcionDA("Se produjo un error al buscar por email y contraseña.", ex);
             }
         }
-
 
         public void ActualizarSocio(SocioEntity socio)
         {

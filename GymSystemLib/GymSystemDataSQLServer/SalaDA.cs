@@ -3,6 +3,7 @@ using System.Data;
 using System.Data.SqlClient;
 using GymSystemEntity;
 using GymSystemData;
+using System.Collections.Generic;
 
 namespace GymSystemDataSQLServer
 {
@@ -28,11 +29,11 @@ namespace GymSystemDataSQLServer
         }
         #endregion Métodos Privados
 
-        public SalaEntity[] ListarSalas()
+        public List<SalaEntity> ListarSalas()
         {
             try
             {
-                SalaEntity[] salas = null;
+                List<SalaEntity> salas = new List<SalaEntity>();
 
                 using (SqlConnection conexion = ConexionDA.ObtenerConexion())
                 {
@@ -43,25 +44,145 @@ namespace GymSystemDataSQLServer
 
                         using (SqlDataReader cursor = comando.ExecuteReader())
                         {
-                            int i = 0;
-                            salas = new SalaEntity[cursor.FieldCount];
-
                             while (cursor.Read())
                             {
-                                salas[i] = CrearSala(cursor);
-                                i++;
+                                salas.Add(CrearSala(cursor));
                             }
                             cursor.Close();
                         }
                     }
                     conexion.Close();
                 }
-
                 return salas;
             }
             catch (Exception ex)
             {
                 throw new ExcepcionDA("Se produjo un error al buscar por email y contraseña.", ex);
+            }
+        }
+
+        public SalaEntity BuscarSala(String nombre)
+        {
+            SalaEntity salaEntity = null;
+            try
+            {
+                using (SqlConnection conexion = ConexionDA.ObtenerConexion())
+                {
+                    using (SqlCommand comando = new SqlCommand("SalaBuscarPorNombre", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+                        SqlCommandBuilder.DeriveParameters(comando);
+                        comando.Parameters["@nombre"].Value = nombre.Trim();
+
+                        using (SqlDataReader cursor = comando.ExecuteReader())
+                        {
+                            if (cursor.Read())
+                            {
+                                if (salaEntity == null)
+                                {
+                                    salaEntity = new SalaEntity();
+                                }
+                                salaEntity = CrearSala(cursor);
+                            }
+                            cursor.Close();
+                        }
+                    }
+                    conexion.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ExcepcionDA("Se produjo un error al buscar sala por nombre.", ex);
+            }
+            return salaEntity;
+        }
+
+        public SalaEntity BuscarSala(int idSala)
+        {
+            SalaEntity salaEntity = null;
+            try
+            {
+                using (SqlConnection conexion = ConexionDA.ObtenerConexion())
+                {
+                    using (SqlCommand comando = new SqlCommand("SalaBuscarPorId", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+                        SqlCommandBuilder.DeriveParameters(comando);
+                        comando.Parameters["@idSala"].Value = idSala;
+
+                        using (SqlDataReader cursor = comando.ExecuteReader())
+                        {
+                            if (cursor.Read())
+                            {
+                                if (salaEntity == null)
+                                {
+                                    salaEntity = new SalaEntity();
+                                }
+                                salaEntity = CrearSala(cursor);
+                            }
+                            cursor.Close();
+                        }
+                    }
+                    conexion.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ExcepcionDA("Se produjo un error al buscar sala por nombre.", ex);
+            }
+            return salaEntity;
+        }
+
+        public void InsertSala(SalaEntity salaEntity)
+        {
+            try
+            {
+                SqlCommand comando = null;
+
+                using (SqlConnection conexion = ConexionDA.ObtenerConexion())
+                {
+                    using (comando = new SqlCommand("SalaInsert", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+                        SqlCommandBuilder.DeriveParameters(comando);
+
+                        comando.Parameters["@nombre"].Value = salaEntity.Nombre.Trim();
+                        comando.Parameters["@numero"].Value = salaEntity.Numero;
+                        comando.Parameters["@capacidad"].Value = salaEntity.Capacidad;
+                        comando.ExecuteNonQuery();
+                        conexion.Close();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ExcepcionDA("Se produjo un error al crear sala.", ex);
+            }
+        }
+
+        public void ActualizarSala(SalaEntity salaEntity)
+        {
+            try
+            {
+                using (SqlConnection conexion = ConexionDA.ObtenerConexion())
+                {
+                    using (SqlCommand comando = new SqlCommand("SalaActualizarTodo", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+                        SqlCommandBuilder.DeriveParameters(comando);
+                        comando.Parameters["@idSala"].Value = salaEntity.IdSala;
+                        comando.Parameters["@nombre"].Value = salaEntity.Nombre.Trim();
+                        comando.Parameters["@numero"].Value = salaEntity.Numero;
+                        comando.Parameters["@capacidad"].Value = salaEntity.Capacidad;
+                        
+                        comando.ExecuteNonQuery();
+                        conexion.Close();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ExcepcionDA("Se produjo un error al actualizar el sala.", ex);
             }
         }
     }
