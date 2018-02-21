@@ -65,7 +65,7 @@ public partial class CreateEmpleado : System.Web.UI.Page
         try
         {
             EmpleadoEntity entityEmpleado = new EmpleadoEntity(empleadoEntity.tipoEmpleado, DateTime.Today, DateTime.MinValue);
-            if (!groupActividad.Visible)
+            if (groupActividad.Visible)
             {
                 foreach (ListItem item in actividades.Items)
                 {
@@ -74,9 +74,11 @@ public partial class CreateEmpleado : System.Web.UI.Page
                         entityEmpleado.actividad = string.Concat(entityEmpleado.actividad, item.Value + ",");
                     }
                 }
+                entityEmpleado.tipoEmpleado = 1;
             }
             else {
                 entityEmpleado.actividad = "";
+                entityEmpleado.tipoEmpleado = 2;
             }
             entityEmpleado = (EmpleadoEntity)popularEntity(entityEmpleado);
 
