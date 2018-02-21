@@ -42,6 +42,7 @@
                                     </td>
                                     <td>
                                         <a href="../empleados/ViewEmpleado.aspx?id=<%= empleado.Id %>" +  + class="btn btn-primary btn-xs" ><i class="fa fa-eye" ></i> Ver / Editar </a>
+                                        <a href="../empleados/ViewEmpleados.aspx?id=<%= empleado.Id %>&action=delete"  class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Eliminar </a>
                                     </td>
                                 </tr>
                         <% } %>

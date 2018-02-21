@@ -108,6 +108,13 @@
                             <label for="password" class="control-label col-md-3">Contraseña * </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <asp:TextBox Rows="1" ID="passw1" type="password" name="password" data-validate-length="6,8" class="form-control col-md-7 col-xs-12" required="required" placeholder="****" runat="server" />
+                               
+                                <asp:RequiredFieldValidator ID="contraseña1NoVacia"
+                                    runat="server" ControlToValidate="passw1"
+                                    ErrorMessage="Por favor ingrese Contraseña"
+                                    Display="Dynamic">
+                                </asp:RequiredFieldValidator>
+
                             </div>
                         </div>
                         <div class="item form-group">
@@ -115,11 +122,17 @@
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <asp:TextBox Rows="1" ID="passw2" type="password" name="password2" data-validate-linked="password" class="form-control col-md-7 col-xs-12" required="required" placeholder="****" MaxLength="50" runat="server" />
 
-                                <asp:RequiredFieldValidator ID="contraseñaNoVacia"
+                                <asp:RequiredFieldValidator ID="contraseña2NoVacia"
                                     runat="server" ControlToValidate="passw2"
                                     ErrorMessage="Por favor ingrese Contraseña"
                                     Display="Dynamic">
                                 </asp:RequiredFieldValidator>
+
+                                      <asp:CompareValidator ID="CompareValidator1" runat="server"
+                                    ControlToValidate="passw2"
+                                    CssClass="ValidationError"
+                                    ControlToCompare="passw1"
+                                    ErrorMessage="Las Contraseñas no coinciden"/>
                             </div>
                         </div>
                         <div class="item form-group">
@@ -161,8 +174,6 @@
                                 </asp:RangeValidator>
                             </div>
                         </div>
-
-
                       <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="datebirth">Sexo<span class="required"></span>
                             </label>
@@ -174,10 +185,10 @@
                                     <label id="femeninoLbl" class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-primary" runat="server">
                                       <input ID="femenino" type="radio" name="gender" value="female" runat="server"> Femenino
                                     </label>
+
                                   </div>
                             </div>
                         </div>
-
                         <br />
                          <div class="item form-group" id="multiActivi" runat="server">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="datebirth">Actividades<span class="required"></span>
@@ -193,7 +204,7 @@
                       <div class="ln_solid"></div>
                       <div class="form-group">
                         <div class="col-md-6 col-md-offset-6">
-                          <asp:Button ID="Button2" OnClick="BtnVolver_click" runat="server" class="btn btn-primary" Text="< Volver" />
+                          <asp:Button ID="Button2" OnClick="BtnVolver_click" runat="server" class="btn btn-primary" Text="< Volver" CausesValidation="false"/>
                           <asp:Button ID="Button1" OnClick="Btn_actualizar" runat="server" class="btn btn-success" Text="Actualizar" />
                         </div>
                       </div>

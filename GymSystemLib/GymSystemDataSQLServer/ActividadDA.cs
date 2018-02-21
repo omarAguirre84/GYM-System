@@ -236,15 +236,12 @@ namespace GymSystemDataSQLServer
                         SqlCommandBuilder.DeriveParameters(comando);
                         using (SqlDataReader cursor = comando.ExecuteReader())
                         {
-
-
                             while (cursor.Read())
                             {
                                 ActividadEntity auxActi = CrearActividad(cursor);
                                 auxActi.cantSocios = getTotalPersonaPorActividad(auxActi.idActividad,'S');
                                 auxActi.listPersonas = PersonaPorActividadId(auxActi.idActividad, tipoPersona);
                                 actividades.Add(auxActi);
-
                             }
                             cursor.Close();
                         }

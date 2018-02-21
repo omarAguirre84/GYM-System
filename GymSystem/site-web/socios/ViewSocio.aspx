@@ -124,6 +124,12 @@
                                     ErrorMessage="Por favor ingrese Contraseña"
                                     Display="Dynamic">
                                 </asp:RequiredFieldValidator>
+
+                                  <asp:CompareValidator ID="comparaContraseñas" runat="server"
+                                    ControlToValidate="passw2"
+                                    CssClass="ValidationError"
+                                    ControlToCompare="passw1"
+                                    ErrorMessage="Las Contraseñas no coinciden" />
                             </div>
                         </div>
                         <div class="item form-group">
@@ -176,7 +182,7 @@
                                 </div>
                             </div>
                         </div>
-
+                        <!--
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="datebirth">Actividades<span class="required"></span>
                             </label>
@@ -184,13 +190,13 @@
                                 <asp:ListBox ID="actividades" CssClass="select--multiple" runat="server" SelectionMode="Multiple" multiple="multiple"></asp:ListBox>
                             </div>
                         </div>
-
+                        -->
                         <div class="clearfix"></div>
                       
                       <div class="ln_solid"></div>
                       <div class="form-group">
                         <div class="col-md-6 col-md-offset-6">
-                          <asp:Button ID="Button2" OnClick="Btn_cancelar" runat="server" class="btn btn-primary" Text="< Volver" />
+                          <asp:Button ID="Button2" OnClick="Btn_cancelar" runat="server" class="btn btn-primary" Text="< Volver" CausesValidation="false" />
                           <asp:Button ID="Button1" OnClick="Btn_actualizar" runat="server" class="btn btn-success" Text="Actualizar" />
                         </div>
                       </div>

@@ -21,6 +21,11 @@ public partial class ViewSocios : System.Web.UI.Page
                 throw new AccessDeniedExceptionBO();
             empleadoBO = new EmpleadoBO();
             listaEmpleados = empleadoBO.GetList();
+
+            if (Request.QueryString["action"] == "delete")
+            {
+                deleteEmpleado(Int32.Parse(Request.QueryString["id"]));
+            }
         }
         catch (AccessDeniedExceptionBO ex)
         {
@@ -32,7 +37,8 @@ public partial class ViewSocios : System.Web.UI.Page
         }
     }
 
-    protected string filterEmpleado(EmpleadoEntity emp) {
+    protected string filterEmpleado(EmpleadoEntity emp)
+    {
         if (emp.tipoEmpleado == 1)
         {
             return "PROFESOR";
@@ -43,4 +49,18 @@ public partial class ViewSocios : System.Web.UI.Page
         }
         return "";
     }
+
+    protected void deleteEmpleado(int idActividad)
+    {
+        if (empleadoBO.EliminarEmpleado(idActividad))
+        {
+            WebHelper.MostrarMensaje(Page, "Eliminado con exito");
+            Response.Redirect("ViewEmpleados.aspx");
+        }
+        else
+        {
+            WebHelper.MostrarMensaje(Page, "No es posible eliminar el empleado. Intente nuevamente");
+        }
+    }
+
 }

@@ -261,6 +261,30 @@ namespace GymSystemDataSQLServer
                 throw new ExcepcionDA("Se produjo un error al buscar por ID.", ex);
             }
         }
+
+        public void EliminarEmpleado(int idEmpleado)
+        {
+            try
+            {
+                using (SqlConnection conexion = ConexionDA.ObtenerConexion())
+                {
+                    using (SqlCommand comando = new SqlCommand("EmpleadoBorrar", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+                        SqlCommandBuilder.DeriveParameters(comando);
+
+                        comando.Parameters["@idEmpleado"].Value = idEmpleado;
+                        comando.ExecuteNonQuery();
+                    }
+
+                    conexion.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ExcepcionDA("Se produjo un error al eliminar Empleado.", ex);
+            }
+        }
         #endregion Métodos Públicos
     }
 }

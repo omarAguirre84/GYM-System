@@ -178,8 +178,8 @@ public partial class ViewEmpleado : System.Web.UI.Page
                 int.Parse(fechaNacArr[1]),
                 int.Parse(fechaNacArr[2]));
 
-            string[] fechaIngrArr = fechaNacimiento.Value.Split('-');
-            nuevoEntity.FechaNacimiento = Util.ObtenerFecha(
+            string[] fechaIngrArr = fechaIngreso.Value.Split('-');
+            nuevoEntity.fechaIngreso = Util.ObtenerFecha(
                 int.Parse(fechaIngrArr[0]),
                 int.Parse(fechaIngrArr[1]),
                 int.Parse(fechaIngrArr[2]));
@@ -234,5 +234,10 @@ public partial class ViewEmpleado : System.Web.UI.Page
     protected void BtnVolver_click(object sender, EventArgs e)
     {
         Response.Redirect("../empleados/ViewEmpleados.aspx");
+    }
+
+    protected void CustomValidator1_ServerValidate(object source, ServerValidateEventArgs args)
+    {
+        args.IsValid = masculino.Checked || femenino.Checked;
     }
 }

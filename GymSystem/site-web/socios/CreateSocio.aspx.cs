@@ -24,8 +24,8 @@ public partial class CreateSocio : System.Web.UI.Page
             boSocio = new SocioBO();
             if (!Page.IsPostBack)
             {
-                listaActividades = boActividad.GetList();
-                llenarViewActividades();
+                //listaActividades = boActividad.GetList();
+                //llenarViewActividades();
             }
         }
         catch (AccessDeniedExceptionBO ex)
@@ -42,18 +42,21 @@ public partial class CreateSocio : System.Web.UI.Page
     {
         try
         {
-            SocioEntity entitySocio = new SocioEntity(new Random().Next(1, 99999), 1);
-            entitySocio = (SocioEntity)popularEntity(entitySocio);
-            foreach (ListItem item in actividades.Items)
+            if (Page.IsValid)
             {
-                if (item.Selected)
+                SocioEntity entitySocio = new SocioEntity(new Random().Next(1, 99999), 1);
+                entitySocio = (SocioEntity)popularEntity(entitySocio);
+                foreach (ListItem item in actividades.Items)
                 {
-                    entitySocio.actividad = string.Concat(entitySocio.actividad, item.Value + ",");
+                    if (item.Selected)
+                    {
+                        entitySocio.actividad = string.Concat(entitySocio.actividad, item.Value + ",");
+                    }
                 }
-            }
 
-            boSocio.Registrar(entitySocio, entitySocio.Email.Trim());
-            WebHelper.MostrarMensaje(Page, ("Socio " + entitySocio.Nombre + " " + entitySocio.Apellido + " creado con exito."));
+                boSocio.Registrar(entitySocio, entitySocio.Email.Trim());
+                WebHelper.MostrarMensaje(Page, ("Socio " + entitySocio.Nombre + " " + entitySocio.Apellido + " creado con exito."));
+            }
         }
         catch (ActividadSinLugarExceptionBO ex)
         {
@@ -73,7 +76,8 @@ public partial class CreateSocio : System.Web.UI.Page
             //WebHelper.MostrarMensaje(Page, ex.Message);
             WebHelper.MostrarMensaje(Page, ("Error en ingreso de datos: " + ex));
         }
-        finally {
+        finally
+        {
             //Response.Redirect("../socios/ViewSocios.aspx");
         }
     }
@@ -129,7 +133,7 @@ public partial class CreateSocio : System.Web.UI.Page
     {
         Response.Redirect("../socios/ViewSocios.aspx");
     }
-
+    /*
     public void llenarViewActividades()
     {
         ListItem li = new ListItem();
@@ -144,5 +148,12 @@ public partial class CreateSocio : System.Web.UI.Page
                 actividades.Items.Add(new ListItem(act.name, act.idActividad.ToString()));
             }
         }
+    }*/
+
+
+    protected void CustomValidator1_ServerValidate(object source, ServerValidateEventArgs args)
+    {
+        args.IsValid = masculino.Checked || femenino.Checked;
     }
+
 }

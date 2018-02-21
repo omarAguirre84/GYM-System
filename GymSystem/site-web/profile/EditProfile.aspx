@@ -136,7 +136,7 @@
                         <div class="ln_solid"></div>
                         <div class="form-group">
                             <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                <asp:Button ID="cancel" runat="server" OnClick="btn_returnProfile" CssClass="btn btn-primary" type="button" Text="Cancelar" />
+                                <asp:Button ID="cancel" runat="server" OnClick="btn_returnProfile" CssClass="btn btn-primary" type="button" Text="Cancelar" CausesValidation="false"/>
                                 <asp:Button ID="save" runat="server" OnClick="btn_saveProfile" CssClass="btn btn-success" Text="Guardar" />
                             </div>
                         </div>

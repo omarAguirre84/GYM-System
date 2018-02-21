@@ -27,9 +27,9 @@ public partial class ViewSocio : System.Web.UI.Page
             if (!IsPostBack) //false = primera vez que se carga, true= segunda vez, se cambiaron los datos
             {
                 cargarDatosSocioEnVista();
-                listaActividades = boActividad.GetList();
-                loadEditActividad();
-                loadActividadList();
+                //listaActividades = boActividad.GetList();
+                //loadEditActividad();
+                //loadActividadList();
             }
         }
         catch (AccessDeniedExceptionBO ex)
@@ -102,9 +102,6 @@ public partial class ViewSocio : System.Web.UI.Page
                 activo.Attributes.Remove("checked");
                 activoLbl.Attributes.Add("class", "btn btn-default");
             }
-
-
-            
         }
         catch (AutenticacionExcepcionBO ex)
         {
@@ -169,6 +166,7 @@ public partial class ViewSocio : System.Web.UI.Page
             nuevoEntity.Foto = null;
             nuevoEntity.FechaRegistracion = anterior.FechaRegistracion;
             nuevoEntity.FechaActualizacion = DateTime.Now;
+            /*
             foreach (ListItem item in actividades.Items)
             {
                 if (item.Selected)
@@ -176,7 +174,7 @@ public partial class ViewSocio : System.Web.UI.Page
                     nuevoEntity.actividad = string.Concat(nuevoEntity.actividad, item.Value + ",");
                     Console.WriteLine(item.Text);
                 }
-            }
+            }*/
         }
         catch (AutenticacionExcepcionBO ex)
         {
@@ -190,7 +188,7 @@ public partial class ViewSocio : System.Web.UI.Page
         }
         return nuevoEntity;
     }
-
+    /*
     private void loadEditActividad()
     {
         List<int> listaComboActividad = boActividad.BuscarActividadPersonaPorId(Int32.Parse(Request.QueryString["id"]));
@@ -209,5 +207,5 @@ public partial class ViewSocio : System.Web.UI.Page
         }
         loadEditActividad();
     }
-
+    */
 }

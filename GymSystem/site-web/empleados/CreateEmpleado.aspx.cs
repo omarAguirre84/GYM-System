@@ -64,26 +64,30 @@ public partial class CreateEmpleado : System.Web.UI.Page
     {
         try
         {
-            EmpleadoEntity entityEmpleado = new EmpleadoEntity(empleadoEntity.tipoEmpleado, DateTime.Today, DateTime.MinValue);
-            if (groupActividad.Visible)
+            if (Page.IsValid)
             {
-                foreach (ListItem item in actividades.Items)
+                EmpleadoEntity entityEmpleado = new EmpleadoEntity(empleadoEntity.tipoEmpleado, DateTime.Today, DateTime.MinValue);
+                if (groupActividad.Visible)
                 {
-                    if (item.Selected)
+                    foreach (ListItem item in actividades.Items)
                     {
-                        entityEmpleado.actividad = string.Concat(entityEmpleado.actividad, item.Value + ",");
+                        if (item.Selected)
+                        {
+                            entityEmpleado.actividad = string.Concat(entityEmpleado.actividad, item.Value + ",");
+                        }
                     }
+                    entityEmpleado.tipoEmpleado = 1;
                 }
-                entityEmpleado.tipoEmpleado = 1;
-            }
-            else {
-                entityEmpleado.actividad = "";
-                entityEmpleado.tipoEmpleado = 2;
-            }
-            entityEmpleado = (EmpleadoEntity)popularEntity(entityEmpleado);
+                else
+                {
+                    entityEmpleado.actividad = "";
+                    entityEmpleado.tipoEmpleado = 2;
+                }
+                entityEmpleado = (EmpleadoEntity)popularEntity(entityEmpleado);
 
-            boEmpleado.Registrar(entityEmpleado, entityEmpleado.Email.Trim());
-            WebHelper.MostrarMensaje(Page, ("Empleado " + entityEmpleado.Nombre + " " + entityEmpleado.Apellido + " creado con exito."));
+                boEmpleado.Registrar(entityEmpleado, entityEmpleado.Email.Trim());
+                WebHelper.MostrarMensaje(Page, ("Empleado " + entityEmpleado.Nombre + " " + entityEmpleado.Apellido + " creado con exito."));
+            }
         }
         catch (ValidacionExcepcionAbstract ex)
         {
@@ -163,5 +167,10 @@ public partial class CreateEmpleado : System.Web.UI.Page
     protected void BtnCancelar_click(object sender, EventArgs e)
     {
         Response.Redirect("../empleados/ViewEmpleados.aspx");
+    }
+
+    protected void CustomValidator1_ServerValidate(object source, ServerValidateEventArgs args)
+    {
+        args.IsValid = masculino.Checked || femenino.Checked;
     }
 }

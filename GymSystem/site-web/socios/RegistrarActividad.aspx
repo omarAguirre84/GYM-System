@@ -2,6 +2,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
          <div class="">
+                <form id="uno" runat="server">
             <div class="page-title">
               <div class="title_left">
                 <h3>Registrar Actividad</h3>
@@ -75,6 +76,7 @@
                 </div>
               </div>
             </div>
+                    </form>
           </div>
 </asp:Content>
 

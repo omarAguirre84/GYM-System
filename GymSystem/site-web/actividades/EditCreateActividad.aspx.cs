@@ -65,7 +65,14 @@ public partial class EditCreateActividad : System.Web.UI.Page
         datein.Value = actividadEnt.horaInicio.ToString();
         dateout.Value = actividadEnt.horaFin.ToString();
         tarifa.Value = actividadEnt.tarifa.ToString().Replace(',', '.');
-        diaSelectList.SelectedItem.Text = actividadEnt.dia;
+        //diaSelectList.SelectedItem.Text = actividadEnt.dia;
+        foreach (ListItem item in diaSelectList.Items)
+        {
+            if (actividadEnt.dia == item.Text)
+            {
+                item.Selected = true;
+            }
+        }
     }
 
     protected void loadSalasList()
@@ -167,7 +174,7 @@ public partial class EditCreateActividad : System.Web.UI.Page
     public void loadDayWeek()
     {
         ListItem li = new ListItem();
-        diaSelectList.Items.Add(new ListItem("Seleccione día", null));
+        diaSelectList.Items.Add(new ListItem("Seleccione día", ""));
         diaSelectList.Items.Add(new ListItem("Lunes", "0"));
         diaSelectList.Items.Add(new ListItem("Martes", "1"));
         diaSelectList.Items.Add(new ListItem("Miercoles", "2"));
