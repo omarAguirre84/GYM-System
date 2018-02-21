@@ -179,7 +179,7 @@
                         </div>
 
                         <br />
-                         <div class="item form-group">
+                         <div class="item form-group" id="multiActivi" runat="server">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="datebirth">Actividades<span class="required"></span>
                         </label>
                           <div class="btn-group" data-toggle="buttons">
@@ -189,7 +189,6 @@
                               </div>
                             </div>
                           </div>
-
                       <br />
                       <div class="ln_solid"></div>
                       <div class="form-group">

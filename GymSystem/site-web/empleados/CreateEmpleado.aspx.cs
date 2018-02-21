@@ -12,30 +12,57 @@ public partial class CreateEmpleado : System.Web.UI.Page
     private EmpleadoBO boEmpleado;
     private ActividadBO boActividad;
     protected List<ActividadEntity> ListaActividades;
+    protected EmpleadoEntity empleadoEntity = new EmpleadoEntity();
 
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        
         boEmpleado = new EmpleadoBO();
         if (!Page.IsPostBack)
         {
-           boActividad = new ActividadBO();
+            empleadoEntity.tipoEmpleado = 1;
+            boActividad = new ActividadBO();
            ListaActividades = boActividad.GetList();
            llenarViewActividades();
         }
+    }
+
+    protected void TypeEmpladoChanged(object sender, EventArgs e) {
+        Console.WriteLine();
+        //string text = ((TextBox)sender).Text;
+        string text = ((DropDownList)sender).SelectedItem.Value;
+        if (((DropDownList)sender).SelectedItem.Value.Equals("1"))
+        {
+            groupActividad.Visible = true;
+            empleadoEntity.tipoEmpleado = 1;
+        }
+        else if(((DropDownList)sender).SelectedItem.Value.Equals("2")){
+            groupActividad.Visible = false;
+            empleadoEntity.tipoEmpleado = 2;
+        } else {
+            groupActividad.Visible = true;
+        }
+
     }
 
     protected void btnRegister_Click(object sender, EventArgs e)
     {
         try
         {
-            EmpleadoEntity entityEmpleado = new EmpleadoEntity(1, DateTime.Today, DateTime.MinValue);
-            foreach (ListItem item in actividades.Items)
+            EmpleadoEntity entityEmpleado = new EmpleadoEntity(empleadoEntity.tipoEmpleado, DateTime.Today, DateTime.MinValue);
+            if (!groupActividad.Visible)
             {
-                if (item.Selected)
+                foreach (ListItem item in actividades.Items)
                 {
-                    entityEmpleado.actividad = string.Concat(entityEmpleado.actividad, item.Value + ",");
+                    if (item.Selected)
+                    {
+                        entityEmpleado.actividad = string.Concat(entityEmpleado.actividad, item.Value + ",");
+                    }
                 }
+            }
+            else {
+                entityEmpleado.actividad = "";
             }
             entityEmpleado = (EmpleadoEntity)popularEntity(entityEmpleado);
 

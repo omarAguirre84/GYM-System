@@ -202,12 +202,31 @@
                             </div>
                         </div>
 
-                    <div class="item form-group">
+                    <div class="item form-group" id="groupActividad" runat="server">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="datebirth">Actividades<span class="required"></span></label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <asp:ListBox ID="actividades" CssClass="select--multiple" runat="server" SelectionMode="Multiple" multiple="multiple"></asp:ListBox>
                             </div>
                     </div>
+                    
+                    <div class="item form-group" >
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="typeEmpleado">Tipo de Empleado<span class="required"></span></label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <asp:DropDownList CssClass="form-control" ID="DropDownList1" runat="server" OnSelectedIndexChanged="TypeEmpladoChanged" AutoPostBack="true">
+                                <asp:ListItem id="item2" value="1" runat="server" OnSelectedIndexChanged="TypeEmpladoChanged" AutoPostBack="true" selected="true">
+                                  Profesor
+                               </asp:ListItem>
+                                <asp:ListItem id="item3" value="2" runat="server" OnSelectedIndexChanged="TypeEmpladoChanged" AutoPostBack="true">
+                                  Admin
+                               </asp:ListItem>
+                            </asp:DropDownList>
+<%--                            <select id="typeEmpleado" name="typeEmpleado" class="form-control" runat="server" onChange="TypeEmpladoChanged" AutoPostBack="true" required>
+                                <option value="">Elije tipo de empleado</option>
+                                <option value="1">Profesor</option>
+                                <option value="2">Admin</option>
+                            </select> --%>   
+                        </div>
+                      </div>
 
                       <div class="ln_solid"></div>
                       <div class="form-group">

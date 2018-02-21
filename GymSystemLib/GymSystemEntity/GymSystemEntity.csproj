@@ -60,6 +60,7 @@
     <Compile Include="EnumPersona.cs" />
     <Compile Include="FechaNacimientoExcepcion.cs" />
     <Compile Include="DatosObligatoriosExcepcion.cs" />
+    <Compile Include="GenericEntity.cs" />
     <Compile Include="SalaEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="EmpleadoEntity.cs" />

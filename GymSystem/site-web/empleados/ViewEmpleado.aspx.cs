@@ -9,7 +9,7 @@ using System.Web.UI.WebControls;
 public partial class ViewEmpleado : System.Web.UI.Page
 {
     private EmpleadoBO boEmpleado;
-    private EmpleadoEntity nuevoEmpleado;
+    protected EmpleadoEntity nuevoEmpleado;
     private ActividadBO boActividad;
     protected List<ActividadEntity> actividadesArr;
     private string[] diasArr;
@@ -19,12 +19,25 @@ public partial class ViewEmpleado : System.Web.UI.Page
     {
         boEmpleado = new EmpleadoBO();
         boActividad = new ActividadBO();
-
+        nuevoEmpleado = boEmpleado.BuscarEmpleado(Int32.Parse(Request.QueryString["id"]));
+        filterEmpleado(nuevoEmpleado);
         if (!IsPostBack) //false = primera vez que se carga, true= segunda vez, se cambiaron los datos
         {
             actividadesArr = boActividad.GetList();
             loadActividadList();
             cargarDatoscargarDatosEmpleadoEnVista();
+        }
+    }
+
+    protected void filterEmpleado(EmpleadoEntity emp)
+    {
+        if (emp.tipoEmpleado == 1)
+        {
+            multiActivi.Visible =  true;
+        }
+        else 
+        {
+            multiActivi.Visible = false;
         }
     }
 

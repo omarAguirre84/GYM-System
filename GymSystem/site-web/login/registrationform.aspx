@@ -129,7 +129,6 @@
                                 <option value="-1">Elije tipo el género</option>
                                 <option value="F">Femenino</option>
                                 <option value="M">Masculino</option>
-                                <option value="O">Otro</option>
                             </select>
                         </div>
                         <div class="form-group">
@@ -138,7 +137,7 @@
                                 <option value="">Elije tipo de usuario</option>
                                 <option value="S">Socio</option>
                                 <option value="P">Profesor</option>
-                                <option value="E">Empleado</option>
+                                <option value="A">Admin</option>
                             </select>
                         </div>
                         <div class="form-group">
