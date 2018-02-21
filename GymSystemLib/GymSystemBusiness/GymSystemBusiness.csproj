@@ -54,6 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GenericBO.cs" />
     <Compile Include="AutenticacionExcepcionBO.cs" />
     <Compile Include="ActividadBO.cs" />
     <Compile Include="EmpleadoBO.cs" />

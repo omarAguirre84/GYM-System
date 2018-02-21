@@ -35,6 +35,8 @@ namespace GymSystemDataSQLServer
             socio.Password = cursor.GetString(cursor.GetOrdinal("Password"));
             socio.FechaNacimiento = cursor.GetDateTime(cursor.GetOrdinal("FechaNacimiento"));
             socio.Sexo = cursor.GetString(cursor.GetOrdinal("Sexo"))[0];
+            if (ColumExist(cursor, "idEstado"))
+                socio.IdEstado = cursor.GetInt32(cursor.GetOrdinal("idEstado"));
             if (ColumExist(cursor, "nroTarjetaIdentificacion"))
                 socio.NroTarjetaIdentificacion = cursor.GetInt32(cursor.GetOrdinal("nroTarjetaIdentificacion"));
            

@@ -55,6 +55,7 @@
                             <option value="">Elije tipo de usuario</option>
                             <option value="S">Socio</option>
                             <option value="P">Profesor</option>
+                            <option value="A">Admin</option>
                  </select>
               </div>
               <div class="form-group">
