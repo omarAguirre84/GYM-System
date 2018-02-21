@@ -130,6 +130,12 @@
                                 <option value="F">Femenino</option>
                                 <option value="M">Masculino</option>
                             </select>
+                            <asp:RequiredFieldValidator ID="RequiredSelectGenero"
+                                runat="server" ControlToValidate="RegGender"
+                                ErrorMessage="Por favor seleccione Genero"
+                                InitialValue="-1"
+                                Display="Dynamic">
+                            </asp:RequiredFieldValidator>
                         </div>
                         <div class="form-group">
                             <label style="align-content: left; display: flex;">Tipo de Usuario *:</label>
@@ -139,6 +145,12 @@
                                 <option value="P">Profesor</option>
                                 <option value="A">Admin</option>
                             </select>
+                            <asp:RequiredFieldValidator ID="RequiredSelectTipoUsuario"
+                                    runat="server" ControlToValidate="RegTypeUser"
+                                    ErrorMessage="Por favor seleccione tipo de usuario"
+                                    InitialValue=""
+                                    Display="Dynamic">
+                            </asp:RequiredFieldValidator>
                         </div>
                         <div class="form-group">
                             <asp:Button class="btn btn-default submit" ID="buttonregister" runat="server" Text="Crear Usuario" OnClick="btnRegister_Click" />
