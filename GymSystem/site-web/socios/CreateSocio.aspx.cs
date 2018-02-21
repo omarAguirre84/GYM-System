@@ -24,8 +24,8 @@ public partial class CreateSocio : System.Web.UI.Page
             boSocio = new SocioBO();
             if (!Page.IsPostBack)
             {
-                listaActividades = boActividad.GetList();
-                llenarViewActividades();
+                //listaActividades = boActividad.GetList();
+                //llenarViewActividades();
             }
         }
         catch (AccessDeniedExceptionBO ex)
@@ -129,7 +129,7 @@ public partial class CreateSocio : System.Web.UI.Page
     {
         Response.Redirect("../socios/ViewSocios.aspx");
     }
-
+    /*
     public void llenarViewActividades()
     {
         ListItem li = new ListItem();
@@ -144,5 +144,5 @@ public partial class CreateSocio : System.Web.UI.Page
                 actividades.Items.Add(new ListItem(act.name, act.idActividad.ToString()));
             }
         }
-    }
+    }*/
 }

@@ -2,6 +2,7 @@
 using GymSystemEntity;
 using GymSystemData;
 using GymSystemDataSQLServer;
+using System;
 
 namespace GymSystemBusiness
 {
@@ -68,6 +69,21 @@ namespace GymSystemBusiness
             {
                 throw new ExcepcionBO("No se pudo realizar listar Empleados.", ex);
             }
+        }
+
+        public Boolean EliminarEmpleado(int idEmpleado)
+        {
+            Boolean res = false;
+            try
+            {
+                daEmpleado.EliminarEmpleado(idEmpleado);
+                res = true;
+            }
+            catch (ExcepcionDA ex)
+            {
+                throw new ExcepcionBO("No se pudo eliminar Empleado.", ex);
+            }
+            return res;
         }
     }
 }

@@ -78,7 +78,7 @@
                                   </div>
                             </div>
                         </div>
-
+                        <!--
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="days">Actividades<span class="required"></span></label>
                                 <div class="btn-group" data-toggle="buttons">
@@ -90,7 +90,7 @@
                                     </div>
                                 </div>
                         </div>
-
+                        -->
                       <div class="ln_solid"></div>
                       <div class="form-group">
                         <div class="col-md-6 col-md-offset-3">

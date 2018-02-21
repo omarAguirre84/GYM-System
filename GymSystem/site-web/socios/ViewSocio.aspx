@@ -92,7 +92,7 @@
                                 </div>
                             </div>
                         </div>
-
+                        <!--
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="datebirth">Actividades<span class="required"></span>
                             </label>
@@ -100,7 +100,7 @@
                                 <asp:ListBox ID="actividades" CssClass="select--multiple" runat="server" SelectionMode="Multiple" multiple="multiple"></asp:ListBox>
                             </div>
                         </div>
-
+                        -->
                         <div class="clearfix"></div>
                       
                       <div class="ln_solid"></div>
