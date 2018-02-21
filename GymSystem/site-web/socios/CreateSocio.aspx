@@ -132,7 +132,13 @@
                                     ErrorMessage="Por favor ingrese Contraseña"
                                     Display="Dynamic">
                                 </asp:RequiredFieldValidator>
+                                  <asp:CompareValidator ID="comparaContraseñas" runat="server"
+                                    ControlToValidate="passw2"
+                                    CssClass="ValidationError"
+                                    ControlToCompare="passw1"
+                                    ErrorMessage="Las Contraseñas no coinciden" />
                             </div>
+
                         </div>
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="datebirth">
@@ -154,19 +160,30 @@
                                 </asp:RangeValidator>
                             </div>
                         </div>
-                      
+
                         <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="gender">Sexo<span class="required"></span>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="gender">
+                                Sexo<span class="required"></span>
                             </label>
-                              <div class="col-md-6 col-xs-12">
-                                  <div class="btn-group" data-toggle="buttons">
+                            <div class="col-md-6 col-xs-12">
+                                <div class="btn-group" data-toggle="buttons">
                                     <label id="masculinoLbl" class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-primary" runat="server">
-                                      <input ID="masculino" type="radio" name="gender" class="btn btn-default" value="male" runat="server"> Masculino
+                                        <input id="masculino" type="radio" name="gender" class="btn btn-default" value="male" runat="server">
+                                        Masculino
                                     </label>
                                     <label id="femeninoLbl" class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-primary" runat="server">
-                                      <input ID="femenino" type="radio" name="gender" value="female" runat="server"> Femenino
+                                        <input id="femenino" type="radio" name="gender" value="female" runat="server">
+                                        Femenino
                                     </label>
-                                  </div>
+                                </div>
+                                <br>
+                                <br>
+                                <asp:CustomValidator ID="validaSexo" runat="server"
+                                    ErrorMessage="Por Favor seleccione"
+                                    ClientValidationFunction="CustomValidator1_ClientValidate"
+                                    OnServerValidate="CustomValidator1_ServerValidate"
+                                    Display="Dynamic">
+                                </asp:CustomValidator>
                             </div>
                         </div>
                         <!--
@@ -182,17 +199,17 @@
                                 </div>
                         </div>
                         -->
-                      <div class="ln_solid"></div>
-                      <div class="form-group">
-                        <div class="col-md-6 col-md-offset-3">
-                          <asp:Button ID="Button2" runat="server" class="btn btn-primary" Text="Cancelar" OnClick="btnCancelar_Click" CausesValidation="false"/>
-                          <asp:Button ID="Button1" runat="server" class="btn btn-success" Text="Generar" OnClick="btnRegister_Click" />
+                        <div class="ln_solid"></div>
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-3">
+                                <asp:Button ID="Button2" runat="server" class="btn btn-primary" Text="Cancelar" OnClick="btnCancelar_Click" CausesValidation="false" />
+                                <asp:Button ID="Button1" runat="server" class="btn btn-success" Text="Generar" OnClick="btnRegister_Click" />
+                            </div>
                         </div>
-                      </div>
                     </form>
-                  </div>
                 </div>
-              </div>
             </div>
+        </div>
+    </div>
 </asp:Content>
 
