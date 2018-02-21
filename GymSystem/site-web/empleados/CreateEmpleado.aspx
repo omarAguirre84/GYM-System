@@ -125,7 +125,7 @@
                                     Display="Dynamic">
                                 </asp:RequiredFieldValidator>
 
-                          
+
 
                             </div>
                         </div>
@@ -140,11 +140,11 @@
                                     Display="Dynamic">
                                 </asp:RequiredFieldValidator>
 
-                                      <asp:CompareValidator ID="CompareValidator1" runat="server"
+                                <asp:CompareValidator ID="comparaContraseñas" runat="server"
                                     ControlToValidate="passw2"
                                     CssClass="ValidationError"
                                     ControlToCompare="passw1"
-                                    ErrorMessage="Las Contraseñas no coinciden"/>
+                                    ErrorMessage="Las Contraseñas no coinciden" />
 
 
                             </div>
@@ -197,25 +197,27 @@
                             <div class="col-md-6 col-xs-12">
                                 <div class="btn-group" data-toggle="buttons">
                                     <label id="masculinoLbl" class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-primary" runat="server">
-                                        <input id="masculino" type="radio" name="gender" class="btn btn-default" value="male" runat="server"  >
+                                        <input id="masculino" type="radio" name="gender" class="btn btn-default" value="male" runat="server">
                                         Masculino
                                     </label>
-                                    <label id="femeninoLbl" class="btn btn-default" data-toggle-class="btn-primary" 
+                                    <label id="femeninoLbl" class="btn btn-default" data-toggle-class="btn-primary"
                                         data-toggle-passive-class="btn-primary" runat="server">
 
-                                        <input id="femenino" type="radio" name="gender" value="female"  runat="server">
+                                        <input id="femenino" type="radio" name="gender" value="female" runat="server">
                                         Femenino
                                     </label>
-                     
-                              </div>
+
+                                </div>
                                 <br>
-                                  <br>
-                                   <asp:CustomValidator id="validaSexo" runat="server"
-                                 ErrorMessage="Por Favor seleccione" 
-                                 ClientValidationFunction="CustomValidator1_ClientValidate" 
-                            OnServerValidate="CustomValidator1_ServerValidate"
+                                <br>
+                                <asp:CustomValidator ID="validaSexo" runat="server"
+                                    ErrorMessage="Por Favor seleccione"
+                                    ClientValidationFunction="CustomValidator1_ClientValidate"
+                                    OnServerValidate="CustomValidator1_ServerValidate"
                                     Display="Dynamic">
-                                    </asp:CustomValidator>
+                                </asp:CustomValidator>
+
+
                             </div>
                         </div>
                         <div class="item form-group" id="groupActividad" runat="server">
