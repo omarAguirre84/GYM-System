@@ -17,14 +17,28 @@ public partial class CreateEmpleado : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        
-        boEmpleado = new EmpleadoBO();
-        if (!Page.IsPostBack)
+        try
         {
-            empleadoEntity.tipoEmpleado = 1;
-            boActividad = new ActividadBO();
-           ListaActividades = boActividad.GetList();
-           llenarViewActividades();
+            if (SessionHelper.PersonaAutenticada == null)
+                throw new AutenticacionExcepcionBO();
+            if (SessionHelper.PersonaAutenticada.tipoPersona != 'A')
+                throw new AccessDeniedExceptionBO();
+            boEmpleado = new EmpleadoBO();
+            if (!Page.IsPostBack)
+            {
+                empleadoEntity.tipoEmpleado = 1;
+                boActividad = new ActividadBO();
+               ListaActividades = boActividad.GetList();
+               llenarViewActividades();
+            }
+        }
+        catch (AccessDeniedExceptionBO ex)
+        {
+            Response.Redirect("/site-web/home/HomeSiteWeb.aspx");
+        }
+        catch (AutenticacionExcepcionBO ex)
+        {
+            Response.Redirect("/site-web/login/loginform.aspx");
         }
     }
 

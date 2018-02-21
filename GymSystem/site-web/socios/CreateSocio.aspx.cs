@@ -14,12 +14,27 @@ public partial class CreateSocio : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        boActividad = new ActividadBO();
-        boSocio = new SocioBO();
-        if (!Page.IsPostBack)
+        try
         {
-            listaActividades = boActividad.GetList();
-            llenarViewActividades();
+            if (SessionHelper.PersonaAutenticada == null)
+                throw new AutenticacionExcepcionBO();
+            if (SessionHelper.PersonaAutenticada.tipoPersona != 'A')
+                throw new AccessDeniedExceptionBO();
+            boActividad = new ActividadBO();
+            boSocio = new SocioBO();
+            if (!Page.IsPostBack)
+            {
+                listaActividades = boActividad.GetList();
+                llenarViewActividades();
+            }
+        }
+        catch (AccessDeniedExceptionBO ex)
+        {
+            Response.Redirect("/site-web/home/HomeSiteWeb.aspx");
+        }
+        catch (AutenticacionExcepcionBO ex)
+        {
+            Response.Redirect("/site-web/login/loginform.aspx");
         }
     }
 

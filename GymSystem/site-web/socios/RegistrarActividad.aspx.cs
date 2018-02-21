@@ -16,8 +16,12 @@ public partial class site_web_template_master_Default : System.Web.UI.Page
     protected PersonaEntity persona;
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (SessionHelper.PersonaAutenticada != null)
+        try
         {
+            if (SessionHelper.PersonaAutenticada == null)
+                throw new AutenticacionExcepcionBO();
+            if (SessionHelper.PersonaAutenticada.tipoPersona != 'S')
+                throw new AccessDeniedExceptionBO();
             persona = SessionHelper.PersonaAutenticada;
             if (Request.QueryString["action"] == "alta")
             {
@@ -33,10 +37,15 @@ public partial class site_web_template_master_Default : System.Web.UI.Page
                 listActividad = actividadBo.ActividadGetAll();
             }
         }
-        else
+        catch (AccessDeniedExceptionBO ex)
+        {
+            Response.Redirect("/site-web/home/HomeSiteWeb.aspx");
+        }
+        catch (AutenticacionExcepcionBO ex)
         {
             Response.Redirect("/site-web/login/loginform.aspx");
         }
+
     }
 
     private void darDeBajaActividad(int idActividad)

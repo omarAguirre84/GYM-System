@@ -3,6 +3,7 @@ using GymSystemEntity;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using GymSystemWebUtil;
 
 public partial class ViewSocios : System.Web.UI.Page
 {
@@ -12,8 +13,23 @@ public partial class ViewSocios : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        empleadoBO = new EmpleadoBO();
-        listaEmpleados = empleadoBO.GetList();
+        try
+        {
+            if (SessionHelper.PersonaAutenticada == null)
+                throw new AutenticacionExcepcionBO();
+            if (SessionHelper.PersonaAutenticada.tipoPersona != 'A')
+                throw new AccessDeniedExceptionBO();
+            empleadoBO = new EmpleadoBO();
+            listaEmpleados = empleadoBO.GetList();
+        }
+        catch (AccessDeniedExceptionBO ex)
+        {
+            Response.Redirect("/site-web/home/HomeSiteWeb.aspx");
+        }
+        catch (AutenticacionExcepcionBO ex)
+        {
+            Response.Redirect("/site-web/login/loginform.aspx");
+        }
     }
 
     protected string filterEmpleado(EmpleadoEntity emp) {

@@ -15,15 +15,30 @@ public partial class ViewSocio : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        boActividad = new ActividadBO();
-        boSocio = new SocioBO();
-
-        if (!IsPostBack) //false = primera vez que se carga, true= segunda vez, se cambiaron los datos
+        try
         {
-            cargarDatosSocioEnVista();
-            listaActividades = boActividad.GetList();
-            loadEditActividad();
-            loadActividadList();
+            if (SessionHelper.PersonaAutenticada == null)
+                throw new AutenticacionExcepcionBO();
+            if (SessionHelper.PersonaAutenticada.tipoPersona != 'A')
+                throw new AccessDeniedExceptionBO();
+            boActividad = new ActividadBO();
+            boSocio = new SocioBO();
+
+            if (!IsPostBack) //false = primera vez que se carga, true= segunda vez, se cambiaron los datos
+            {
+                cargarDatosSocioEnVista();
+                listaActividades = boActividad.GetList();
+                loadEditActividad();
+                loadActividadList();
+            }
+        }
+        catch (AccessDeniedExceptionBO ex)
+        {
+            Response.Redirect("/site-web/home/HomeSiteWeb.aspx");
+        }
+        catch (AutenticacionExcepcionBO ex)
+        {
+            Response.Redirect("/site-web/login/loginform.aspx");
         }
     }
 

@@ -60,22 +60,30 @@ public partial class site_web_profile_EditProfile : System.Web.UI.Page
 
     protected void btn_saveProfile(object sender, EventArgs e)
     {
-
-        persona.Nombre = nombre.Value;
-        persona.Apellido =  apellido.Value;
-        persona.dni = dni.Value;
-        persona.FechaNacimiento = DateTime.Parse(fechanacimiento.Attributes["value"]);
-        persona.Password = contrasenia.Attributes["value"];
+        PersonaEntity personaSend;
+        if (persona.tipoPersona == 'S') {
+            personaSend = new SocioEntity();
+        } else {
+            personaSend = new EmpleadoEntity();
+        }
+        personaSend.Id = persona.Id;
+        personaSend.Nombre = nombre.Value;
+        personaSend.Apellido =  apellido.Value;
+        personaSend.dni = dni.Value;
+        personaSend.FechaNacimiento = DateTime.Parse(fechanacimiento.Attributes["value"]);
+        personaSend.Password = contrasenia.Attributes["value"];
         if (genderM.Checked)
         {
-            persona.Sexo = 'M';
+            personaSend.Sexo = 'M';
         }
         else
         {
-            persona.Sexo = 'F';
+            personaSend.Sexo = 'F';
         }
 
-        personaBo.saveProfile(persona);
+        personaBo.saveProfile(personaSend);
+        SessionHelper.AlmacenarPersonaAutenticada(personaBo.Autenticar(persona.Email, personaSend.Password));
+        System.Web.Security.FormsAuthentication.RedirectFromLoginPage(SessionHelper.PersonaAutenticada.Email, false);
         Response.Redirect("Profile.aspx");
     }
 

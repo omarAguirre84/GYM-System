@@ -14,23 +14,38 @@ public partial class EditCreateActividad : System.Web.UI.Page
     ActividadEntity actividadEnt;
     protected void Page_Load(object sender, EventArgs e)
     {
-        actividadBo = new ActividadBO();
-        if (!IsPostBack)
+        try
         {
-            listSalas = salaBO.GetListSalas();
-            loadSalasList();
-            loadDayWeek();
-            if (Request.QueryString["action"] == "delete")
+            if (SessionHelper.PersonaAutenticada == null)
+                throw new AutenticacionExcepcionBO();
+            if (SessionHelper.PersonaAutenticada.tipoPersona != 'A')
+                throw new AccessDeniedExceptionBO();
+            actividadBo = new ActividadBO();
+            if (!IsPostBack)
             {
-                loadEditActividad("delete");
+                listSalas = salaBO.GetListSalas();
+                loadSalasList();
+                loadDayWeek();
+                if (Request.QueryString["action"] == "delete")
+                {
+                    loadEditActividad("delete");
+                }
+                if (Request.QueryString["action"] == "edit")
+                {
+                    loadEditActividad("edit");
+                }
+                if (Request.UrlReferrer != null)
+                {
+                }
             }
-            if (Request.QueryString["action"] == "edit")
-            {
-                loadEditActividad("edit");
-            }
-            if (Request.UrlReferrer != null)
-            {
-            }
+        }
+        catch (AccessDeniedExceptionBO ex)
+        {
+            Response.Redirect("/site-web/home/HomeSiteWeb.aspx");
+        }
+        catch (AutenticacionExcepcionBO ex)
+        {
+            Response.Redirect("/site-web/login/loginform.aspx");
         }
     }
 

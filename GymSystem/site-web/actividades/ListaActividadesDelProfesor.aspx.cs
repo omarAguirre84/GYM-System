@@ -17,25 +17,32 @@ public partial class ListaActividadesDelProfesor : System.Web.UI.Page
     protected PersonaEntity persona;
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (SessionHelper.PersonaAutenticada != null)
+        try
         {
+            if (SessionHelper.PersonaAutenticada == null)
+                throw new AutenticacionExcepcionBO();
+            if (SessionHelper.PersonaAutenticada.tipoPersona != 'P')
+                throw new AccessDeniedExceptionBO();
             persona = SessionHelper.PersonaAutenticada;
             if (Request.QueryString["action"] == "alta")
-            {
-                darDeAltaActividad(Int32.Parse(Request.QueryString["id"]));
-            }
-            else if (Request.QueryString["action"] == "baja")
-            {
-                darDeBajaActividad(Int32.Parse(Request.QueryString["id"]));
-            }
-            else
-            {
-                listSelectActividad = actividadBo.BuscarActividadPersonaPorId(persona.Id);
-                listActividad = actividadBo.ActividadGetAll();
-            }
-            
+                    {
+                        darDeAltaActividad(Int32.Parse(Request.QueryString["id"]));
+                    }
+                    else if (Request.QueryString["action"] == "baja")
+                    {
+                        darDeBajaActividad(Int32.Parse(Request.QueryString["id"]));
+                    }
+                    else
+                    {
+                        listSelectActividad =  actividadBo.BuscarActividadPersonaPorId(persona.Id);
+                        listActividad = actividadBo.ActividadGetAll();
+                    }
         }
-        else
+        catch (AccessDeniedExceptionBO ex)
+        {
+            Response.Redirect("/site-web/home/HomeSiteWeb.aspx");
+        }
+        catch (AutenticacionExcepcionBO ex)
         {
             Response.Redirect("/site-web/login/loginform.aspx");
         }

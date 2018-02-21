@@ -19,15 +19,30 @@ public partial class DetalleActividadesDelProfesor : System.Web.UI.Page
     protected PersonaEntity persona;
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (SessionHelper.PersonaAutenticada != null)
+        try
         {
+            if (SessionHelper.PersonaAutenticada == null)
+                throw new AutenticacionExcepcionBO();
+            if (SessionHelper.PersonaAutenticada.tipoPersona != 'P')
+                throw new AccessDeniedExceptionBO();
+            if (Request.QueryString["id"] == null)
+                throw new Exception();
             persona = SessionHelper.PersonaAutenticada;
             actividad = actividadBo.BuscarActividadPorId(Int32.Parse(Request.QueryString["id"]));
             listsocios = socioBo.GetListSocioPorActividadId(Int32.Parse(Request.QueryString["id"]));
+
         }
-        else
+        catch (AccessDeniedExceptionBO ex)
+        {
+            Response.Redirect("/site-web/home/HomeSiteWeb.aspx");
+        }
+        catch (AutenticacionExcepcionBO ex)
         {
             Response.Redirect("/site-web/login/loginform.aspx");
         }
+        catch (Exception ex) {
+            Response.Redirect("/site-web/actividades/ListaActividadesDelProfesor.aspx");
+        }
+
     }
 }

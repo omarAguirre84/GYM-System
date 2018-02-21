@@ -15,8 +15,10 @@ public partial class site_web_profile_Profile : System.Web.UI.Page
         if (SessionHelper.PersonaAutenticada != null)
         {
             persona = SessionHelper.PersonaAutenticada;
-            listActiv = activBo.GetList();
-            listActivSelect = activBo.ListActividadPersonaPorId(persona.Id);
+            if(persona.tipoPersona != 'A') {
+                listActiv = activBo.GetList();
+                listActivSelect = activBo.ListActividadPersonaPorId(persona.Id);
+            }
         }
         else
         {

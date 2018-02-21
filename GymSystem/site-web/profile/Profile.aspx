@@ -28,7 +28,7 @@
                                         break;
 
                                     default:
-                                        %> EMPLEADO<%
+                                        %> ADMINISTRADOR<%
                                         break;
  
                                 }%>
@@ -47,6 +47,7 @@
                     <br />
 
                 </div>
+                <%if (persona.tipoPersona != 'A') {%>
                 <div class="col-md-9 col-sm-9 col-xs-12">
 
                     <div class="" role="tabpanel" data-example-id="togglable-tabs">
@@ -128,6 +129,7 @@
                     </div>
                     </div>
                 </div>
+                <%} %>
                 </div>
             </div>
             </div>
