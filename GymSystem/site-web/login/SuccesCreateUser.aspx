@@ -2,7 +2,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
-  <head id="Head1" runat="server">
+<head id="Head1" runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!-- Meta, title, CSS, favicons, etc. -->
     <meta charset="utf-8">
@@ -20,24 +20,30 @@
 
     <!-- Custom Theme Style -->
     <link href="../../build/css/custom.min.css" rel="stylesheet">
-  </head>
+</head>
 
-  <body class="nav-md">
+<body class="nav-md">
     <div class="container body">
-      <div class="main_container">
-        <!-- page content -->
-        <div class="col-md-12">
-          <div class="col-middle">
-            <div class="text-center text-center">
-              <h2 class="error-number">Felicitaciones!!! :)</h2>
-              <h2>Se ha registrado con éxito a Gym SYSTEM</h2>
-              <p>Ahora puede iniciar sesión con sus datos registrados anteriormente haciendo click  --><h1><b><a href="loginform.aspx">AQUÍ</a></b></h1>
-              </p>
+        <div class="main_container">
+            <!-- page content -->
+            <div class="col-md-12">
+                <div class="col-middle">
+                    <div class="text-center text-center">
+                        <%--<h2 class="jumbotron">Felicitaciones!!!</h2>--%>
+                        <h2 class="jumbotron">Se ha registrado con éxito a Gym SYSTEM 
+                            <br>
+
+                            <br>
+                            Ahora puede iniciar sesión con sus datos registrados anteriormente haciendo click en el siguiente enlace<br>
+
+                            <br>
+                            <b><u><a href="loginform.aspx">Iniciar Sesión</a></b></h2>
+
+                    </div>
+                </div>
             </div>
-          </div>
+            <!-- /page content -->
         </div>
-        <!-- /page content -->
-      </div>
     </div>
 
     <!-- jQuery -->
@@ -51,5 +57,5 @@
 
     <!-- Custom Theme Scripts -->
     <script src="../../build/js/custom.min.js"></script>
-  </body>
+</body>
 </html>
