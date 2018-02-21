@@ -71,7 +71,7 @@ public partial class EditCreateActividad : System.Web.UI.Page
     protected void loadSalasList()
     {
         int index = 0;
-        salasListItems.Items.Insert(index++, new ListItem("Seleccione Sala", "0"));
+        salasListItems.Items.Insert(index++, new ListItem("Seleccione Sala", ""));
         foreach (SalaEntity salEnt in listSalas)
         {
             salasListItems.Items.Insert(index++, new ListItem(salEnt.Nombre, salEnt.IdSala.ToString()));
@@ -167,7 +167,7 @@ public partial class EditCreateActividad : System.Web.UI.Page
     public void loadDayWeek()
     {
         ListItem li = new ListItem();
-        diaSelectList.Items.Add(new ListItem("Seleccione día", null));
+        diaSelectList.Items.Add(new ListItem("Seleccione día", ""));
         diaSelectList.Items.Add(new ListItem("Lunes", "0"));
         diaSelectList.Items.Add(new ListItem("Martes", "1"));
         diaSelectList.Items.Add(new ListItem("Miercoles", "2"));
