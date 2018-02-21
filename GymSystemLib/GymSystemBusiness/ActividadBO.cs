@@ -190,5 +190,13 @@ namespace GymSystemBusiness
                 throw new ExcepcionBO("No se pudo realizar listar Empleados.", ex);
             }
         }
+
+        public Boolean GetCapacidadActividad(int idActividad)
+        {
+            if (daActividad.GetCapacidadActividad(idActividad, daActividad.GetIdSalaFromActividad(idActividad)) < 1) {
+                throw new ActividadSinLugarExceptionBO();
+            }
+            return true;
+        }
     }
 }

@@ -9,7 +9,7 @@ public partial class ViewActividades : System.Web.UI.Page
     protected ActividadBO activBo = new ActividadBO();
     protected List<ActividadEntity> listaActividades;
     protected SalaBO salaBO = new SalaBO();
-    protected SalaEntity[] listaSalas;
+    protected List<SalaEntity> listaSalas;
 
     protected void Page_Load(object sender, EventArgs e)
     {

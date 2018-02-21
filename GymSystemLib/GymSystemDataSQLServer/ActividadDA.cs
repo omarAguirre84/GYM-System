@@ -18,14 +18,14 @@ namespace GymSystemDataSQLServer
         {
 
             ActividadEntity actividad = new ActividadEntity();
-            
+
             actividad.idActividad = cursor.GetInt32(cursor.GetOrdinal("idActividad"));
             actividad.name = cursor.GetString(cursor.GetOrdinal("descripcion"));
             actividad.tarifa = (float)cursor.GetDouble(cursor.GetOrdinal("tarifa"));
             actividad.horaInicio = cursor.GetTimeSpan(cursor.GetOrdinal("horarioInicio"));// .Date.ToString("yyyy-MM-dd HH:mm:ss"));
             actividad.horaFin = cursor.GetTimeSpan(cursor.GetOrdinal("horarioFin"));
             actividad.dia = cursor.GetString(cursor.GetOrdinal("dia"));
-            
+
             if (ColumExist(cursor, "nombre")) {
                 actividad.sala.Nombre = cursor.GetString(cursor.GetOrdinal("nombre"));
             }
@@ -42,11 +42,11 @@ namespace GymSystemDataSQLServer
             {
                 actividad.sala.Capacidad = cursor.GetInt32(cursor.GetOrdinal("capacidad"));
             }
-            return actividad;   
+            return actividad;
         }
-        #endregion Métodos Privados
 
-        private Boolean ColumExist(SqlDataReader cursor, string columnName) {
+        private Boolean ColumExist(SqlDataReader cursor, string columnName)
+        {
             for (int i = 0; i < cursor.FieldCount; i++)
             {
 
@@ -55,6 +55,8 @@ namespace GymSystemDataSQLServer
             }
             return false;
         }
+        #endregion Métodos Privados
+
 
         #region Métodos Públicos
 
@@ -77,7 +79,7 @@ namespace GymSystemDataSQLServer
                         comando.Parameters["@idSala"].Value = actividad.idSala;
                         comando.ExecuteNonQuery();
                     }
-                    
+
                     conexion.Close();
                 }
             }
@@ -115,7 +117,7 @@ namespace GymSystemDataSQLServer
                 throw new ExcepcionDA("Se produjo un error al actualizar la Actividad.", ex);
             }
         }
-        
+
         public List<ActividadEntity> ListarActividades()
         {
             try
@@ -131,11 +133,11 @@ namespace GymSystemDataSQLServer
 
                         using (SqlDataReader cursor = comando.ExecuteReader())
                         {
-                                while (cursor.Read())
-                                {
-                                    actividad.Add(CrearActividad(cursor));
-                                    
-                                }
+                            while (cursor.Read())
+                            {
+                                actividad.Add(CrearActividad(cursor));
+
+                            }
                             cursor.Close();
                         }
                     }
@@ -220,6 +222,7 @@ namespace GymSystemDataSQLServer
                 throw new ExcepcionDA("Se produjo un error al buscar por email y contraseña.", ex);
             }
         }
+
         public List<ActividadEntity> ActividadGetAll()
         {
             try
@@ -255,7 +258,6 @@ namespace GymSystemDataSQLServer
                 throw new ExcepcionDA("Se produjo un error al buscar por email y contraseña.", ex);
             }
         }
-
 
         public List<PersonaEntity> PersonaPorActividadId(int idActividad)
         {
@@ -365,7 +367,7 @@ namespace GymSystemDataSQLServer
         public Boolean ValidadDiaHoraActividad(string dia, int? idActividad)
         {
             try
-            {                
+            {
                 using (SqlConnection conexion = ConexionDA.ObtenerConexion())
                 {
                     Boolean isOkDia = false;
@@ -463,7 +465,6 @@ namespace GymSystemDataSQLServer
                 throw new ExcepcionDA("Se produjo un error al buscar por ID.", ex);
             }
         }
-        #endregion Métodos Públicos
 
         public void insertarActividadPersona(int idActividad, int idPersona) {
 
@@ -519,5 +520,70 @@ namespace GymSystemDataSQLServer
                 throw new ExcepcionDA("Se produjo un error al buscar por ID.", ex);
             }
         }
+
+        public int GetCapacidadActividad(int idActividad, int idSala) {
+            int capacidadRestante = 0;
+            try
+            {
+                using (SqlConnection conexion = ConexionDA.ObtenerConexion())
+                {
+                    using (SqlCommand comando = new SqlCommand("[ActividadSalaValidaCapacidad]", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+                        SqlCommandBuilder.DeriveParameters(comando);
+
+                        comando.Parameters["@idActividad"].Value = idActividad;
+                        comando.Parameters["@idSala"].Value = idSala;
+                        using (SqlDataReader cursor = comando.ExecuteReader())
+                        {
+                            if (cursor.Read())
+                            {
+                                capacidadRestante = cursor.GetInt32(cursor.GetOrdinal("CapacidadRestante"));
+                            }
+                            cursor.Close();
+                        }
+                    }
+                    conexion.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ExcepcionDA("Se produjo un error.", ex);
+            }
+            return capacidadRestante;
+        }
+
+        public int GetIdSalaFromActividad(int idActividad)
+        {
+            int idSala = 0;
+            try
+            {
+                using (SqlConnection conexion = ConexionDA.ObtenerConexion())
+                {
+                    using (SqlCommand comando = new SqlCommand("[SalaBuscarPorIdActividad]", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+                        SqlCommandBuilder.DeriveParameters(comando);
+
+                        comando.Parameters["@idActividad"].Value = idActividad;
+                        using (SqlDataReader cursor = comando.ExecuteReader())
+                        {
+                            if (cursor.Read())
+                            {
+                                idSala = cursor.GetInt32(cursor.GetOrdinal("idSala"));
+                            }
+                            cursor.Close();
+                        }
+                    }
+                    conexion.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ExcepcionDA("Se produjo un error.", ex);
+            }
+            return idSala;
+        }
+        #endregion Métodos Públicos
     }
 }
