@@ -17,15 +17,30 @@ public partial class ViewEmpleado : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        boEmpleado = new EmpleadoBO();
-        boActividad = new ActividadBO();
-        nuevoEmpleado = boEmpleado.BuscarEmpleado(Int32.Parse(Request.QueryString["id"]));
-        filterEmpleado(nuevoEmpleado);
-        if (!IsPostBack) //false = primera vez que se carga, true= segunda vez, se cambiaron los datos
+        try
         {
-            actividadesArr = boActividad.GetList();
-            loadActividadList();
-            cargarDatoscargarDatosEmpleadoEnVista();
+            if (SessionHelper.PersonaAutenticada == null)
+                throw new AutenticacionExcepcionBO();
+            if (SessionHelper.PersonaAutenticada.tipoPersona != 'A')
+                throw new AccessDeniedExceptionBO();
+            boEmpleado = new EmpleadoBO();
+            boActividad = new ActividadBO();
+            nuevoEmpleado = boEmpleado.BuscarEmpleado(Int32.Parse(Request.QueryString["id"]));
+            filterEmpleado(nuevoEmpleado);
+            if (!IsPostBack) //false = primera vez que se carga, true= segunda vez, se cambiaron los datos
+            {
+                actividadesArr = boActividad.GetList();
+                loadActividadList();
+                cargarDatoscargarDatosEmpleadoEnVista();
+            }
+        }
+        catch (AccessDeniedExceptionBO ex)
+        {
+            Response.Redirect("/site-web/home/HomeSiteWeb.aspx");
+        }
+        catch (AutenticacionExcepcionBO ex)
+        {
+            Response.Redirect("/site-web/login/loginform.aspx");
         }
     }
 

@@ -16,8 +16,14 @@ public partial class HomeSiteWeb : System.Web.UI.Page
         persona = SessionHelper.PersonaAutenticada;
         if (SessionHelper.PersonaAutenticada != null)
         {
-            actividadesUser = actividadBo.ActividadPorPersonaId(persona.Id);
-            listAdmin = genericBO.GetListParaAdmin();
+            if (persona.tipoPersona != 'A')
+            {
+                actividadesUser = actividadBo.ActividadPorPersonaId(persona.Id);
+            }
+            else {
+                listAdmin = genericBO.GetListParaAdmin();
+            }
+            
         }
         else
         {

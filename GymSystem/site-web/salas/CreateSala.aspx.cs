@@ -13,7 +13,22 @@ public partial class CreateSala : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        salaBO = new SalaBO();
+        try
+        {
+            if (SessionHelper.PersonaAutenticada == null)
+                throw new AutenticacionExcepcionBO();
+            if (SessionHelper.PersonaAutenticada.tipoPersona != 'A')
+                throw new AccessDeniedExceptionBO();
+            salaBO = new SalaBO();
+        }
+        catch (AccessDeniedExceptionBO ex)
+        {
+            Response.Redirect("/site-web/home/HomeSiteWeb.aspx");
+        }
+        catch (AutenticacionExcepcionBO ex)
+        {
+            Response.Redirect("/site-web/login/loginform.aspx");
+        }
     }
 
     protected void btnRegister_Click(object sender, EventArgs e)

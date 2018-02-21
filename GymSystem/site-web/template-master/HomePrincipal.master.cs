@@ -18,4 +18,22 @@ public partial class HomePrincipal : System.Web.UI.MasterPage
         
   
     }
+
+    protected string getTipoPersona()
+    {
+        string value="";
+        switch (persona.tipoPersona)
+        {
+            case 'S':
+                value= "SOCIO";
+                break;
+            case 'P':
+                value= "PROFESOR";
+                break;
+            case 'A':
+                value= "ADMINISTRADOR";
+                break;
+        }
+        return value;
+    }
 }

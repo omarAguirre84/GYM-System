@@ -13,15 +13,30 @@ public partial class ViewActividades : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!IsPostBack)
+        try
         {
-            listaActividades = activBo.GetList();
-            listaSalas = salaBO.GetListSalas();
-        }
+            if (SessionHelper.PersonaAutenticada == null)
+                throw new AutenticacionExcepcionBO();
+            if (SessionHelper.PersonaAutenticada.tipoPersona != 'A')
+                throw new AccessDeniedExceptionBO();
+            if (!IsPostBack)
+            {
+                listaActividades = activBo.GetList();
+                listaSalas = salaBO.GetListSalas();
+            }
 
-        if (Request.QueryString["action"] == "delete")
+            if (Request.QueryString["action"] == "delete")
+            {
+                deleteActividad(Int32.Parse(Request.QueryString["id"]));
+            }
+         }
+        catch (AccessDeniedExceptionBO ex)
         {
-            deleteActividad(Int32.Parse(Request.QueryString["id"]));
+            Response.Redirect("/site-web/home/HomeSiteWeb.aspx");
+        }
+        catch (AutenticacionExcepcionBO ex)
+        {
+            Response.Redirect("/site-web/login/loginform.aspx");
         }
     }
 

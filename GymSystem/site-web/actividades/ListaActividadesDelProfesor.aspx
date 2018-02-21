@@ -84,9 +84,9 @@
                             <a class="btn btn-warning btn-xs"><i class="fa fa-eye-slash"></i> Ver Socios </a>
                             <%} %>
                         <% if (isRegistrado(actividad.idActividad)){ %>
-                            <a href="#" class="btn btn-success btn-xs"><i class="fa fa-check"></i> Anotarse </a>
+                            <a href="ListaActividadesDelProfesor.aspx?id=<%=actividad.idActividad%>&action=alta" class="btn btn-success btn-xs"><i class="fa fa-check"></i> Anotarse </a>
                         <%} else {%>
-                            <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-times"></i> Dejar </a>
+                            <a href="ListaActividadesDelProfesor.aspx?id=<%=actividad.idActividad%>&action=baja" class="btn btn-danger btn-xs"><i class="fa fa-times"></i> Dejar </a>
                         <%} %>
                         </td>
                     </tr>

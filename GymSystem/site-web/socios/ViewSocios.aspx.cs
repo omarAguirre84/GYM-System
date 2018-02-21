@@ -3,6 +3,7 @@ using GymSystemEntity;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using GymSystemWebUtil;
 
 public partial class ViewSocios : System.Web.UI.Page
 {
@@ -11,19 +12,34 @@ public partial class ViewSocios : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        socioBO = new SocioBO();
-
-        switch (Request.QueryString["accion"])
+        try
         {
-            case "actualizarEstado":
-                actualizarEstado(Int32.Parse(Request.QueryString["id"]), Int32.Parse(Request.QueryString["estadoActual"]));
-                break;
-            case "eliminar":
-                //elmininarSocio(Int32.Parse(Request.QueryString["id"]));
-                break;
-            default:
-                listaSocios = socioBO.GetList();
-                break;
+            if (SessionHelper.PersonaAutenticada == null)
+                throw new AutenticacionExcepcionBO();
+            if (SessionHelper.PersonaAutenticada.tipoPersona != 'A')
+                throw new AccessDeniedExceptionBO();
+            socioBO = new SocioBO();
+
+            switch (Request.QueryString["accion"])
+            {
+                case "actualizarEstado":
+                    actualizarEstado(Int32.Parse(Request.QueryString["id"]), Int32.Parse(Request.QueryString["estadoActual"]));
+                    break;
+                case "eliminar":
+                    //elmininarSocio(Int32.Parse(Request.QueryString["id"]));
+                    break;
+                default:
+                    listaSocios = socioBO.GetList();
+                    break;
+            }
+        }
+        catch (AccessDeniedExceptionBO ex)
+        {
+            Response.Redirect("/site-web/home/HomeSiteWeb.aspx");
+        }
+        catch (AutenticacionExcepcionBO ex)
+        {
+            Response.Redirect("/site-web/login/loginform.aspx");
         }
 
     }
