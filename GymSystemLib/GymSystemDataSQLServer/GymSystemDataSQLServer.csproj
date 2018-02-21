@@ -55,6 +55,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GenericDA.cs" />
     <Compile Include="ConexionDA.cs" />
     <Compile Include="ActividadDA.cs" />
     <Compile Include="EmpleadoDA.cs" />

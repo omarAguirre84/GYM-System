@@ -41,7 +41,7 @@ public partial class site_web_login_registrationform : System.Web.UI.Page
             }
             if (usuario is EmpleadoEntity) {
                 EmpleadoEntity empleado = (EmpleadoEntity)usuario;
-                empleado.tipoEmpleado = 1;
+                empleado.tipoEmpleado = RegTypeUser.Value == "P" ? 1 : 2 ;
                 empleadoBO.Registrar(empleado, usuario.Email);
             }
             WebHelper.MostrarMensaje(Page, "Se registro con exito Usuario" + usuario.Nombre);
