@@ -87,7 +87,7 @@
                             <asp:RegularExpressionValidator runat="server" ID="valInput"
                                 ControlToValidate="RegDni"
                                 ValidationExpression="^[\d\d]{8,8}$"
-                                ErrorMessage="Por favor verifique el DNI"
+                                ErrorMessage="Por favor verifique el DNI, debe contener 8 dígitos."
                                 Display="Dynamic">
                             </asp:RegularExpressionValidator>
                         </div>

@@ -41,7 +41,7 @@
                                     <td><%= sala.Capacidad %></td>
                                     <td>
                                         <a href="./ViewSala.aspx?id=<%=sala.IdSala%>&accion=actualizar"  class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i> Ver / Editar </a>
-                                        <a href="./ViewSala.aspx?id=<%=sala.IdSala%>&accion=eliminar" class="btn btn-danger btn-xs" ><i class="fa fa-pencil"></i> Eliminar </a>
+                                        <%--<a href="./ViewSala.aspx?id=<%=sala.IdSala%>&accion=eliminar" class="btn btn-danger btn-xs" ><i class="fa fa-pencil"></i> Eliminar </a>--%>
                                     </td>
                                 </tr>
                         <% } %>

@@ -120,6 +120,13 @@
                                     ErrorMessage="Por favor ingrese Contraseña"
                                     Display="Dynamic">
                                 </asp:RequiredFieldValidator>
+
+                                        <asp:CompareValidator ID="comparaContraseñas" runat="server"
+                                    ControlToValidate="confirmcontrasenia"
+                                    CssClass="ValidationError"
+                                    ControlToCompare="contrasenia"
+                                    ErrorMessage="Las Contraseñas no coinciden" />
+
                             </div>
                         </div>
                         <div class="form-group">
