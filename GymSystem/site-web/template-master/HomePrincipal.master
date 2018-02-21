@@ -75,10 +75,6 @@
                 <ul class="nav side-menu">
                   <li><a href="../home/HomeSiteWeb.aspx"><i class="fa fa-home"></i> Home </a>
                   </li>
-                    <%if (persona.tipoPersona.Equals('S')){ %>
-                  <li><a href="../socios/RegistrarActividad.aspx"><i class="fa fa-pencil-square-o"></i> Registrar Actividad </a>
-                  </li>
-                    <%} %>
                   <li><a><i class="fa fa-table"></i> Socios <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="../socios/ViewSocios.aspx">Listados</a></li>

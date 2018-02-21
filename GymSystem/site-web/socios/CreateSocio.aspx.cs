@@ -33,12 +33,13 @@ public partial class CreateSocio : System.Web.UI.Page
                 if (item.Selected)
                 {
                     entitySocio.actividad = string.Concat(entitySocio.actividad, item.Value + ",");
+                    Console.WriteLine(item.Text);
                 }
             }
-
+            
             entitySocio = (SocioEntity)popularEntity(entitySocio);
             boSocio.Registrar(entitySocio, entitySocio.Email.Trim());
-            WebHelper.MostrarMensaje(Page, ("Socio " + entitySocio.Nombre + " " + entitySocio.Apellido + " creado con exito."));
+            WebHelper.MostrarMensaje(Page, ("Socio "+entitySocio.Nombre +" "+ entitySocio.Apellido + " creado con exito."));
         }
         catch (ValidacionExcepcionAbstract ex)
         {
@@ -53,9 +54,6 @@ public partial class CreateSocio : System.Web.UI.Page
         {
             //WebHelper.MostrarMensaje(Page, ex.Message);
             WebHelper.MostrarMensaje(Page, ("Error en ingreso de datos: " + ex));
-        }
-        finally {
-            Response.Redirect("../socios/ViewSocios.aspx");
         }
     }
 
@@ -78,17 +76,7 @@ public partial class CreateSocio : System.Web.UI.Page
                 int.Parse(fechaArr[0]),
                 int.Parse(fechaArr[1]),
                 int.Parse(fechaArr[2]));
-
-            char gen;
-            if (masculino.Checked)
-            {
-                gen = 'M';
-            }
-            else
-            {
-                gen = 'F';
-            }
-            entityPersona.Sexo = gen;
+            entityPersona.Sexo = System.Convert.ToChar(sexos.SelectedValue);
             entityPersona.Foto = null;
             entityPersona.FechaRegistracion = DateTime.Now;
             entityPersona.FechaActualizacion = DateTime.Now;
@@ -109,6 +97,7 @@ public partial class CreateSocio : System.Web.UI.Page
     protected void btnCancelar_Click(object sender, EventArgs e)
     {
         Response.Redirect("../socios/ViewSocios.aspx");
+      
     }
 
     public void llenarViewActividades()

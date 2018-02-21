@@ -2,10 +2,13 @@
 using System.Data;
 using System.Data.SqlClient;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Configuration;
 using System.IO;
 using GymSystemEntity;
 using GymSystemData;
+using System.Diagnostics;
 
 namespace GymSystemDataSQLServer
 {
@@ -256,7 +259,7 @@ namespace GymSystemDataSQLServer
                         comando.CommandType = CommandType.StoredProcedure;
                         SqlCommandBuilder.DeriveParameters(comando);
 
-                        comando.Parameters["@idPersona"].Value = socio.Id;
+                        //comando.Parameters["@idPersona"].Value = socio.Id;
                         comando.Parameters["@Dni"].Value = socio.dni;
                         comando.Parameters["@Nombre"].Value = socio.Nombre.Trim();
                         comando.Parameters["@Apellido"].Value = socio.Apellido.Trim();
@@ -267,10 +270,9 @@ namespace GymSystemDataSQLServer
                         comando.Parameters["@Sexo"].Value = socio.Sexo;
                         comando.Parameters["@TipoPersona"].Value = socio.tipoPersona;
                         //comando.Parameters["@FechaRegistracion"].Value = socio.FechaRegistracion?.Date.ToString("yyyy-MM-dd HH:mm:ss");
-                        //comando.Parameters["@FechaActualizacion"].Value = socio.FechaActualizacion?.Date.ToString("yyyy-MM-dd HH:mm:ss");
-                        //comando.Parameters["@NroTarjetaIdentificacion"].Value = socio.NroTarjetaIdentificacion;
+                        comando.Parameters["@FechaActualizacion"].Value = socio.FechaActualizacion?.Date.ToString("yyyy-MM-dd HH:mm:ss");
+                        comando.Parameters["@NroTarjetaIdentificacion"].Value = socio.NroTarjetaIdentificacion;
                         comando.Parameters["@idEstado"].Value = socio.IdEstado;
-                        comando.Parameters["@ListActividad"].Value = socio.actividad;
                         comando.ExecuteNonQuery();
                         conexion.Close();                    }
                  }

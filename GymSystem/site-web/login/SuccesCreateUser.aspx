@@ -29,10 +29,13 @@
         <div class="col-md-12">
           <div class="col-middle">
             <div class="text-center text-center">
-              <h2 class="error-number">Felicitaciones!!! :)</h2>
-              <h2>Se ha registrado con éxito a Gym SYSTEM</h2>
-              <p>Ahora puede iniciar sesión con sus datos registrados anteriormente haciendo click  --><h1><b><a href="loginform.aspx">AQUÍ</a></b></h1>
-              </p>
+              <%--<h2 class="jumbotron">Felicitaciones!!!</h2>--%>
+              <h2 class="jumbotron">Se ha registrado con éxito a Gym SYSTEM  <br>
+                
+              <br>Ahora puede iniciar sesión con sus datos registrados anteriormente haciendo click en el siguiente enlace<br>
+                  
+               <br> <b><u> <a href="loginform.aspx">Iniciar Sesión</a></b></h2>
+              
             </div>
           </div>
         </div>

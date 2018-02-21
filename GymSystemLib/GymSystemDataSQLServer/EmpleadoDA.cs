@@ -2,6 +2,8 @@
 using System.Data;
 using System.Data.SqlClient;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Configuration;
 using System.IO;
 using GymSystemEntity;
@@ -74,6 +76,8 @@ namespace GymSystemDataSQLServer
                         comando.Parameters["@FechaNacimiento"].Value = empleado.FechaNacimiento;
                         comando.Parameters["@Sexo"].Value = empleado.Sexo;
                         comando.Parameters["@TipoPersona"].Value = empleado.tipoPersona;
+                        comando.Parameters["@FechaRegistracion"].Value = empleado.FechaRegistracion;
+                        comando.Parameters["@FechaActualizacion"].Value = empleado.FechaActualizacion;
                         comando.Parameters["@TipoEmpleado"].Value = empleado.tipoEmpleado;
                         comando.Parameters["@fechaDeIngreso"].Value = empleado.fechaIngreso;
                         comando.Parameters["@fechaDeEgreso"].Value = empleado.fechaEgreso;
@@ -154,11 +158,11 @@ namespace GymSystemDataSQLServer
             }
         }
 
-        public List<EmpleadoEntity> ListarEmpleados()
+        public EmpleadoEntity[] ListarEmpleados()
         {
             try
             {
-                List<EmpleadoEntity> empleados = null;
+                EmpleadoEntity[] empleados = null;
 
                 using (SqlConnection conexion = ConexionDA.ObtenerConexion())
                 {
@@ -169,11 +173,13 @@ namespace GymSystemDataSQLServer
 
                         using (SqlDataReader cursor = comando.ExecuteReader())
                         {
-                            empleados = new List<EmpleadoEntity>();
+                            int i = 0;
+                            empleados = new EmpleadoEntity[cursor.FieldCount];
 
                             while (cursor.Read())
                             {
-                                empleados.Add(CrearEmpleado(cursor));
+                                empleados[i] = CrearEmpleado(cursor);
+                                i++;
                             }
                             cursor.Close();
                         }
@@ -201,7 +207,7 @@ namespace GymSystemDataSQLServer
                         comando.CommandType = CommandType.StoredProcedure;
                         SqlCommandBuilder.DeriveParameters(comando);
 
-                        comando.Parameters["@idPersona"].Value = empleado.Id;
+                        //comando.Parameters["@idPersona"].Value = empleado.Id;
                         comando.Parameters["@Dni"].Value = empleado.dni;
                         comando.Parameters["@Nombre"].Value = empleado.Nombre.Trim();
                         comando.Parameters["@Apellido"].Value = empleado.Apellido.Trim();
@@ -212,6 +218,7 @@ namespace GymSystemDataSQLServer
                         comando.Parameters["@Sexo"].Value = empleado.Sexo;
                         comando.Parameters["@TipoEmpleado"].Value = empleado.tipoEmpleado;
                         comando.Parameters["@TipoPersona"].Value = empleado.tipoPersona;
+                        //comando.Parameters["@FechaActualizacion"].Value = empleado.FechaActualizacion.Date.ToString("yyyy-MM-dd HH:mm:ss");
                         comando.Parameters["@fechaDeIngreso"].Value = empleado.fechaIngreso.Date.ToString("yyyy-MM-dd");
                         comando.Parameters["@fechaDeEgreso"].Value = empleado.fechaEgreso.Date.ToString("yyyy-MM-dd");
                         comando.Parameters["@ListActividad"].Value = empleado.actividad;

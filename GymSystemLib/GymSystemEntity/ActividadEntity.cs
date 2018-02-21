@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using GymSystemComun;
 
 namespace GymSystemEntity
 {
@@ -20,7 +21,6 @@ namespace GymSystemEntity
         public ActividadEntity()
         {
             sala = new SalaEntity();
-            idActividad = 0;
         }
     }
 }

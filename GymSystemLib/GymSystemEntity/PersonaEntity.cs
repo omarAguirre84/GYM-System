@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using GymSystemComun;
 
 namespace GymSystemEntity
@@ -42,7 +44,7 @@ namespace GymSystemEntity
         }
 
 
-        public PersonaEntity(char tipoPersona, int telefono, string nombre, string apellido, string dni, string email,
+        public PersonaEntity(char tipoPersona, int telefono, string nombre, string apellido, string dni, string email, 
             string password, DateTime fechaNacimiento, char sexo, string foto, DateTime fechaRegistracion, DateTime fechaActualizacion)
         {
             this.tipoPersona = tipoPersona;
@@ -58,8 +60,7 @@ namespace GymSystemEntity
             this.FechaRegistracion = fechaRegistracion;
             this.FechaActualizacion = fechaActualizacion;
         }
-
-
+    
         public void ValidarDatos()
         {
             if (tipoPersona == ' ' ||
@@ -91,5 +92,4 @@ namespace GymSystemEntity
             }
         }
     }
-
 }

@@ -10,14 +10,16 @@ namespace GymSystemBusiness
     {
         private PersonaDA personaDa;
         public PersonaEntity factoryPersona(Char type) {
-            PersonaEntity person;
+            PersonaEntity person=null;
             switch (type) {
                 case 'S':
                     person = new SocioEntity();
                     break;
-               default:
-                    person = new EmpleadoEntity();
-                    break;
+                case 'P':
+                    throw new NotImplementedException();
+              
+                case 'E':
+                    throw new NotImplementedException();
                  
             }
             return person;
@@ -77,7 +79,7 @@ namespace GymSystemBusiness
             }
         }
 
-        public void RegistrarPersona(PersonaEntity usuario)
+        public void RegistrarPersona(PersonaEntity usuario, string emailVerificacion)
         {
             try
             {
@@ -86,6 +88,9 @@ namespace GymSystemBusiness
                 if (personaDa.ExisteEmail(usuario.Email))
 
                     throw new EmailExisteExcepcionBO();
+
+                if (usuario.Email != emailVerificacion.Trim())
+                    throw new VerificacionEmailExcepcionBO();
 
                 personaDa.Insertar(usuario);
             }

@@ -4,6 +4,9 @@ using GymSystemEntity;
 using GymSystemWebUtil;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 
 public partial class ViewEmpleado : System.Web.UI.Page
@@ -22,6 +25,7 @@ public partial class ViewEmpleado : System.Web.UI.Page
 
         if (!IsPostBack) //false = primera vez que se carga, true= segunda vez, se cambiaron los datos
         {
+            //boActividad = new ActividadBO();
             actividadesArr = boActividad.GetList();
             loadActividadList();
             cargarDatoscargarDatosEmpleadoEnVista();
@@ -51,24 +55,14 @@ public partial class ViewEmpleado : System.Web.UI.Page
 
             if (empleado.Sexo == 'm' || empleado.Sexo == 'M')
             {
-                masculinoLbl.Attributes.Remove("class");
-                masculinoLbl.Attributes.Add("class", "btn btn-default active");
-                masculino.Attributes.Add("checked", "checked");
 
-                femeninoLbl.Attributes.Remove("class");
-                femenino.Attributes.Remove("checked");
-                femeninoLbl.Attributes.Add("class", "btn btn-default");
             }
             if (empleado.Sexo == 'f' || empleado.Sexo == 'F')
             {
-                femeninoLbl.Attributes.Remove("class");
-                femeninoLbl.Attributes.Add("class", "btn btn-default active");
-                femenino.Attributes.Add("checked", "checked");
 
-                masculinoLbl.Attributes.Remove("class");
-                masculino.Attributes.Remove("checked");
-                masculinoLbl.Attributes.Add("class", "btn btn-default");
             }
+            llenarViewActividadesConDatosEmpleado(empleado);
+            //            llenarDiasConDatosEmpleado(empleado);
         }
         catch (AutenticacionExcepcionBO ex)
         {
@@ -86,6 +80,19 @@ public partial class ViewEmpleado : System.Web.UI.Page
 
     protected void Btn_actualizar(object sender, EventArgs e)
     {
+        if (hayCamposVacios())
+        {
+            WebHelper.MostrarMensaje(Page, "No es posible guardar cambios. Se deben completar todos los campos.");
+        }
+        else if (!PassSonIguales())
+        {
+            WebHelper.MostrarMensaje(Page, "No es posible guardar cambios. Las Contraseñas deben coincidir.");
+        }
+        else if(!EsFechaValida())
+        {
+            WebHelper.MostrarMensaje(Page, "No es posible guardar cambios. La fecha de nacimiento debe ser menor al día de la fecha.");
+        }
+
         try
         {
             boEmpleado.ActualizarEmpleado(nuevoEntity(boEmpleado.BuscarEmpleado(Int32.Parse(Request.QueryString["id"]))));
@@ -109,7 +116,51 @@ public partial class ViewEmpleado : System.Web.UI.Page
         loadEditActividad();
     }
 
-    private void loadEditActividad()
+    private bool hayCamposVacios()
+    {
+        bool hayVacios = false;
+
+        if (
+            nombre.Text.Trim().Equals("")
+            || apellido.Text.Trim().Equals("")
+            || dni.Text.Trim().Equals("")
+            || email.Text.Trim().Equals("")
+            || telefono.Text.Trim().Equals("")
+            || passw1.Text.Trim().Equals("")
+            || passw2.Text.Trim().Equals("")               
+            || fechaNacimiento.Value.Trim().Equals("")
+            || fechaIngreso.Value.Trim().Equals("")
+                )
+        {
+            hayVacios = true;
+        }
+        return hayVacios;
+    }
+
+    private bool PassSonIguales()
+    {
+        return passw1.Text.Trim().Equals(passw2.Text.Trim());
+    }
+
+    private bool EsFechaValida()
+    {
+        bool esFechaValida = true;
+
+        string sFecha = fechaNacimiento.Value.Trim();
+        string format = "yyyy-MM-dd";
+        System.Globalization.CultureInfo info = System.Globalization.CultureInfo.InvariantCulture;
+
+        DateTime fecha = DateTime.ParseExact(sFecha, format, info);
+
+        if (fecha >= DateTime.Today)
+        {
+            esFechaValida = false;
+        }
+        return esFechaValida;
+    }
+
+
+private void loadEditActividad()
     {
         List<int> listSelectActividad = boActividad.BuscarActividadPersonaPorId(Int32.Parse(Request.QueryString["id"]));
 
@@ -157,15 +208,18 @@ public partial class ViewEmpleado : System.Web.UI.Page
                 int.Parse(fechaIngrArr[2]));
 
             char gen;
-            if (masculino.Checked)
+            if (sexos.SelectedValue.Equals("masculino"))
             {
                 gen = 'M';
+                //masculino.Attributes.Add("checked", "checked");
+                //femenino.Attributes.Remove("checked");
             }
             else
             {
                 gen = 'F';
+                //femenino.Attributes.Add("checked", "checked");
+                //masculino.Attributes.Remove("checked");
             }
-
             nuevoEntity.Sexo = gen;
             nuevoEntity.Foto = null;
             nuevoEntity.FechaRegistracion = anterior.FechaRegistracion;

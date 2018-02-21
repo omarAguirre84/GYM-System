@@ -3,29 +3,25 @@ using GymSystemEntity;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Web.UI.WebControls;
 
 public partial class ViewSocios : System.Web.UI.Page
 {
     protected SocioBO socioBO;
+    protected StringBuilder htmlTable;
     protected List<SocioEntity> listaSocios;
 
     protected void Page_Load(object sender, EventArgs e)
     {
         socioBO = new SocioBO();
 
-        switch (Request.QueryString["accion"])
+        if ((Request.QueryString["accion"] == "actualizar"))
         {
-            case "actualizarEstado":
-                actualizarEstado(Int32.Parse(Request.QueryString["id"]), Int32.Parse(Request.QueryString["estadoActual"]));
-                break;
-            case "eliminar":
-                //elmininarSocio(Int32.Parse(Request.QueryString["id"]));
-                break;
-            default:
-                listaSocios = socioBO.GetList();
-                break;
+            actualizarEstado(Int32.Parse(Request.QueryString["id"]), Int32.Parse(Request.QueryString["estadoActual"]));
         }
-
+        else {
+            listaSocios = socioBO.GetList();
+        }
     }
 
     protected string SetBtnEstado(int estado, int id) {
@@ -48,9 +44,9 @@ public partial class ViewSocios : System.Web.UI.Page
                 texto = "Inactivo";
                 break;
         }
-
+        
         //< a href = "#" class="btn btn-success btn-xs"><i class="fa fa-thumbs-o-up"></i> activo</a>
-        cadena.Append("<a href=\"../socios/ViewSocios.aspx?id=" + id + "&accion=actualizarEstado&estadoActual=" + estado + "\" class=\"btn btn-");
+        cadena.Append("<a href=\"../socios/ViewSocios.aspx?id="+id+"&accion=actualizar&estadoActual="+estado + "\" class=\"btn btn-");
         cadena.Append(btn);
         cadena.Append("btn-xs\"><i class=\"fa fa-thumbs-o-");
         cadena.Append(thumb);
@@ -66,6 +62,5 @@ public partial class ViewSocios : System.Web.UI.Page
         socioBO.ActualizarEstadoSocio(id, estadoNuevo);
         Response.Redirect("ViewSocios.aspx");
     }
-
 }
 
