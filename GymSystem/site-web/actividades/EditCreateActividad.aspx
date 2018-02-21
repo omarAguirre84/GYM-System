@@ -73,7 +73,7 @@
                                    
                             <asp:RequiredFieldValidator ID="diaNoVcio"
                                     runat="server" ControlToValidate="diaSelectList"
-                                 InitialValue=""
+                                    InitialValue=""
                                     ErrorMessage="Por favor seleccione día"
                                     Display="Dynamic">
                                 </asp:RequiredFieldValidator>
@@ -87,7 +87,7 @@
                           <asp:DropDownList ID="salasListItems" CssClass="form-control" runat="server"></asp:DropDownList>
                               <asp:RequiredFieldValidator ID="RequiredFieldValidator2"
                                     runat="server" ControlToValidate="salasListItems"
-                                 InitialValue=""
+                                    InitialValue="0"
                                     ErrorMessage="Por favor seleccione día"
                                     Display="Dynamic">
                                 </asp:RequiredFieldValidator>

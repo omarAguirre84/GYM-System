@@ -65,13 +65,20 @@ public partial class EditCreateActividad : System.Web.UI.Page
         datein.Value = actividadEnt.horaInicio.ToString();
         dateout.Value = actividadEnt.horaFin.ToString();
         tarifa.Value = actividadEnt.tarifa.ToString().Replace(',', '.');
-        diaSelectList.SelectedItem.Text = actividadEnt.dia;
+        //diaSelectList.SelectedItem.Text = actividadEnt.dia;
+        foreach (ListItem item in diaSelectList.Items)
+        {
+            if (actividadEnt.dia == item.Text)
+            {
+                item.Selected = true;
+            }
+        }
     }
 
     protected void loadSalasList()
     {
         int index = 0;
-        salasListItems.Items.Insert(index++, new ListItem("Seleccione Sala", ""));
+        salasListItems.Items.Insert(index++, new ListItem("Seleccione Sala", "0"));
         foreach (SalaEntity salEnt in listSalas)
         {
             salasListItems.Items.Insert(index++, new ListItem(salEnt.Nombre, salEnt.IdSala.ToString()));
