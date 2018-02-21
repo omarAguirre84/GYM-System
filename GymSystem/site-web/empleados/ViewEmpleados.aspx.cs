@@ -62,4 +62,16 @@ public partial class ViewSocios : System.Web.UI.Page
             WebHelper.MostrarMensaje(Page, "No es posible eliminar el empleado. Intente nuevamente");
         }
     }
+
+    protected string filterEmpleado(EmpleadoEntity emp) {
+        if (emp.tipoEmpleado == 1)
+        {
+            return "PROFESOR";
+        }
+        else if (emp.tipoEmpleado == 2)
+        {
+            return "ADMINITRADOR";
+        }
+        return "";
+    }
 }
