@@ -231,7 +231,7 @@
                       <div class="ln_solid"></div>
                       <div class="form-group">
                         <div class="col-md-6 col-md-offset-3">
-                          <asp:Button ID="Button2" runat="server" class="btn btn-primary" Text="Cancelar" OnClick="BtnCancelar_click"/>
+                          <asp:Button ID="Button2" runat="server" class="btn btn-primary" Text="Cancelar" OnClick="BtnCancelar_click" CausesValidation="false"/>
                           <asp:Button ID="Button1" runat="server" class="btn btn-success" Text="Generar" OnClick="btnRegister_Click" />
                         </div>
                       </div>

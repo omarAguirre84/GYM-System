@@ -193,7 +193,7 @@
                       <div class="ln_solid"></div>
                       <div class="form-group">
                         <div class="col-md-6 col-md-offset-6">
-                          <asp:Button ID="Button2" OnClick="BtnVolver_click" runat="server" class="btn btn-primary" Text="< Volver" />
+                          <asp:Button ID="Button2" OnClick="BtnVolver_click" runat="server" class="btn btn-primary" Text="< Volver" CausesValidation="false"/>
                           <asp:Button ID="Button1" OnClick="Btn_actualizar" runat="server" class="btn btn-success" Text="Actualizar" />
                         </div>
                       </div>

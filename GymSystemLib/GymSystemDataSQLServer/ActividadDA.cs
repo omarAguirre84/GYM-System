@@ -623,38 +623,6 @@ namespace GymSystemDataSQLServer
             return capacidadRestante;
         }
 
-        public int GetCapacidadActividad(int idActividad, int idSala) {
-            int capacidadRestante = 0;
-            try
-            {
-                using (SqlConnection conexion = ConexionDA.ObtenerConexion())
-                {
-                    using (SqlCommand comando = new SqlCommand("[ActividadSalaValidaCapacidad]", conexion))
-                    {
-                        comando.CommandType = CommandType.StoredProcedure;
-                        SqlCommandBuilder.DeriveParameters(comando);
-
-                        comando.Parameters["@idActividad"].Value = idActividad;
-                        comando.Parameters["@idSala"].Value = idSala;
-                        using (SqlDataReader cursor = comando.ExecuteReader())
-                        {
-                            if (cursor.Read())
-                            {
-                                capacidadRestante = cursor.GetInt32(cursor.GetOrdinal("CapacidadRestante"));
-                            }
-                            cursor.Close();
-                        }
-                    }
-                    conexion.Close();
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new ExcepcionDA("Se produjo un error.", ex);
-            }
-            return capacidadRestante;
-        }
-
         public int GetIdSalaFromActividad(int idActividad)
         {
             int idSala = 0;
